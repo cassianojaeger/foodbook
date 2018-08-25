@@ -1,3 +1,17 @@
-<md-button ng-click="vm.getUser()">
-    {{::'asd'}}
-</md-button>
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Foodbook Application</span>
+            <span class="md-subhead" ng-if="vm.user">
+                Logged user: {{vm.user.name}}
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    
+    <md-card-actions layout="row" layout-align="center">
+        <md-button class="md-primary" ng-click="vm.getUser()">
+            get logged user!
+        </md-button>
+    </md-card-actions>
+
+</md-card>

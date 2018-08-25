@@ -14,7 +14,7 @@ foodbookApp.directive('foodbookApp', function (UserService) {
 
         function getUser() {
             UserService.getUser().then(function (value) {
-                debugger;
+                ctrl.user = value;
             });
         }
     }
