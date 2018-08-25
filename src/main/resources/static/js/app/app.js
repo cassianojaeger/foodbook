@@ -1,3 +1,3 @@
 'use strict';
 
-var foodbookApp = angular.module('Foodbook', []);
+var foodbookApp = angular.module('Foodbook', ['ngMaterial', 'ngMessages']);
