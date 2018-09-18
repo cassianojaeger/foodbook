@@ -1,13 +1,32 @@
 <html>
     <title>Foodbook</title>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <!-- LIBS -->
+        <link rel="stylesheet" href="css/lib/angular-material.min.css">
+    
+        <!--APP-->
+        <link rel="stylesheet" href="css/app/app.css">
+    </head>
 
-    <body ng-app="Foodbook">
-        {{'asda' | uppercase}}
+    <body ng-app="Foodbook" ng-cloak>
+        <!--Main content goes here-->
+        <div ng-view></div>
     </body>
     
     <!-- LIBS -->
     <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-animate.min.js"></script>
+    <script src="js/lib/angular-aria.min.js"></script>
+    <script src="js/lib/angular-messages.min.js"></script>
+    <script src="js/lib/angular-material.min.js"></script>
+    <script src="js/lib/angular-resource.min.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
 
     <!--APP-->
     <script src="js/app/app.js"></script>
+    <script src="js/app/components/foodbookApp/foodbookApp.js"></script>
+    <script src="js/app/components/login/login.js"></script>
+    <script src="js/app/services/userService.js"></script>
 </html>
