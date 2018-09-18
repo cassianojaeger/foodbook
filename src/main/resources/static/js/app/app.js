@@ -14,6 +14,8 @@ foodbookApp.config(function($routeProvider) {
             templateUrl: "js/app/components/mainContent/mainContent.html"
         })
         .when("/login", {
-            templateUrl: "js/app/components/login/login.html"
+            templateUrl: "js/app/components/login/login.html",
+            controller: "LoginController",
+            controllerAs: "vm"
         });
 });
