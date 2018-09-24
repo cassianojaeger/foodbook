@@ -43,6 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
+            .antMatchers(HttpMethod.GET, "/js/**")
+            .antMatchers(HttpMethod.GET, "/css/**")
+            .antMatchers(HttpMethod.GET, "/pictures/**")
             .antMatchers(HttpMethod.POST,"/secured/user")
             .antMatchers(HttpMethod.GET,"/");
     }
