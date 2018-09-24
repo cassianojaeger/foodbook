@@ -1,9 +1,8 @@
-package br.ufrgs.foodbook.service.user;
+package br.ufrgs.foodbook.service.user.impl;
 
 
 import br.ufrgs.foodbook.dao.user.UserDao;
 import br.ufrgs.foodbook.model.security.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-@Service
-public class UserDetailsServiceImpl implements UserDetailsService {
-
+@Service("userDetailsServiceImpl")
+public class UserDetailsServiceImpl implements UserDetailsService
+{
     @Resource
     private UserDao userDao;
 

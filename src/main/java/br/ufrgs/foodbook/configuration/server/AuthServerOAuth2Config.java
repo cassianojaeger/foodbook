@@ -1,7 +1,5 @@
 package br.ufrgs.foodbook.configuration.server;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -26,13 +24,11 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(SecurityConfig.class)
 public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter {
-    @Resource
-    @Qualifier("dataSource")
+    @Resource(name = "dataSource")
     private DataSource dataSource;
     @Resource
     private AuthenticationManager authenticationManager;
-    @Qualifier("userDetailsServiceImpl")
-    @Resource
+    @Resource(name = "userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
     @Resource
     private PasswordEncoder oauthClientPasswordEncoder;

@@ -1,28 +1,14 @@
 package br.ufrgs.foodbook.model.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.io.Serializable;
-import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USER_", uniqueConstraints = { @UniqueConstraint(columnNames = { "USER_NAME" }) })
@@ -32,7 +18,7 @@ import lombok.Setter;
 public class User implements UserDetails, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 
@@ -41,6 +27,12 @@ public class User implements UserDetails, Serializable {
 
     @Column(name = "PASSWORD")
     private String password;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "PHONE")
+    private String phone;
 
     @Column(name = "ACCOUNT_EXPIRED")
     private boolean accountExpired;
