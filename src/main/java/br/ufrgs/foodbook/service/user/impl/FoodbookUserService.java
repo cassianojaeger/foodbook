@@ -2,6 +2,7 @@ package br.ufrgs.foodbook.service.user.impl;
 
 import br.ufrgs.foodbook.DataGenericConverter;
 import br.ufrgs.foodbook.configuration.encrypt.Encoders;
+import br.ufrgs.foodbook.dao.authority.AuthorityDao;
 import br.ufrgs.foodbook.dao.user.UserDao;
 import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
@@ -23,7 +24,8 @@ public class FoodbookUserService implements UserService
 
     @Resource
     private UserDao userDao;
-
+    @Resource
+    private AuthorityDao authorityDao;
     @Resource
     private Encoders encoders;
     @Resource
@@ -59,8 +61,7 @@ public class FoodbookUserService implements UserService
 
     private void setUserAuthority(User user)
     {
-        Authority authority = new Authority();
-        authority.setName(USER_AUTHORITY);
+        Authority authority = authorityDao.findAuthorityByName(USER_AUTHORITY);
         user.setAuthorities(singletonList(authority));
     }
 }

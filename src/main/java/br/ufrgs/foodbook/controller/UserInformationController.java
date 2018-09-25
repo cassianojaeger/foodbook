@@ -23,7 +23,7 @@ public class UserInformationController
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public UserInformationData get() {
-        return userService.getUserInformation("cassiano");
+        return userService.getUserInformation("jones");
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
