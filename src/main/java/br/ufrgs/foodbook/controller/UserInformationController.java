@@ -15,15 +15,13 @@ import javax.annotation.Resource;
 @RequestMapping("/secured/user")
 public class UserInformationController
 {
-    @Resource(name = "userDetailsServiceImpl")
-    UserDetailsServiceImpl userDetailsService;
     @Resource
     UserService userService;
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public UserInformationData get() {
-        return userService.getUserInformation("cassiano");
+        return userService.getUserInformation("jones");
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
