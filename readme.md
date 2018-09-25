@@ -3,9 +3,9 @@
 ### Setup
 
 -  Postgres DB
-`spring.datasource.url=jdbc:postgresql://localhost:<port>/<database_name>`
-`spring.datasource.username=<postgres_user>`
-`spring.datasource.password=<postgres_password>`
+    - spring.datasource.url=jdbc:postgresql://localhost:**<database_port>**/**<database_name>**
+    - spring.datasource.username=**<postgres_user>**
+    - spring.datasource.password=**<postgres_password>**
 
 
 - Lombok Project
