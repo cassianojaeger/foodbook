@@ -1,0 +1,5 @@
+CREATE DATABASE foodbook;
+CREATE ROLE postgres;
+GRANT CONNECT ON DATABASE foodbook TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE foodbook TO postgres;
+ALTER ROLE postgres WITH LOGIN;
