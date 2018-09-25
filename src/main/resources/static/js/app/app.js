@@ -7,8 +7,9 @@ var foodbookApp = angular.module('Foodbook',
         'ngResource',
         'ngRoute'
     ]);
+var httpHeaders;
 
-foodbookApp.config(function($routeProvider) {
+foodbookApp.config(function($routeProvider, $httpProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "js/app/components/mainContent/mainContent.html"
@@ -17,5 +18,22 @@ foodbookApp.config(function($routeProvider) {
             templateUrl: "js/app/components/login/login.html",
             controller: "LoginController",
             controllerAs: "vm"
+        })
+        .when("/register", {
+            templateUrl: "js/app/components/register/register.html",
+            controller: "RegisterController",
+            controllerAs: "vm"
+        })
+        .when("/logout", {
+            resolve: {
+                data: function (AuthenticationService) {
+                    AuthenticationService.logout();
+                }
+            }
         });
+
+    $routeProvider.otherwise({
+        redirectTo: "/login"
+    });
+    httpHeaders = $httpProvider.defaults.headers;
 });
