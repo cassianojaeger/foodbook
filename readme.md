@@ -9,8 +9,8 @@
 
 
 - Lombok Project
-Instalar o plugin para o Intellij do Lombok Project.
-**File** >> **Settings** >> **Plugins** >> **Browse Repo** 
+    - Instalar o plugin para o Intellij do Lombok Project.
+    - **File** >> **Settings** >> **Plugins** >> **Browse Repo** 
 
 - Só de subir o projeto, o banco ja vai estar setado corretamente, mas precisamos popular os usuários e authorities manualmente.
 (Trust me, foi a maneira mais facil que achei, ja que pra importar as tabelas do oAuth2 nós estamos usando um framework de migração de dados full bugada)
