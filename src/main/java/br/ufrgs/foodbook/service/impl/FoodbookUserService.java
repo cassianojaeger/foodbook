@@ -2,7 +2,6 @@ package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.configuration.encrypt.Encoders;
 import br.ufrgs.foodbook.converter.impl.DataGenericConverter;
-import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dao.AuthorityDao;
 import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.user.UserInformationData;
