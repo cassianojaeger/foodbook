@@ -4,6 +4,7 @@ foodbookApp.controller('RegisterController', function (UserService, $location) {
     var ctrl = this;
 
     ctrl.register = register;
+    ctrl.goBack = goBack;
 
     function register(user) {
         UserService
@@ -11,5 +12,9 @@ foodbookApp.controller('RegisterController', function (UserService, $location) {
             .then(function (value) {
                 debugger
             })
+    }
+
+    function goBack() {
+        $location.path("/login");
     }
 });

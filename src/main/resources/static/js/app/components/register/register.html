@@ -3,7 +3,10 @@
         <md-card flex="50" class="login-md-card">
             <md-card-title>
                 <md-card-title-text>
-                    <img src="../../../../pictures/foodbook.png" class="png-foodbook login-png-foodbook" >
+                    <img src="../../../../pictures/foodbook.png" class="png-foodbook" >
+                    <div layout="row" layout-align="center center">
+                        <h1 >Crie uma conta!</h1>
+                    </div>
                     <md-input-container class="login-md-input-container">
                         <label>Username</label>
                         <input type="text" ng-model="user.username">
@@ -23,16 +26,19 @@
                         <label>Senha</label>
                         <input type="password" ng-model="user.password">
                     </md-input-container>
-                    
-                    <!--<md-input-container class="login-md-input-container">-->
-                        <!--<label>Confirme sua senha</label>-->
-                        <!--<input type="password" ng-model="user.confirmPassword">-->
-                    <!--</md-input-container>-->
                 </md-card-title-text>
             </md-card-title>
-            
-            <md-card-actions layout="row" layout-align="space-around" style="margin-bottom: 25px">
-                <md-button class="login-md-button" ng-click="vm.register(user)">Criar conta</md-button>
+
+            <md-card-actions layout="row" layout-align="space-around center" style="margin-bottom: 25px">
+                    <md-button  class="red-md-button register-md-button" ng-click="vm.goBack()">
+                        <i class="material-icons" style="color:#fff;">navigate_before</i>
+                        Voltar
+                    </md-button>
+                    <md-button  class="green-md-button register-md-button" ng-click="vm.register(user)">
+                        <md-tooltip md-direction="top">Bom apetite!</md-tooltip>
+                        Criar conta
+                        <i class="material-icons" style="color:#fff;">navigate_next</i>
+                    </md-button>
             </md-card-actions>
         
         </md-card>

@@ -28,6 +28,30 @@ lib-constants { //já que CSS é lixo
     height: 67px;
 }
 
+.red-md-button {
+    padding: 5px;
+    background-color: #b02222;
+    color: white;
+}
+
+.md-button.red-md-button:hover {
+    background-color: #c92929;
+}
+
+.green-md-button {
+    padding: 5px;
+    background-color: #468e14;
+    color: white;
+}
+
+.md-button.green-md-button:hover {
+    background-color: #459721;
+}
+
+
+
+
+
 .login-md-card {
     background-color: #fafafa;
     border-radius: 10px;
@@ -42,12 +66,52 @@ lib-constants { //já que CSS é lixo
     width: 70%;
 }
 
-.login-md-button {
-    padding: 5px;
-    background-color: #b02222;
-    color: white;
+
+
+
+
+
+.register-md-button {
+    width: 170px;
 }
 
-.md-button.login-md-button:hover {
-    background-color: #c92929;
+
+
+
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
