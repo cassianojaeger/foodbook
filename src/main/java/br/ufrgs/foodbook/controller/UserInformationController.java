@@ -10,18 +10,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/secured/user")
 public class UserInformationController
 {
     @Resource
-    UserService userService;
+    private UserService userService;
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public UserInformationData get() {
-        return userService.getUserInformation("jones");
+    public Principal get(Principal principal) {
+        return principal;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

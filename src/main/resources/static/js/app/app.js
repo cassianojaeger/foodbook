@@ -5,6 +5,7 @@ var foodbookApp = angular.module('Foodbook',
         'ngMaterial',
         'ngMessages',
         'ngResource',
+        'ngStorage',
         'ngRoute'
     ]);
 var httpHeaders;

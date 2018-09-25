@@ -27,7 +27,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 anonymous()
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/pictures/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/favicon.ico", "/js/**", "/css/**", "/pictures/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(SECURED_PATTERN).authenticated()
                 .antMatchers(HttpMethod.POST, SECURED_PATTERN).access(SECURED_WRITE_SCOPE)

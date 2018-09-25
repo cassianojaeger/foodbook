@@ -18,7 +18,10 @@ foodbookApp.service('UserService', function ($resource) {
     }
 });
 
-foodbookApp.service('AuthenticationService', function ($resource, $http , OAUTH) {
+foodbookApp.service('AuthenticationService', function ($resource,
+                                                       $http,
+                                                       AccessTokenService,
+                                                       OAUTH) {
 
     var service = this;
 
@@ -38,6 +41,7 @@ foodbookApp.service('AuthenticationService', function ($resource, $http , OAUTH)
             ignoreAuthModule: "ignoreAuthModule"
         }).then(function (response) {
             httpHeaders.common['Authorization'] = "Bearer " + response.data.access_token;
+            AccessTokenService.setToken(response.data);
         });
     }
 
@@ -46,6 +50,28 @@ foodbookApp.service('AuthenticationService', function ($resource, $http , OAUTH)
     }
 
     function isUserAuthenticated() {
-        return true;
+        return AccessTokenService.isTokenExpired();
+    }
+});
+
+foodbookApp.service('AccessTokenService', function ($localStorage) {
+    var service = this;
+    var accessToken = null;
+    service.isTokenExpired = isTokenExpired;
+    service.setToken = setToken;
+    service.getToken = getToken;
+
+    function setToken(token) {
+        accessToken = token;
+        accessToken.expires_at = new Date().getTime() + token.expires_in;
+        $localStorage['token'] = token;
+    }
+
+    function isTokenExpired() {
+        return accessToken.expires_at >= new Date().getTime();
+    }
+
+    function getToken() {
+        return accessToken;
     }
 });
