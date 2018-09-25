@@ -9,6 +9,7 @@ import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.model.security.Authority;
 import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.UserService;
+import br.ufrgs.foodbook.validator.impl.FoodbookUserValidator;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class FoodbookUserService implements UserService
     private static final String USER_AUTHORITY = "NORMAL_USER";
 
     @Resource
+    FoodbookUserValidator foodbookUserValidator;
+    @Resource
     private UserDao userDao;
     @Resource
     private AuthorityDao authorityDao;
@@ -39,8 +42,8 @@ public class FoodbookUserService implements UserService
     @Transactional
     public void registerNewUser(UserRegistrationData userRegistrationData)
     {
-//        TODO: USER VALIDATIONS, criar validator
         User user = userRegistrationToDataConverter.convert(userRegistrationData, new User());
+        foodbookUserValidator.validate(user);
         encodePassword(user);
         setUserAuthority(user);
         user.setEnabled(true);
