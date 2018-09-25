@@ -1,7 +1,7 @@
-package br.ufrgs.foodbook.service.user.impl;
+package br.ufrgs.foodbook.service.impl;
 
 
-import br.ufrgs.foodbook.dao.user.UserDao;
+import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.model.security.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService
 
     @Override
     @Transactional
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username)
+    {
         User user = userDao.findByUsername(username);
         if (user != null) {
             return user;

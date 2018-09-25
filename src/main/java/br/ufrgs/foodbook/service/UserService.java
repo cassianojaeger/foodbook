@@ -1,4 +1,4 @@
-package br.ufrgs.foodbook.service.user;
+package br.ufrgs.foodbook.service;
 
 import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;

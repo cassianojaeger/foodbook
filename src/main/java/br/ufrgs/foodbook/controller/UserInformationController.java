@@ -2,8 +2,8 @@ package br.ufrgs.foodbook.controller;
 
 import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
-import br.ufrgs.foodbook.service.user.UserService;
-import br.ufrgs.foodbook.service.user.impl.UserDetailsServiceImpl;
+import br.ufrgs.foodbook.service.UserService;
+import br.ufrgs.foodbook.service.impl.UserDetailsServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

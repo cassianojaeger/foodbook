@@ -1,20 +1,22 @@
-package br.ufrgs.foodbook.service.user.impl;
+package br.ufrgs.foodbook.service.impl;
 
-import br.ufrgs.foodbook.DataGenericConverter;
 import br.ufrgs.foodbook.configuration.encrypt.Encoders;
-import br.ufrgs.foodbook.dao.user.UserDao;
+import br.ufrgs.foodbook.converter.impl.DataGenericConverter;
+import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.model.security.Authority;
 import br.ufrgs.foodbook.model.security.User;
-import br.ufrgs.foodbook.service.user.UserService;
+import br.ufrgs.foodbook.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import static java.util.Collections.singletonList;
+import static java.util.Objects.nonNull;
 
 @Service
 public class FoodbookUserService implements UserService
@@ -35,7 +37,7 @@ public class FoodbookUserService implements UserService
     @Transactional
     public void registerNewUser(UserRegistrationData userRegistrationData)
     {
-//        TODO: USER VALIDATIONS, criar validator
+
         User user = userRegistrationToDataConverter.convert(userRegistrationData, new User());
         encodePassword(user);
         setUserAuthority(user);
@@ -48,7 +50,12 @@ public class FoodbookUserService implements UserService
     @PreAuthorize("hasAuthority('ADMIN')")
     public UserInformationData getUserInformation(String username)
     {
-        return userToUserInformationConverter.convert(userDao.findByUsername(username), new UserInformationData());
+        User user = userDao.findByUsername(username);
+        if (nonNull(user))
+        {
+            return userToUserInformationConverter.convert(user, new UserInformationData());
+        }
+        throw new UsernameNotFoundException(username);
     }
 
     private void encodePassword(User user)
