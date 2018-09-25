@@ -3,9 +3,14 @@
 ### Setup
 
 -  Postgres DB
-    - spring.datasource.url=jdbc:postgresql://localhost:**<database_port>**/**<database_name>**
-    - spring.datasource.username=**<postgres_user>**
-    - spring.datasource.password=**<postgres_password>**
+    * No docker:
+        * sudo docker pull postgres
+        * sudo docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=1234 -d postgres
+        * sudo start postgres
+    - No projeto:
+        - spring.datasource.url=jdbc:postgresql://localhost:**<database_port>**/**<database_name>**
+        - spring.datasource.username=**<postgres_user>**
+        - spring.datasource.password=**<postgres_password>**
 
 
 - Lombok Project
