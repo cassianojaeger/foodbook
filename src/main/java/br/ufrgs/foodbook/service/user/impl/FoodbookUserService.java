@@ -8,6 +8,7 @@ import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.model.security.Authority;
 import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.user.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ public class FoodbookUserService implements UserService
 
     @Resource
     private UserDao userDao;
+
     @Resource
     private Encoders encoders;
     @Resource
@@ -37,10 +39,13 @@ public class FoodbookUserService implements UserService
         User user = userRegistrationToDataConverter.convert(userRegistrationData, new User());
         encodePassword(user);
         setUserAuthority(user);
+        user.setEnabled(true);
         userDao.save(user);
     }
 
     @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserInformationData getUserInformation(String username)
     {
         return userToUserInformationConverter.convert(userDao.findByUsername(username), new UserInformationData());
