@@ -1,13 +1,20 @@
 'use strict';
 
 foodbookApp.service('UserService', function ($resource) {
-    var resource = $resource('/secured/user');
+    var resource = $resource('/secured/user', {}, {
+        create: {method: "POST"}
+    });
     var service = this;
 
     service.getUser = getUser;
+    service.createUser = createUser;
 
     function getUser() {
         return resource.get().$promise;
+    }
+
+    function createUser(user) {
+        return resource.create(user).$promise
     }
 });
 
