@@ -2,12 +2,14 @@ package br.ufrgs.foodbook.service.user.impl;
 
 import br.ufrgs.foodbook.DataGenericConverter;
 import br.ufrgs.foodbook.configuration.encrypt.Encoders;
+import br.ufrgs.foodbook.dao.authority.AuthorityDao;
 import br.ufrgs.foodbook.dao.user.UserDao;
 import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.model.security.Authority;
 import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.user.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,8 @@ public class FoodbookUserService implements UserService
     @Resource
     private UserDao userDao;
     @Resource
+    private AuthorityDao authorityDao;
+    @Resource
     private Encoders encoders;
     @Resource
     private DataGenericConverter<User, UserInformationData> userToUserInformationConverter;
@@ -37,10 +41,13 @@ public class FoodbookUserService implements UserService
         User user = userRegistrationToDataConverter.convert(userRegistrationData, new User());
         encodePassword(user);
         setUserAuthority(user);
+        user.setEnabled(true);
         userDao.save(user);
     }
 
     @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserInformationData getUserInformation(String username)
     {
         return userToUserInformationConverter.convert(userDao.findByUsername(username), new UserInformationData());
@@ -54,8 +61,7 @@ public class FoodbookUserService implements UserService
 
     private void setUserAuthority(User user)
     {
-        Authority authority = new Authority();
-        authority.setName(USER_AUTHORITY);
+        Authority authority = authorityDao.findAuthorityByName(USER_AUTHORITY);
         user.setAuthorities(singletonList(authority));
     }
 }
