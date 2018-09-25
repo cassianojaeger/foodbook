@@ -40,17 +40,18 @@ foodbookApp.service('AuthenticationService', function ($resource,
             },
             ignoreAuthModule: "ignoreAuthModule"
         }).then(function (response) {
-            httpHeaders.common['Authorization'] = "Bearer " + response.data.access_token;
             AccessTokenService.setToken(response.data);
         });
     }
 
     function logout() {
-
+        AccessTokenService.expireToken();
+        delete httpHeaders.common['Authorization'];
     }
 
     function isUserAuthenticated() {
-        return AccessTokenService.isTokenExpired();
+        AccessTokenService.setToken(AccessTokenService.getToken());
+        return !AccessTokenService.isTokenExpired();
     }
 });
 
@@ -60,18 +61,28 @@ foodbookApp.service('AccessTokenService', function ($localStorage) {
     service.isTokenExpired = isTokenExpired;
     service.setToken = setToken;
     service.getToken = getToken;
+    service.expireToken = expireToken;
 
     function setToken(token) {
+        httpHeaders.common['Authorization'] = "Bearer " + token.access_token;
         accessToken = token;
-        accessToken.expires_at = new Date().getTime() + token.expires_in;
+        accessToken.expires_at = new Date().getTime() + (token.expires_in * 1000);
         $localStorage['token'] = token;
     }
 
     function isTokenExpired() {
-        return accessToken.expires_at >= new Date().getTime();
+        var token = getToken();
+        console.log(token, token.expires_at >= new Date().getTime());
+        return token && token.expires_at >= new Date().getTime();
+    }
+
+    function expireToken() {
+        accessToken = null;
+        delete $localStorage.token;
     }
 
     function getToken() {
+        accessToken = accessToken || $localStorage.token;
         return accessToken;
     }
 });
