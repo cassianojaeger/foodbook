@@ -1,0 +1,37 @@
+<md-toolbar style="background-color: #b02222" >
+    <md-toolbar-filler  style="padding-right: 20px; width: 100%">
+        <div layout="row" layout-align="space-between center">
+            <div flex="20">
+                <img flex src="../../../../pictures/foodbook.png" class="png-foodbook" />
+            </div>
+            <div flex="60" layout="row" layout-align="end center">
+                <input flex="55" type="text" style="border-radius: 10px 0 0 10px; padding: 3px" placeholder="Pesquisar"/>
+                <select flex style="border-radius: 0 10px 10px 0; padding: 3px">
+                    <option value="group">por Grupo</option>
+                    <option value="recipe">por Receita</option>
+                </select>
+                <div flex="25" layout="row" layout-align="end center">
+                    <md-menu flex>
+                        <md-button class="md-icon-button" ng-click="">
+                            <i class="material-icons" style="color:#fff; font-size: 34px">add</i>
+                        </md-button>
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button>Criar Receita</md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button>Criar Grupo</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <md-button flex>
+                        <i class="material-icons" style="color:#fff; font-size: 34px">home</i>
+                    </md-button>
+                    <md-button flex>
+                        <i class="material-icons" style="color:#fff; font-size: 34px">power_settings_new</i>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-toolbar-filler>
+</md-toolbar>

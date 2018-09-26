@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring()
             .antMatchers(HttpMethod.GET, "/js/**")
+            .antMatchers(HttpMethod.GET, "/favicon.ico")
             .antMatchers(HttpMethod.GET, "/css/**")
             .antMatchers(HttpMethod.GET, "/pictures/**")
             .antMatchers(HttpMethod.POST,"/secured/user")

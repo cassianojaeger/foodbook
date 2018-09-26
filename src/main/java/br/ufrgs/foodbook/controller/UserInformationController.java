@@ -14,18 +14,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/secured/user")
 public class UserInformationController
 {
     @Resource
-    UserService userService;
+    private UserService userService;
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public UserInformationData get() {
-        return userService.getUserInformation("jones");
+    public Principal get(Principal principal) {
+        return principal;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -5,13 +5,25 @@ var foodbookApp = angular.module('Foodbook',
         'ngMaterial',
         'ngMessages',
         'ngResource',
+        'ngStorage',
         'ngRoute'
     ]);
 var httpHeaders;
 
 foodbookApp.config(function($routeProvider, $httpProvider) {
+    $routeProvider.accessWhen = function(path, route){
+        route.resolve || (route.resolve = {});
+        route.resolve.user = function ($location, AuthenticationService) {
+            if (AuthenticationService.isUserAuthenticated()) {
+                AuthenticationService.logout();
+                $location.path("/login");
+            }
+        };
+        return $routeProvider.when(path, route);
+    };
+
     $routeProvider
-        .when("/", {
+        .accessWhen("/", {
             templateUrl: "js/app/components/mainContent/mainContent.html"
         })
         .when("/login", {
@@ -26,10 +38,16 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
         })
         .when("/logout", {
             resolve: {
-                data: function (AuthenticationService) {
+                data: function (AuthenticationService, $location) {
                     AuthenticationService.logout();
+                    $location.path("/login");
                 }
             }
+        })
+        .when("/home", {
+            templateUrl: "js/app/components/home/home.html",
+            controller: "HomeController",
+            controllerAs: "vm"
         });
 
     $routeProvider.otherwise({
