@@ -6,7 +6,7 @@
 	<groupId>br.ufrgs</groupId>
 	<artifactId>foodbook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>foodbook</name>
 	<description>Demo project for Spring Boot</description>
@@ -23,12 +23,12 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 
-		<postgresql.version>9.4.1212</postgresql.version>
+		<postgresql.version>42.1.4</postgresql.version>
 
 		<spring.hateoas.version>0.24.0.RELEASE</spring.hateoas.version>
 
 		<hibernate.version>5.2.12.Final</hibernate.version>
-		<flywaydb.version>5.0.5</flywaydb.version>
+		<!--<flywaydb.version>5.0.5</flywaydb.version>-->
 		<jackson.version>2.9.4</jackson.version>
 		<lombok.version>1.16.20</lombok.version>
 		<oauth2.version>2.2.1.RELEASE</oauth2.version>
@@ -87,11 +87,19 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+		<!--<dependency>-->
+			<!--<groupId>org.flywaydb</groupId>-->
+			<!--<artifactId>flyway-core</artifactId>-->
+			<!--<version>${flywaydb.version}</version>-->
+		<!--</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
 		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-			<version>${flywaydb.version}</version>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -130,6 +138,11 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.6</version>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

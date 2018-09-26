@@ -1,21 +1,15 @@
 package br.ufrgs.foodbook.configuration;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
-
-import javax.sql.DataSource;
-import java.net.URISyntaxException;
 
 @Configuration
 public class MainConfig {
-
+    @Value("{spring.datasource.driverClassName}") String driverClassName;
     @Bean
-    public BasicDataSource dataSource() throws URISyntaxException
+    public BasicDataSource dataSource()
     {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         String username = System.getenv("JDBC_DATABASE_USERNAME");
@@ -25,6 +19,7 @@ public class MainConfig {
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
+        basicDataSource.setDriverClassName(driverClassName);
 
         return basicDataSource;
     }
