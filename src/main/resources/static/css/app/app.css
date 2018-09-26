@@ -15,6 +15,8 @@ lib-constants { //já que CSS é lixo
     border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
+    padding: 5px;
+    color: white;
 }
 
 .backgroundOfBackground {
@@ -29,9 +31,7 @@ lib-constants { //já que CSS é lixo
 }
 
 .red-md-button {
-    padding: 5px;
     background-color: #b02222;
-    color: white;
 }
 
 .md-button.red-md-button:hover {
@@ -39,9 +39,7 @@ lib-constants { //já que CSS é lixo
 }
 
 .green-md-button {
-    padding: 5px;
     background-color: #468e14;
-    color: white;
 }
 
 .md-button.green-md-button:hover {

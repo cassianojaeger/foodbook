@@ -10,6 +10,13 @@ var foodbookApp = angular.module('Foodbook',
     ]);
 var httpHeaders;
 
+foodbookApp.directive('topbar', function() {
+    return {
+        templateUrl: 'js/app/components/topbar/topbar.html'
+    };
+});
+
+
 foodbookApp.config(function($routeProvider, $httpProvider) {
     $routeProvider.accessWhen = function(path, route){
         route.resolve || (route.resolve = {});
@@ -43,6 +50,11 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
                     $location.path("/login");
                 }
             }
+        })
+        .when("/home", {
+            templateUrl: "js/app/components/home/home.html",
+            controller: "HomeController",
+            controllerAs: "vm"
         });
 
     $routeProvider.otherwise({
