@@ -6,7 +6,7 @@
 	<groupId>br.ufrgs</groupId>
 	<artifactId>foodbook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>foodbook</name>
 	<description>Demo project for Spring Boot</description>
@@ -28,7 +28,7 @@
 		<spring.hateoas.version>0.24.0.RELEASE</spring.hateoas.version>
 
 		<hibernate.version>5.2.12.Final</hibernate.version>
-		<!--<flywaydb.version>5.0.5</flywaydb.version>-->
+		<flywaydb.version>5.0.5</flywaydb.version>
 		<jackson.version>2.9.4</jackson.version>
 		<lombok.version>1.16.20</lombok.version>
 		<oauth2.version>2.2.1.RELEASE</oauth2.version>
@@ -87,11 +87,11 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.flywaydb</groupId>-->
-			<!--<artifactId>flyway-core</artifactId>-->
-			<!--<version>${flywaydb.version}</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flywaydb.version}</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
 		<dependency>
@@ -135,6 +135,27 @@
 			<version>1.4.0</version>
 		</dependency>
 	</dependencies>
+
+	<!--<profiles>-->
+		<!--<profile>-->
+			<!--<id>heroku</id>-->
+			<!--<activation>-->
+				<!--<activeByDefault>true</activeByDefault>-->
+			<!--</activation>-->
+			<!--<properties>-->
+				<!--<spring.profiles.active>heroku</spring.profiles.active>-->
+			<!--</properties>-->
+		<!--</profile>-->
+		<!--<profile>-->
+			<!--<id>local</id>-->
+			<!--<activation>-->
+				<!--<activeByDefault>true</activeByDefault>-->
+			<!--</activation>-->
+			<!--<properties>-->
+				<!--<spring.profiles.active>local</spring.profiles.active>-->
+			<!--</properties>-->
+		<!--</profile>-->
+	<!--</profiles>-->
 
 	<build>
 		<plugins>
