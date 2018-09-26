@@ -8,4 +8,6 @@ public interface UserService
     void registerNewUser(UserRegistrationData userRegistrationData);
 
     UserInformationData getUserInformation(String user);
+
+    boolean isUsernameAlreadyTaken(String username);
 }

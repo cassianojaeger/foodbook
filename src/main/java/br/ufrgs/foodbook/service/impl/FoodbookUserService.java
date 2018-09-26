@@ -10,7 +10,6 @@ import br.ufrgs.foodbook.model.security.Authority;
 import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.UserService;
 import br.ufrgs.foodbook.validator.impl.FoodbookUserValidator;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -42,17 +41,16 @@ public class FoodbookUserService implements UserService
     @Transactional
     public void registerNewUser(UserRegistrationData userRegistrationData)
     {
+        foodbookUserValidator.validate(userRegistrationData);
         User user = userRegistrationToDataConverter.convert(userRegistrationData, new User());
-        foodbookUserValidator.validate(user);
         encodePassword(user);
         setUserAuthority(user);
-        user.setEnabled(true);
+        makeUserEnable(user);
         userDao.save(user);
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
     public UserInformationData getUserInformation(String username)
     {
         User user = userDao.findByUsername(username);
@@ -61,6 +59,15 @@ public class FoodbookUserService implements UserService
             return userToUserInformationConverter.convert(user, new UserInformationData());
         }
         throw new UsernameNotFoundException(username);
+    }
+
+    @Override
+    @Transactional
+    public boolean isUsernameAlreadyTaken(String username)
+    {
+        User user = userDao.findByUsername(username);
+
+        return nonNull(user);
     }
 
     private void encodePassword(User user)
@@ -73,5 +80,10 @@ public class FoodbookUserService implements UserService
     {
         Authority authority = authorityDao.findAuthorityByName(USER_AUTHORITY);
         user.setAuthorities(singletonList(authority));
+    }
+
+    private void makeUserEnable(User user)
+    {
+        user.setEnabled(true);
     }
 }
