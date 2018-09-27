@@ -46,9 +46,17 @@ lib-constants { //já que CSS é lixo
     background-color: #459721;
 }
 
+.error-message {
+    color: #c92929;
+}
 
+.success-message {
+    color: #459721;
+}
 
-
+.text-center {
+    text-align: center;
+}
 
 .login-md-card {
     background-color: #fafafa;

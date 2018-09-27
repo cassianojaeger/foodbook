@@ -23,9 +23,6 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
     };
 
     $routeProvider
-        .accessWhen("/", {
-            templateUrl: "js/app/components/mainContent/mainContent.html"
-        })
         .when("/login", {
             templateUrl: "js/app/components/login/login.html",
             controller: "LoginController",
@@ -51,7 +48,7 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
         });
 
     $routeProvider.otherwise({
-        redirectTo: "/login"
+        redirectTo: "/home"
     });
     httpHeaders = $httpProvider.defaults.headers;
 });

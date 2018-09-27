@@ -14,7 +14,7 @@ foodbookApp.service('UserService', function ($resource) {
     }
 
     function createUser(user) {
-        return resource.create(user).$promise
+        return resource.create(user).$promise;
     }
 });
 
@@ -57,13 +57,14 @@ foodbookApp.service('AuthenticationService', function ($resource,
     }
 });
 
-foodbookApp.service('AccessTokenService', function ($localStorage) {
+foodbookApp.service('AccessTokenService', function ($localStorage, $window) {
     var service = this;
     var accessToken = null;
     service.isTokenExpired = isTokenExpired;
     service.setToken = setToken;
     service.getToken = getToken;
     service.expireToken = expireToken;
+    $window.forceLogout = expireToken;
 
     function setToken(token) {
         httpHeaders.common['Authorization'] = "Bearer " + token.access_token;

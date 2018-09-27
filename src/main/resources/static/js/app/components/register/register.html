@@ -26,6 +26,20 @@
                         <label>Senha</label>
                         <input type="password" ng-model="user.password">
                     </md-input-container>
+
+                    <md-input-container class="login-md-input-container">
+                        <label>Confirmação de Senha</label>
+                        <input type="password" ng-model="user.confirmedPassword">
+                    </md-input-container>
+
+                    <div ng-if="vm.message" class="success-message text-center">
+                        {{vm.message}}
+                    </div>
+
+                    <div ng-if="vm.error" class="error-message text-center">
+                        {{vm.error}}
+                    </div>
+
                 </md-card-title-text>
             </md-card-title>
 
