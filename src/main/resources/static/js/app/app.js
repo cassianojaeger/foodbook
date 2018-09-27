@@ -14,7 +14,7 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
     $routeProvider.accessWhen = function(path, route){
         route.resolve || (route.resolve = {});
         route.resolve.user = function ($location, AuthenticationService) {
-            if (AuthenticationService.isUserAuthenticated()) {
+            if (!AuthenticationService.isUserAuthenticated()) {
                 AuthenticationService.logout();
                 $location.path("/login");
             }
@@ -44,7 +44,7 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
                 }
             }
         })
-        .when("/home", {
+        .accessWhen("/home", {
             templateUrl: "js/app/components/home/home.html",
             controller: "HomeController",
             controllerAs: "vm"

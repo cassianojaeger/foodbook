@@ -50,7 +50,9 @@ foodbookApp.service('AuthenticationService', function ($resource,
     }
 
     function isUserAuthenticated() {
-        AccessTokenService.setToken(AccessTokenService.getToken());
+        if (AccessTokenService.getToken()) {
+            AccessTokenService.setToken(AccessTokenService.getToken());
+        }
         return !AccessTokenService.isTokenExpired();
     }
 });
@@ -72,8 +74,10 @@ foodbookApp.service('AccessTokenService', function ($localStorage) {
 
     function isTokenExpired() {
         var token = getToken();
-        console.log(token, token.expires_at >= new Date().getTime());
-        return token && token.expires_at >= new Date().getTime();
+        if (token)
+            return token.expires_at <= new Date().getTime();
+        else
+            return true;
     }
 
     function expireToken() {
