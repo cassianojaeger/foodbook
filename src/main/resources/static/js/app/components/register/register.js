@@ -12,7 +12,7 @@ foodbookApp.controller('RegisterController', function (UserService, $location) {
             UserService
                 .createUser(user)
                 .then(function (user) {
-                    ctrl.message = "Usuário " + user.username + "cadastrado com sucesso!";
+                    ctrl.message = "Usuário " + user.username + " cadastrado com sucesso!";
                 })
                 .catch(function (reason) {
                     ctrl.error = reason.data.password;
