@@ -10,5 +10,8 @@ foodbookApp.controller('LoginController', function (UserService, AuthenticationS
             .then(function (value) {
                 $location.path("/");
             })
+            .catch(function (reason) {
+                ctrl.error = "Usuário ou senha inválida!";
+            })
     };
 });

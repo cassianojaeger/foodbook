@@ -1,47 +1,49 @@
-<div layout-fill layout="column" layout-align="center none">
+<div layout-fill layout="column" layout-align="center none" class="register-container">
     <div layout="row" layout-align="center none">
         <md-card flex="50" class="login-md-card">
+            <img src="../../../../pictures/foodbook.png" class="png-foodbook" >
             <md-card-title>
                 <md-card-title-text>
-                    <img src="../../../../pictures/foodbook.png" class="png-foodbook" >
                     <div layout="row" layout-align="center center">
                         <h1 >Crie uma conta!</h1>
                     </div>
-                    <md-input-container class="login-md-input-container">
-                        <label>Username</label>
-                        <input type="text" ng-model="user.username">
-                    </md-input-container>
-    
-                    <md-input-container class="login-md-input-container">
-                        <label>Email</label>
-                        <input type="email" ng-model="user.email">
-                    </md-input-container>
-    
-                    <md-input-container class="login-md-input-container">
-                        <label>Telefone</label>
-                        <input type="number" ng-model="user.phone">
-                    </md-input-container>
-                    
-                    <md-input-container class="login-md-input-container">
-                        <label>Senha</label>
-                        <input type="password" ng-model="user.password">
-                    </md-input-container>
-
-                    <md-input-container class="login-md-input-container">
-                        <label>Confirmação de Senha</label>
-                        <input type="password" ng-model="user.confirmedPassword">
-                    </md-input-container>
-
-                    <div ng-if="vm.message" class="success-message text-center">
-                        {{vm.message}}
-                    </div>
-
-                    <div ng-if="vm.error" class="error-message text-center">
-                        {{vm.error}}
-                    </div>
-
                 </md-card-title-text>
             </md-card-title>
+            
+            <md-card-content>
+                <md-input-container class="login-md-input-container">
+                    <label>Username</label>
+                    <input type="text" ng-model="user.username">
+                </md-input-container>
+    
+                <md-input-container class="login-md-input-container">
+                    <label>Email</label>
+                    <input type="email" ng-model="user.email">
+                </md-input-container>
+    
+                <md-input-container class="login-md-input-container">
+                    <label>Telefone</label>
+                    <input type="number" ng-model="user.phone">
+                </md-input-container>
+    
+                <md-input-container class="login-md-input-container">
+                    <label>Senha</label>
+                    <input type="password" ng-model="user.password">
+                </md-input-container>
+    
+                <md-input-container class="login-md-input-container">
+                    <label>Confirmação de Senha</label>
+                    <input type="password" ng-model="user.confirmedPassword">
+                </md-input-container>
+    
+                <div ng-if="vm.message" class="success-message text-center">
+                    {{vm.message}}
+                </div>
+    
+                <div ng-if="vm.error" class="error-message text-center">
+                    {{vm.error}}
+                </div>
+            </md-card-content>
 
             <md-card-actions layout="row" layout-align="space-around center" style="margin-bottom: 25px">
                     <md-button  class="red-md-button register-md-button" ng-click="vm.goBack()">

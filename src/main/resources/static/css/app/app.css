@@ -81,7 +81,10 @@ lib-constants { //já que CSS é lixo
     width: 170px;
 }
 
-
+.register-container .png-foodbook {
+    margin-top: 15px;
+    margin-left: 15px;
+}
 
 
 
