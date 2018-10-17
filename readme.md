@@ -12,7 +12,10 @@
         - spring.datasource.username=**<postgres_user>**
         - spring.datasource.password=**<postgres_password>**
 
-
+- Intellij
+   * **File** >> **New** >> **Import from Version Control** >> **Git** **>>** https://github.com/cassianojaeger/foodbook.git
+   * Rodar o main no canto superior direito >> Flecha verde
+   
 - Lombok Project
     - Instalar o plugin para o Intellij do Lombok Project.
     - **File** >> **Settings** >> **Plugins** >> **Browse Repo** 
