@@ -1,5 +1,7 @@
 package br.ufrgs.foodbook.model.security;
 
+import br.ufrgs.foodbook.model.groups.Group;
+import br.ufrgs.foodbook.model.recipe.Recipe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_", uniqueConstraints = { @UniqueConstraint(columnNames = { "USER_NAME" }) })
@@ -46,11 +49,24 @@ public class User implements UserDetails, Serializable {
     @Column(name = "ENABLED")
     private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USERS_AUTHORITIES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"))
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrator")
     @OrderBy
     @JsonIgnore
-    private Collection<Authority> authorities;
+    private Set<Group> managedGroups;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
+    @OrderBy
+    @JsonIgnore
+    private Set<Recipe> ownedRecipes;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "USERS_AUTHORITIES",
+        joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+        inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")
+    )
+    @OrderBy
+    @JsonIgnore
+    private Set<Authority> authorities;
 
     @Override
     public boolean isAccountNonExpired() {
