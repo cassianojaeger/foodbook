@@ -152,7 +152,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>4.1.0</version>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/postgres</url>
+					<url>jdbc:postgresql://localhost:5432/foodbook</url>
 					<user>postgres</user>
 					<password>1234</password>
 				</configuration>
