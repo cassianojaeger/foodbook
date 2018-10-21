@@ -1,6 +1,6 @@
-package br.ufrgs.foodbook.configuration.strategies.converter;
+package br.ufrgs.foodbook.strategies.converter;
 
-import br.ufrgs.foodbook.configuration.strategies.populator.Populator;
+import br.ufrgs.foodbook.strategies.populator.Populator;
 import org.springframework.security.util.FieldUtils;
 
 import java.lang.reflect.Field;
@@ -71,9 +71,10 @@ public abstract class AbstractGenericConverter<S, T> implements Converter<S, T>
             try
             {
                 FieldUtils.setProtectedFieldValue(field.getName(), target, FieldUtils.getFieldValue(source, field.getName()));
+
             } catch (IllegalAccessException e)
             {
-                LOGGER.severe("deu merda na reflection hein gurizada, os campos tem que ter o mesmo nome no S e no T");
+                LOGGER.severe("deu merda na reflection hein gurizada, os campos tem que ter o mesmo nome no S e no T e o mesmo tipo");
             }
         };
     }
@@ -82,7 +83,7 @@ public abstract class AbstractGenericConverter<S, T> implements Converter<S, T>
     {
         return field -> Arrays
                 .stream(getTargetDeclaredFields(target))
-                .anyMatch(haveFieldsSameName(field));
+                .anyMatch(areFieldsEquivalent(field));
     }
 
     private T getInstance()
@@ -105,8 +106,8 @@ public abstract class AbstractGenericConverter<S, T> implements Converter<S, T>
         return source.getClass().getDeclaredFields();
     }
 
-    private Predicate<Field> haveFieldsSameName(Field field)
+    private Predicate<Field> areFieldsEquivalent(Field field)
     {
-        return targetField -> targetField.getName().equals(field.getName());
+        return targetField -> targetField.getName().equals(field.getName()) && targetField.getType().equals(field.getType());
     }
 }

@@ -1,4 +1,4 @@
-package br.ufrgs.foodbook.configuration.strategies.populator;
+package br.ufrgs.foodbook.strategies.populator;
 
 public interface Populator<S, T>
 {

@@ -1,4 +1,4 @@
-package br.ufrgs.foodbook.configuration.strategies.converter;
+package br.ufrgs.foodbook.strategies.converter;
 
 public interface Converter<S, T>
 {

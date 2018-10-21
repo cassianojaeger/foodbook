@@ -1,7 +1,7 @@
-package br.ufrgs.foodbook.configuration.strategies.converter.impl;
+package br.ufrgs.foodbook.strategies.converter.impl;
 
-import br.ufrgs.foodbook.configuration.strategies.converter.AbstractGenericConverter;
-import br.ufrgs.foodbook.configuration.strategies.populator.Populator;
+import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
+import br.ufrgs.foodbook.strategies.populator.Populator;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.model.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
