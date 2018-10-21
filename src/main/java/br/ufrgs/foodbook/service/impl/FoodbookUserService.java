@@ -1,7 +1,6 @@
 package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.configuration.encrypt.Encoders;
-import br.ufrgs.foodbook.configuration.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.dao.AuthorityDao;
 import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.user.UserInformationData;
@@ -9,6 +8,7 @@ import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.model.security.Authority;
 import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.UserService;
+import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.validator.impl.FoodbookUserValidator;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
