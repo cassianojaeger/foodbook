@@ -1,8 +1,7 @@
-package br.ufrgs.foodbook.converter.impl;
+package br.ufrgs.foodbook.configuration.strategies.converter;
 
-import br.ufrgs.foodbook.converter.Converter;
+import br.ufrgs.foodbook.configuration.strategies.populator.Populator;
 import org.springframework.security.util.FieldUtils;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -13,16 +12,25 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Optional.of;
+import static java.util.Optional.ofNullable;
 
-@Component
-public class DataGenericConverter<S, T> implements Converter<S, T>
+public abstract class AbstractGenericConverter<S, T> implements Converter<S, T>
 {
-    private static final Logger LOGGER = Logger.getLogger(DataGenericConverter.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AbstractGenericConverter.class.getName());
     private static final String NULL_PARAM_MSG = "source or target can not be null";
+    private final Class<T> targetClass;
+
+    public AbstractGenericConverter(Class<T> targetClass)
+    {
+        this.targetClass = targetClass;
+    }
 
     @Override
-    public T convert(S source, T target)
+    public T convert(S source)
     {
+        T target = getInstance();
+
         if (isNull(source) || isNull(target)) throw new NullPointerException(NULL_PARAM_MSG);
 
         List<Field> convertibleFields = Arrays
@@ -30,9 +38,30 @@ public class DataGenericConverter<S, T> implements Converter<S, T>
             .filter(getEquivalentFields(target))
             .collect(Collectors.toList());
 
-        convertibleFields.forEach(populateTargetFields(source, target));
+        of(convertibleFields)
+                .ifPresent(runPopulateTargetFields(source, target));
+
+        ofNullable(getPopulators())
+                .ifPresent(runPopulators(source, target));
 
         return target;
+    }
+
+    protected abstract List<Populator<S, T>> getPopulators();
+
+    private Consumer<List<Field>> runPopulateTargetFields(S source, T target)
+    {
+        return p -> p.forEach(populateTargetFields(source, target));
+    }
+
+    private Consumer<List<Populator<S, T>>> runPopulators(S source, T target)
+    {
+        return p -> p.forEach(populate(source, target));
+    }
+
+    private Consumer<Populator<S, T>> populate(S source, T target)
+    {
+        return populator -> populator.populate(source, target);
     }
 
     private Consumer<Field> populateTargetFields(S source, T target)
@@ -54,6 +83,16 @@ public class DataGenericConverter<S, T> implements Converter<S, T>
         return field -> Arrays
                 .stream(getTargetDeclaredFields(target))
                 .anyMatch(haveFieldsSameName(field));
+    }
+
+    private T getInstance()
+    {
+        try {
+            return targetClass.newInstance();
+        }catch (IllegalAccessException | InstantiationException e)
+        {
+            throw new RuntimeException();
+        }
     }
 
     private Field[] getTargetDeclaredFields(T target)

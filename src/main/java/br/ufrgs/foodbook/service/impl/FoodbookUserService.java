@@ -1,7 +1,7 @@
 package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.configuration.encrypt.Encoders;
-import br.ufrgs.foodbook.converter.impl.DataGenericConverter;
+import br.ufrgs.foodbook.configuration.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.dao.AuthorityDao;
 import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.user.UserInformationData;
@@ -15,8 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Collection;
+import java.util.HashSet;
 
-import static java.util.Collections.singletonList;
 import static java.util.Objects.nonNull;
 
 @Service
@@ -33,16 +34,16 @@ public class FoodbookUserService implements UserService
     @Resource
     private Encoders encoders;
     @Resource
-    private DataGenericConverter<User, UserInformationData> userToUserInformationConverter;
+    private AbstractGenericConverter<User, UserInformationData> userInformationConverter;
     @Resource
-    private DataGenericConverter<UserRegistrationData, User> userRegistrationToDataConverter;
+    private AbstractGenericConverter<UserRegistrationData, User> userRegistrationReverseConverter;
 
     @Override
     @Transactional
     public void registerNewUser(UserRegistrationData userRegistrationData)
     {
         foodbookUserValidator.validate(userRegistrationData);
-        User user = userRegistrationToDataConverter.convert(userRegistrationData, new User());
+        User user = userRegistrationReverseConverter.convert(userRegistrationData);
         encodePassword(user);
         setUserAuthority(user);
         makeUserEnable(user);
@@ -56,7 +57,7 @@ public class FoodbookUserService implements UserService
         User user = userDao.findByUsername(username);
         if (nonNull(user))
         {
-            return userToUserInformationConverter.convert(user, new UserInformationData());
+            return userInformationConverter.convert(user);
         }
         throw new UsernameNotFoundException(username);
     }
@@ -79,7 +80,7 @@ public class FoodbookUserService implements UserService
     private void setUserAuthority(User user)
     {
         Authority authority = authorityDao.findAuthorityByName(USER_AUTHORITY);
-        user.setAuthorities(singletonList(authority));
+        user.setAuthorities(new HashSet((Collection) authority));
     }
 
     private void makeUserEnable(User user)
