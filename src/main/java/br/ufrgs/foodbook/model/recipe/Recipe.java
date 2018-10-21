@@ -6,9 +6,11 @@ import br.ufrgs.foodbook.model.security.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "RECIPE", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
@@ -26,14 +28,16 @@ public class Recipe
     private String name;
 
     @Lob
-    @Column(name = "DESCRIPTION", columnDefinition = "CLOB")
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @Column(name = "PHOTO")
     private String photo;
 
     @Lob
-    @Column(name = "PREPARE_STEPS", columnDefinition = "CLOB")
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "PREPARE_STEPS")
     private String prepareSteps;
 
     @ManyToOne
@@ -49,13 +53,9 @@ public class Recipe
     @MapKeyEnumerated(EnumType.STRING)
     private Map<TimeType, Integer> cookTime;
 
-    @ManyToMany
-    @JoinTable(
-            name="RECIPE_INGREDIENTS",
-            joinColumns={@JoinColumn(name="recipe_id", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="ingredient_id", referencedColumnName="id")})
-    @MapKeyColumn(name = "MEASURE")
-    private Map<String, Ingredient> ingredients;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    private String ingredients;
 
     @Column(name = "COOK_DIFFICULTY")
     private Double cookDifficulty;

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,7 +27,8 @@ public class Group
     private String name;
 
     @Lob
-    @Column(name = "DESCRIPTION", columnDefinition = "CLOB")
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
