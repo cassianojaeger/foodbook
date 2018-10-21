@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
 import static java.util.Objects.nonNull;
@@ -80,7 +81,7 @@ public class FoodbookUserService implements UserService
     private void setUserAuthority(User user)
     {
         Authority authority = authorityDao.findAuthorityByName(USER_AUTHORITY);
-        user.setAuthorities(new HashSet((Collection) authority));
+        user.setAuthorities(Collections.singleton(authority));
     }
 
     private void makeUserEnable(User user)

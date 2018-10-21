@@ -11,7 +11,7 @@ var foodbookApp = angular.module('Foodbook',
 var httpHeaders;
 
 foodbookApp.config(function($routeProvider, $httpProvider) {
-    $routeProvider.accessWhen = function(path, route){
+    $routeProvider.whenAuthenticated = function(path, route){
         route.resolve || (route.resolve = {});
         route.resolve.user = function ($location, AuthenticationService) {
             if (!AuthenticationService.isUserAuthenticated()) {
@@ -41,9 +41,20 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
                 }
             }
         })
-        .accessWhen("/home", {
+        // authenticated routes
+        .whenAuthenticated("/home", {
             templateUrl: "js/app/components/home/home.html",
             controller: "HomeController",
+            controllerAs: "vm"
+        })
+        .whenAuthenticated("/groups/:id", {
+            templateUrl: "js/app/components/group/group.html",
+            controller: "GroupController",
+            resolve: {
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.id);
+                }
+            },
             controllerAs: "vm"
         });
 
