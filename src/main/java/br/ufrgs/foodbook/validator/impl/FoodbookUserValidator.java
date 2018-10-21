@@ -15,6 +15,11 @@ public class FoodbookUserValidator implements Validator<UserRegistrationData>
     @Resource
     FoodbookUserService foodbookUserService;
 
+    private static final String USERNAME_FIELD_ERROR_MESSAGE = "Nome de usuário já existente";
+    private static final String EMAIL_FIELD_ERROR_MESSAGE = "Email inválido";
+    private static final String PASSWORD_FIELD_ERROR_MESSAGE = "Senha não é válida";
+    private static final String CONFIRMED_PASSWORD_FIELD_ERROR_MESSAGE = "Senhas não coincidem";
+
     private static final String EMAIL_FIELD = "email";
     private static final String CONFIRMED_PASSWORD_FIELD = "confirmedPassword";
     private static final String PASSWORD_FIELD = "password";
@@ -35,24 +40,24 @@ public class FoodbookUserValidator implements Validator<UserRegistrationData>
     private void validateAlreadyTakenUsername(String username)
     {
         if(foodbookUserService.isUsernameAlreadyTaken(username))
-            throw new InvalidUserRegistrationException(USERNAME_FIELD, "Nome de usuário já existente");
+            throw new InvalidUserRegistrationException(USERNAME_FIELD, USERNAME_FIELD_ERROR_MESSAGE);
     }
 
     private void validateEmail(String email)
     {
         if(!emailValidator.isValid(email))
-            throw new InvalidUserRegistrationException(EMAIL_FIELD, "Email inválido");
+            throw new InvalidUserRegistrationException(EMAIL_FIELD, EMAIL_FIELD_ERROR_MESSAGE);
     }
 
     private void validatePasswordRegex(String password)
     {
         if(!password.matches(PASSWORD_REGEX))
-            throw new InvalidUserRegistrationException(PASSWORD_FIELD, "Senha não é válida");
+            throw new InvalidUserRegistrationException(PASSWORD_FIELD, PASSWORD_FIELD_ERROR_MESSAGE);
     }
 
     private void validatePasswordEquality(String password, String confirmedPassword)
     {
         if(!password.equalsIgnoreCase(confirmedPassword))
-            throw new InvalidUserRegistrationException(CONFIRMED_PASSWORD_FIELD, "Senhas não coincidem");
+            throw new InvalidUserRegistrationException(CONFIRMED_PASSWORD_FIELD, CONFIRMED_PASSWORD_FIELD_ERROR_MESSAGE);
     }
 }
