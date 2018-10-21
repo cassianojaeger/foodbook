@@ -10,11 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/secured/user")
@@ -34,6 +34,12 @@ public class UserInformationController
     public ResponseEntity create(@RequestBody UserRegistrationData user) {
         userService.registerNewUser(user);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/test")
+    @ResponseStatus(value = HttpStatus.OK)
+    public UserInformationData ola(@RequestParam String name) {
+        return userService.getUserInformation(name);
     }
 
     @ExceptionHandler({ InvalidUserRegistrationException.class })
