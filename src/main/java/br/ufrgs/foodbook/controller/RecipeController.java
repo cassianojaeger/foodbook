@@ -1,6 +1,5 @@
 package br.ufrgs.foodbook.controller;
 
-import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRecipeRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
@@ -16,9 +15,7 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/secured/recipe")
@@ -43,7 +40,7 @@ public class RecipeController
         return recipeService.getPaginatedRecipes(page, size);
     }
 
-    @PostMapping(value = "/update")
+    @PutMapping(value = "/update")
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity updateRecipe(@RequestBody RecipeRegistrationData recipeUpdateRequestData, Principal principal)
     {
@@ -52,7 +49,7 @@ public class RecipeController
         return new ResponseEntity(OK);
     }
 
-    @PostMapping(value = "/remove")
+    @DeleteMapping(value = "/remove")
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity removeRecipe(@RequestBody RecipeRegistrationData recipeRemoveRequestData, Principal principal)
     {

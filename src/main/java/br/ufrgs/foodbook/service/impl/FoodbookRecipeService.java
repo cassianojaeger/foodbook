@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.util.function.Consumer;
 
@@ -26,6 +27,7 @@ public class FoodbookRecipeService implements RecipeService
     private static final String RECIPE_NAME_ERROR_MESSAGE = "Nome de receita ja existente!";
     private static final String GENERAL_ERROR_FIELD_NAME = "GENERAL_ERROR";
     private static final String GENERAL_ERROR_MESSAGE = "Você não tem permissão para modificar esta receita ou ela é inválida!";
+    private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar as receitas, tente novamente!";
 
     @Resource
     RecipeDao recipeDao;
@@ -34,9 +36,10 @@ public class FoodbookRecipeService implements RecipeService
     @Resource
     private FoodbookRecipeValidator recipeValidator;
 
-    private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar as receitas, tente novamente!";
+
 
     @Override
+    @Transactional
     public Page<Recipe> getPaginatedRecipes(int page, int size)
     {
         Page<Recipe> resultPage = recipeDao.findAll(PageRequest.of(page, size));
@@ -50,6 +53,7 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
+    @Transactional
     public void createRecipe(RecipeRegistrationData recipeRegistration)
     {
         recipeValidator.validate(recipeRegistration);
@@ -65,6 +69,7 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
+    @Transactional
     public void updateRecipe(RecipeRegistrationData recipeRegistration)
     {
         Recipe originalRecipe = recipeDao.findByName(recipeRegistration.getName());
@@ -83,6 +88,7 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
+    @Transactional
     public void removeRecipe(RecipeRegistrationData recipeRegistration)
     {
         Recipe originalRecipe = recipeDao.findByName(recipeRegistration.getName());
