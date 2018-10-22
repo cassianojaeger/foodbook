@@ -10,7 +10,7 @@ var foodbookApp = angular.module('Foodbook',
     ]);
 var httpHeaders;
 
-foodbookApp.config(function($routeProvider, $httpProvider) {
+foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
     $routeProvider.whenAuthenticated = function(path, route){
         route.resolve || (route.resolve = {});
         route.resolve.user = function ($location, AuthenticationService) {
@@ -62,4 +62,8 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
         redirectTo: "/home"
     });
     httpHeaders = $httpProvider.defaults.headers;
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('red')
+        .accentPalette('orange');
 });
