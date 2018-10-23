@@ -1,0 +1,38 @@
+<topbar></topbar>
+<div layout-fill layout="row" layout-align="center none">
+    <md-card flex="85">
+        <div layout="row" layout-align="center center">
+            <h1 >Crie um grupo!</h1>
+        </div>
+
+        <md-input-container class="login-md-input-container">
+            <label>Nome</label>
+            <input type="text" ng-model="group.name">
+        </md-input-container>
+
+        <md-input-container class="login-md-input-container">
+            <label>Descrição</label>
+            <input type="text" ng-model="group.description">
+        </md-input-container>
+
+        <div ng-if="vm.message" class="success-message text-center">
+            {{vm.message}}
+        </div>
+
+        <div ng-if="vm.error" class="error-message text-center">
+            {{vm.error}}
+        </div>
+
+        <md-card-actions layout="row" layout-align="space-around center" style="margin-bottom: 25px">
+            <md-button  class="red-md-button register-md-button" ng-click="vm.goBack()">
+                <i class="material-icons" style="color:#fff;">navigate_before</i>
+                Voltar
+            </md-button>
+            <md-button  class="green-md-button register-md-button" ng-click="vm.createGroup(group)">
+                Criar grupo
+                <i class="material-icons" style="color:#fff;">navigate_next</i>
+            </md-button>
+        </md-card-actions>
+
+    </md-card>
+</div>

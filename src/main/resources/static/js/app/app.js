@@ -47,6 +47,11 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controller: "HomeController",
             controllerAs: "vm"
         })
+        .whenAuthenticated("/group/create", {
+            templateUrl: "js/app/components/group/create.html",
+            controller: "CreateGroupController",
+            controllerAs: "vm"
+        })
         .whenAuthenticated("/groups/:id", {
             templateUrl: "js/app/components/group/group.html",
             controller: "GroupController",
