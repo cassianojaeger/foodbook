@@ -61,6 +61,22 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
                 }
             },
             controllerAs: "vm"
+        })
+        .whenAuthenticated("/recipe/create", {
+            templateUrl: "js/app/components/recipe/create.html",
+            controller: "CreateRecipeController",
+            controllerAs: "vm"
+        })
+        .whenAuthenticated("/recipes/:id", {
+            templateUrl: "js/app/components/recipe/recipe.html",
+            controller: "RecipeController",
+            //TODO:
+            // resolve: {
+            //     group: function (Recipeervice, $route) {
+            //         return Recipeervice.get($route.current.params.id);
+            //     }
+            // },
+            controllerAs: "vm"
         });
 
     $routeProvider.otherwise({

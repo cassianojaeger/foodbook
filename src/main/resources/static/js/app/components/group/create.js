@@ -12,11 +12,10 @@ foodbookApp.controller('CreateGroupController', function (GroupService, $locatio
 
     function createGroup(group) {
         clearMessages();
-        console.log(group);
-        if (group && Object.prototype.hasOwnProperty.call(group, "name") && Object.prototype.hasOwnProperty.call(group, "description") ) {
+        if (isFieldsFilled(group)) {
             GroupService
-                .create(group, 7890) //TODO: create method to get the logged uder id
-                .then(function (group) {
+                .create(group, 7890) //TODO: create method to get the logged user id
+                .then(function () {
                     ctrl.message = "Grupo " + group.name + " criado com sucesso!";
                 })
                 .catch(function (reason) {
@@ -26,6 +25,10 @@ foodbookApp.controller('CreateGroupController', function (GroupService, $locatio
         else {
             ctrl.error = "Todos campos são obrigatórios!";
         }
+    }
+
+    function isFieldsFilled(group) {
+        return group && Object.prototype.hasOwnProperty.call(group, "name") && Object.prototype.hasOwnProperty.call(group, "description");
     }
 
     function clearMessages() {
