@@ -14,7 +14,7 @@ foodbookApp.controller('CreateGroupController', function (GroupService, $locatio
         clearMessages();
         if (isFieldsFilled(group)) {
             GroupService
-                .create(group, 7890) //TODO: create method to get the logged user id
+                .create(group)
                 .then(function () {
                     ctrl.message = "Grupo " + group.name + " criado com sucesso!";
                 })

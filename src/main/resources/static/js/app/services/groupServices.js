@@ -32,12 +32,11 @@ foodbookApp.service('GroupService', function ($q) {
         });
     }
 
-    function create(group, adminId) {
+    function create(group) {
         return $q(function (resolve, reject) {
             resolve(
                 {
-                    group : group,
-                    admin: adminId
+                    group : group
                 }
             );
         });
