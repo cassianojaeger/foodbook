@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InvalidRecipeRegistrationException extends RuntimeException
+public class InvalidRegistrationException extends RuntimeException
 {
     private final String fieldName;
     private final String errorMessage;
 
-    public InvalidRecipeRegistrationException(String fieldName, String message)
+    public InvalidRegistrationException(String fieldName, String message)
     {
         super(message);
 

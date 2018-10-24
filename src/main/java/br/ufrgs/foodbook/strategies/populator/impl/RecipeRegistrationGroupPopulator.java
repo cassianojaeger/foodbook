@@ -1,11 +1,11 @@
 package br.ufrgs.foodbook.strategies.populator.impl;
 
-import br.ufrgs.foodbook.strategies.populator.Populator;
 import br.ufrgs.foodbook.dao.GroupDao;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
-import br.ufrgs.foodbook.exception.InvalidRecipeRegistrationException;
+import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.model.recipe.Recipe;
+import br.ufrgs.foodbook.strategies.populator.Populator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,7 +28,7 @@ public class RecipeRegistrationGroupPopulator implements Populator<RecipeRegistr
         Group group = groupDao.findByName(groupName);
 
         if(isNull(group))
-            throw new InvalidRecipeRegistrationException(GROUP_NAME_FIELD, GROUP_NOT_FOUND);
+            throw new InvalidRegistrationException(GROUP_NAME_FIELD, GROUP_NOT_FOUND);
 
         target.setGroup(group);
     }
