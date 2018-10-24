@@ -5,6 +5,7 @@ foodbookApp.service('GroupService', function ($q) {
 
     service.getUserGroups = getUserGroups;
     service.get = get;
+    service.create = create;
 
     function getUserGroups(params) {
         return $q(function (resolve, reject) {
@@ -19,7 +20,24 @@ foodbookApp.service('GroupService', function ($q) {
     function get(groupId) {
         return $q(function (resolve, reject) {
             resolve(
-                {id : groupId, name: "Default group", description: "This is the default app group"}
+                {
+                    id : groupId,
+                    name: "Carne",
+                    description: "This is the default app group",
+                    admin: {
+                        name: "Pimenta"
+                    }
+                }
+            );
+        });
+    }
+
+    function create(group) {
+        return $q(function (resolve, reject) {
+            resolve(
+                {
+                    group : group
+                }
             );
         });
     }

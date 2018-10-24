@@ -90,7 +90,9 @@ lib-constants { //já que CSS é lixo
     margin-left: 15px;
 }
 
-
+[ng-view] {
+    margin-top: 67px;
+}
 
 @font-face {
     font-family: 'Material Icons';

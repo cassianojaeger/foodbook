@@ -10,7 +10,7 @@ var foodbookApp = angular.module('Foodbook',
     ]);
 var httpHeaders;
 
-foodbookApp.config(function($routeProvider, $httpProvider) {
+foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
     $routeProvider.whenAuthenticated = function(path, route){
         route.resolve || (route.resolve = {});
         route.resolve.user = function ($location, AuthenticationService) {
@@ -47,6 +47,11 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
             controller: "HomeController",
             controllerAs: "vm"
         })
+        .whenAuthenticated("/group/create", {
+            templateUrl: "js/app/components/group/create.html",
+            controller: "CreateGroupController",
+            controllerAs: "vm"
+        })
         .whenAuthenticated("/groups/:id", {
             templateUrl: "js/app/components/group/group.html",
             controller: "GroupController",
@@ -56,10 +61,30 @@ foodbookApp.config(function($routeProvider, $httpProvider) {
                 }
             },
             controllerAs: "vm"
+        })
+        .whenAuthenticated("/recipe/create", {
+            templateUrl: "js/app/components/recipe/create.html",
+            controller: "CreateRecipeController",
+            controllerAs: "vm"
+        })
+        .whenAuthenticated("/recipes/:id", {
+            templateUrl: "js/app/components/recipe/recipe.html",
+            controller: "RecipeController",
+            //TODO:
+            // resolve: {
+            //     group: function (Recipeervice, $route) {
+            //         return Recipeervice.get($route.current.params.id);
+            //     }
+            // },
+            controllerAs: "vm"
         });
 
     $routeProvider.otherwise({
         redirectTo: "/home"
     });
     httpHeaders = $httpProvider.defaults.headers;
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('red')
+        .accentPalette('orange');
 });
