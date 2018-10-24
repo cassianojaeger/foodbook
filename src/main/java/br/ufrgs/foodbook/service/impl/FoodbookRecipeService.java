@@ -2,7 +2,7 @@ package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.dao.RecipeDao;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
-import br.ufrgs.foodbook.exception.InvalidRecipeRegistrationException;
+import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
 import br.ufrgs.foodbook.model.recipe.Recipe;
 import br.ufrgs.foodbook.model.security.User;
@@ -36,11 +36,9 @@ public class FoodbookRecipeService implements RecipeService
     @Resource
     private FoodbookRecipeValidator recipeValidator;
 
-
-
     @Override
     @Transactional
-    public Page<Recipe> getPaginatedRecipes(int page, int size)
+    public Page<Recipe> getPaginatedData(int page, int size)
     {
         Page<Recipe> resultPage = recipeDao.findAll(PageRequest.of(page, size));
 
@@ -54,7 +52,7 @@ public class FoodbookRecipeService implements RecipeService
 
     @Override
     @Transactional
-    public void createRecipe(RecipeRegistrationData recipeRegistration)
+    public void create(RecipeRegistrationData recipeRegistration)
     {
         recipeValidator.validate(recipeRegistration);
         Recipe recipe = recipeRegistrationReverseConverter.convert(recipeRegistration);
@@ -64,19 +62,19 @@ public class FoodbookRecipeService implements RecipeService
         }
         catch (ConstraintViolationException e)
         {
-            throw new InvalidRecipeRegistrationException(RECIPE_NAME_FIELD, RECIPE_NAME_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(RECIPE_NAME_FIELD, RECIPE_NAME_ERROR_MESSAGE);
         }
     }
 
     @Override
     @Transactional
-    public void updateRecipe(RecipeRegistrationData recipeRegistration)
+    public void update(RecipeRegistrationData recipeRegistration)
     {
         Recipe originalRecipe = recipeDao.findByName(recipeRegistration.getName());
 
         if(isNull(originalRecipe) || notRecipeOwnerRequest(recipeRegistration, originalRecipe))
         {
-            throw new InvalidRecipeRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
         }
 
         recipeValidator.validate(recipeRegistration);
@@ -89,13 +87,13 @@ public class FoodbookRecipeService implements RecipeService
 
     @Override
     @Transactional
-    public void removeRecipe(RecipeRegistrationData recipeRegistration)
+    public void remove(RecipeRegistrationData recipeRegistration)
     {
         Recipe originalRecipe = recipeDao.findByName(recipeRegistration.getName());
 
         if(isNull(originalRecipe) || notRecipeOwnerRequest(recipeRegistration, originalRecipe))
         {
-            throw new InvalidRecipeRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
         }
 
         recipeDao.delete(originalRecipe);
