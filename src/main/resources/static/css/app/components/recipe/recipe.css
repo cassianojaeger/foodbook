@@ -1,0 +1,8 @@
+.create-recipe-form {
+    padding: 32px;
+    overflow: auto;
+}
+
+.create-recipe-form-actions {
+    margin-top: 35px;
+}

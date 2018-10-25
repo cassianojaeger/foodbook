@@ -1,9 +1,7 @@
 <topbar></topbar>
 <div layout-fill layout="row" layout-align="center none">
-    <md-card flex="85">
-        <div layout="row" layout-align="center center">
-            <h1 >Crie uma receita!</h1>
-        </div>
+    <md-card flex="85" class="create-recipe-form">
+        <h1 class="text-center">Crie uma receita!</h1>
 
         <md-input-container class="login-md-input-container">
             <label>Nome</label>
@@ -44,7 +42,7 @@
             {{vm.error}}
         </div>
 
-        <md-card-actions layout="row" layout-align="space-around center" style="margin-bottom: 25px">
+        <md-card-actions layout="row" layout-align="space-around center" class="create-recipe-form-actions">
             <md-button  class="red-md-button register-md-button" ng-click="vm.goBack()">
                 <i class="material-icons" style="color:#fff;">navigate_before</i>
                 Voltar
