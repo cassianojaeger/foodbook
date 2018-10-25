@@ -2,8 +2,19 @@
 
 foodbookApp.controller('CreateRecipeController', function (group, $location, RecipeService) {
     var ctrl = this;
+    ctrl.timeOptions = [
+        {code: "SECONDS", name: "Segundos"},
+        {code: "MINUTES", name: "Minutos"} ,
+        {code: "HOURS", name: "Horas"}
+    ];
+
     ctrl.recipe = {
-        cookDifficulty: 0
+        groupName: group.name,
+        cookDifficulty: 0,
+        cookTime: {
+            timeType: "MINUTES",
+            timeValue: "3"
+        }
     };
 
     ctrl.goBack = goBack;
@@ -15,11 +26,6 @@ foodbookApp.controller('CreateRecipeController', function (group, $location, Rec
 
     function createRecipe(recipe) {
         clearMessages();
-        recipe.groupName = group.name;
-        recipe.cookTime = {
-            timeType: "SECONDS",
-            timeValue: "3"
-        };
         RecipeService.create(recipe)
             .then(function (recipe) {
                 ctrl.message = "Receita criada com sucesso";

@@ -5,33 +5,47 @@
 
         <md-input-container class="login-md-input-container">
             <label>Nome</label>
-            <input type="text" ng-model="recipe.name">
+            <input type="text" ng-model="vm.recipe.name">
         </md-input-container>
 
         <md-input-container class="login-md-input-container">
             <label>Descrição</label>
-            <input type="text" ng-model="recipe.description">
+            <input type="text" ng-model="vm.recipe.description">
         </md-input-container>
 
         <md-input-container class="login-md-input-container">
             <label>URL da foto</label>
-            <input type="text" ng-model="recipe.photo">
+            <input type="text" ng-model="vm.recipe.photo">
         </md-input-container>
 
         <md-input-container class="login-md-input-container">
             <label>Modo de preparo</label>
-            <textarea rows="7" type="text" ng-model="recipe.prepareSteps"> </textarea>
+            <textarea rows="7" type="text" ng-model="vm.recipe.prepareSteps"> </textarea>
         </md-input-container>
 
         <md-input-container class="login-md-input-container">
             <label>Ingredientes</label>
-            <textarea rows="7" type="text" ng-model="recipe.ingredients"> </textarea>
+            <textarea rows="7" type="text" ng-model="vm.recipe.ingredients"> </textarea>
+        </md-input-container>
+
+        <md-input-container class="login-md-input-container">
+            <label>Tempo</label>
+            <input type="number" ng-model="vm.recipe.cookTime.timeValue">
+        </md-input-container>
+
+        <md-input-container class="login-md-input-container">
+            <label>Unidade do tempo</label>
+            <md-select ng-model="vm.recipe.cookTime.timeType">
+                <md-option ng-repeat="time in vm.timeOptions" value="{{time.code}}">
+                    {{::time.name}}
+                </md-option>
+            </md-select>
         </md-input-container>
 
         <br>
         <md-input-container class="login-md-input-container">
             <label class="difficulty-label">Dificuldade da receita</label>
-            <jk-rating-stars rating="recipe.cookDifficulty"></jk-rating-stars>
+            <jk-rating-stars rating="vm.recipe.cookDifficulty"></jk-rating-stars>
         </md-input-container>
 
         <div ng-if="vm.message" class="success-message text-center">
@@ -47,7 +61,7 @@
                 <i class="material-icons" style="color:#fff;">navigate_before</i>
                 Voltar
             </md-button>
-            <md-button  class="green-md-button register-md-button" ng-click="vm.createRecipe(recipe)">
+            <md-button  class="green-md-button register-md-button" ng-click="vm.createRecipe(vm.recipe)">
                 Criar receita
                 <i class="material-icons" style="color:#fff;">navigate_next</i>
             </md-button>
