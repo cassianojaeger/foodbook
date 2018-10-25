@@ -12,8 +12,6 @@ import java.util.List;
 @Service
 public class UserRegistrationReverseConverter extends AbstractGenericConverter<UserRegistrationData, User>
 {
-    private List<Populator<UserRegistrationData, User>> populators;
-
     public UserRegistrationReverseConverter()
     {
         super(User.class);
@@ -26,7 +24,8 @@ public class UserRegistrationReverseConverter extends AbstractGenericConverter<U
     }
 
     @Autowired(required = false)
-    private void setPopulators(List<Populator<UserRegistrationData, User>> populators)
+    @Override
+    protected void setPopulators(List<Populator<UserRegistrationData, User>> populators)
     {
         this.populators = populators;
     }

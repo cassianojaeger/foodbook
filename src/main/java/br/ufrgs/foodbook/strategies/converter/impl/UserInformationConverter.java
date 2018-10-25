@@ -12,8 +12,6 @@ import java.util.List;
 @Service
 public class UserInformationConverter extends AbstractGenericConverter<User, UserInformationData>
 {
-    private List<Populator<User, UserInformationData>> populators;
-
     public UserInformationConverter()
     {
         super(UserInformationData.class);
@@ -26,7 +24,8 @@ public class UserInformationConverter extends AbstractGenericConverter<User, Use
     }
 
     @Autowired(required = false)
-    private void setPopulators(List<Populator<User, UserInformationData>> populators)
+    @Override
+    protected void setPopulators(List<Populator<User, UserInformationData>> populators)
     {
         this.populators = populators;
     }

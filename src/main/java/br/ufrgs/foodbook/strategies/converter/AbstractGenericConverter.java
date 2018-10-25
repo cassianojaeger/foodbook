@@ -6,6 +6,7 @@ import org.springframework.security.util.FieldUtils;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ public abstract class AbstractGenericConverter<S, T> implements Converter<S, T>
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericConverter.class.getName());
     private static final String NULL_PARAM_MSG = "source or target can not be null";
     private final Class<T> targetClass;
+    protected List<Populator<S, T>> populators;
 
     public AbstractGenericConverter(Class<T> targetClass)
     {
@@ -47,7 +49,17 @@ public abstract class AbstractGenericConverter<S, T> implements Converter<S, T>
         return target;
     }
 
+    @Override
+    public Set<T> convertAll(Set<S> sources)
+    {
+        return sources
+                .stream()
+                .map(this::convert)
+                .collect(Collectors.toSet());
+    }
+
     protected abstract List<Populator<S, T>> getPopulators();
+    protected abstract void setPopulators(List<Populator<S, T>> populators);
 
     private Consumer<List<Field>> runPopulateTargetFields(S source, T target)
     {

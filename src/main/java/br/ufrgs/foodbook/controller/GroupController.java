@@ -1,5 +1,6 @@
 package br.ufrgs.foodbook.controller;
 
+import br.ufrgs.foodbook.dto.group.GroupInformationData;
 import br.ufrgs.foodbook.dto.group.GroupRegistrationData;
 import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.service.GroupService;
@@ -28,6 +29,13 @@ public class GroupController
         groupRegistrationData.setCreatorName(principal.getName());
         groupService.create(groupRegistrationData);
         return new ResponseEntity(CREATED);
+    }
+
+    @GetMapping(params = {"groupName"})
+    @ResponseStatus(value = HttpStatus.OK)
+    public GroupInformationData getGroupInformation(@RequestParam("groupName") String groupName)
+    {
+        return groupService.getGroup(groupName);
     }
 
     @PutMapping(value = "/update")

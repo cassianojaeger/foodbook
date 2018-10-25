@@ -12,8 +12,6 @@ import java.util.List;
 @Service
 public class RecipeRegistrationReverseConverter extends AbstractGenericConverter<RecipeRegistrationData, Recipe>
 {
-    private List<Populator<RecipeRegistrationData, Recipe>> populators;
-
     public RecipeRegistrationReverseConverter()
     {
         super(Recipe.class);
@@ -26,7 +24,8 @@ public class RecipeRegistrationReverseConverter extends AbstractGenericConverter
     }
 
     @Autowired(required = false)
-    private void setPopulators(List<Populator<RecipeRegistrationData, Recipe>> populators)
+    @Override
+    protected void setPopulators(List<Populator<RecipeRegistrationData, Recipe>> populators)
     {
         this.populators = populators;
     }

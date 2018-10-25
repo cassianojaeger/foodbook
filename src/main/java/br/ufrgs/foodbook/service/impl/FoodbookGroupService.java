@@ -1,6 +1,7 @@
 package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.dao.GroupDao;
+import br.ufrgs.foodbook.dto.group.GroupInformationData;
 import br.ufrgs.foodbook.dto.group.GroupRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
@@ -27,12 +28,14 @@ public class FoodbookGroupService implements GroupService
     private static final String GENERAL_ERROR_FIELD_NAME = "GENERAL_ERROR";
     private static final String GENERAL_ERROR_MESSAGE = "Você não tem permissão para modificar este grupo ou ele é inválido!";
     private static final String MEMBER_NOT_FOUND_MESSAGE = "Não foi possível localizar o membro ou o grupo designado";
-    private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar os grupos, tente novamente!";
+    private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar o(s) grupo(s), tente novamente!";
 
     @Resource
     GroupDao groupDao;
     @Resource
     private AbstractGenericConverter<GroupRegistrationData, Group> groupRegistrationReverseConverter;
+    @Resource
+    private AbstractGenericConverter<Group, GroupInformationData> groupInformationConverter;
     @Resource
     FoodbookGroupValidator groupValidator;
 
@@ -62,6 +65,17 @@ public class FoodbookGroupService implements GroupService
         {
             throw new InvalidRegistrationException(GROUP_NAME_FIELD, GROUP_NAME_ERROR_MESSAGE);
         }
+    }
+
+    @Override
+    public GroupInformationData getGroup(String groupName)
+    {
+        Group group = groupDao.findByName(groupName);
+
+        if(isNull(group))
+            throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
+
+        return groupInformationConverter.convert(group);
     }
 
     @Override
