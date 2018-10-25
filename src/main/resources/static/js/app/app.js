@@ -6,7 +6,8 @@ var foodbookApp = angular.module('Foodbook',
         'ngMessages',
         'ngResource',
         'ngStorage',
-        'ngRoute'
+        'ngRoute',
+        'jkAngularRatingStars'
     ]);
 var httpHeaders;
 
@@ -52,20 +53,25 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controller: "CreateGroupController",
             controllerAs: "vm"
         })
-        .whenAuthenticated("/groups/:id", {
+        .whenAuthenticated("/groups/:name", {
             templateUrl: "js/app/components/group/group.html",
             controller: "GroupController",
             resolve: {
                 group: function (GroupService, $route) {
-                    return GroupService.get($route.current.params.id);
+                    return GroupService.get($route.current.params.name);
                 }
             },
             controllerAs: "vm"
         })
-        .whenAuthenticated("/recipe/create", {
+        .whenAuthenticated("/groups/:name/recipe/create", {
             templateUrl: "js/app/components/recipe/create.html",
             controller: "CreateRecipeController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.name);
+                }
+            }
         })
         .whenAuthenticated("/recipes/:id", {
             templateUrl: "js/app/components/recipe/recipe.html",
