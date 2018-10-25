@@ -1,5 +1,6 @@
 package br.ufrgs.foodbook.controller;
 
+import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.model.recipe.Recipe;
 import br.ufrgs.foodbook.service.RecipeService;
@@ -28,6 +29,13 @@ public class RecipeController extends AbstractGenericController
         recipeRegistrationData.setCreatorName(principal.getName());
         recipeService.create(recipeRegistrationData);
         return new ResponseEntity(CREATED);
+    }
+
+    @GetMapping(params = {"recipeName"})
+    @ResponseStatus(value = HttpStatus.OK)
+    public RecipeInformationData getRecipeInformation(@RequestParam("recipeName") String recipeName)
+    {
+        return recipeService.getRecipe(recipeName);
     }
 
     @GetMapping(params = {"page","size"})

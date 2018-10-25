@@ -30,7 +30,7 @@ public class FoodbookManageGroupService implements ManageGroupService
         User newMember = userDao.findByUsername(newMemberRequest.getMemberName());
         Group group = groupDao.findByName(newMemberRequest.getGroupName());
 
-        if(validMemberRequest(newMemberRequest, newMember, group))
+        if(!validMemberRequest(newMemberRequest, newMember, group))
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, MEMBER_NOT_FOUND_MESSAGE);
 
         group.getMembers().add(newMember);

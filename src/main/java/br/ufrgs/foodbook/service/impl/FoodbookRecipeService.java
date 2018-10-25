@@ -1,6 +1,7 @@
 package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.dao.RecipeDao;
+import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
@@ -34,6 +35,8 @@ public class FoodbookRecipeService implements RecipeService
     @Resource
     private AbstractGenericConverter<RecipeRegistrationData, Recipe> recipeRegistrationReverseConverter;
     @Resource
+    private AbstractGenericConverter<Recipe, RecipeInformationData> recipeInformationConverter;
+    @Resource
     private FoodbookRecipeValidator recipeValidator;
 
     @Override
@@ -48,6 +51,17 @@ public class FoodbookRecipeService implements RecipeService
         resultPage.getContent().forEach(removeUserSensitiveData());
 
         return resultPage;
+    }
+
+    @Override
+    public RecipeInformationData getRecipe(String recipeName)
+    {
+        Recipe recipe= recipeDao.findByName(recipeName);
+
+        if(isNull(recipe))
+            throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
+
+        return recipeInformationConverter.convert(recipe);
     }
 
     @Override
