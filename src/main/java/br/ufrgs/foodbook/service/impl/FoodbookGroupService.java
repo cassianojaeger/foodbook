@@ -2,7 +2,6 @@ package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.dao.GroupDao;
 import br.ufrgs.foodbook.dto.group.GroupRegistrationData;
-import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
 import br.ufrgs.foodbook.model.groups.Group;
@@ -27,6 +26,7 @@ public class FoodbookGroupService implements GroupService
     private static final String GROUP_NAME_ERROR_MESSAGE = "Nome de grupo ja existente!";
     private static final String GENERAL_ERROR_FIELD_NAME = "GENERAL_ERROR";
     private static final String GENERAL_ERROR_MESSAGE = "Você não tem permissão para modificar este grupo ou ele é inválido!";
+    private static final String MEMBER_NOT_FOUND_MESSAGE = "Não foi possível localizar o membro ou o grupo designado";
     private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar os grupos, tente novamente!";
 
     @Resource
@@ -93,30 +93,6 @@ public class FoodbookGroupService implements GroupService
         }
 
         groupDao.delete(originalGroup);
-    }
-
-    @Override
-    public void addMember(String memberName, String groupName)
-    {
-
-    }
-
-    @Override
-    public void removeMember(String memberName, String groupName)
-    {
-
-    }
-
-    @Override
-    public void addRecipe(RecipeRegistrationData recipeRegistrationData, String groupName)
-    {
-
-    }
-
-    @Override
-    public void removeRecipe(RecipeRegistrationData recipeRegistrationData, String groupName)
-    {
-
     }
 
     private Consumer<Group> removeSensitiveData()

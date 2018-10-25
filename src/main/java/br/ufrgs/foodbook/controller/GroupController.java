@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import java.security.Principal;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/secured/group")
@@ -22,11 +23,29 @@ public class GroupController
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity createRecipe(@RequestBody GroupRegistrationData groupRegistrationData, Principal principal)
+    public ResponseEntity createGroup(@RequestBody GroupRegistrationData groupRegistrationData, Principal principal)
     {
         groupRegistrationData.setCreatorName(principal.getName());
         groupService.create(groupRegistrationData);
         return new ResponseEntity(CREATED);
+    }
+
+    @PutMapping(value = "/update")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity updateGroup(@RequestBody GroupRegistrationData groupUpdateRequestData, Principal principal)
+    {
+        groupUpdateRequestData.setCreatorName(principal.getName());
+        groupService.update(groupUpdateRequestData);
+        return new ResponseEntity(OK);
+    }
+
+    @DeleteMapping(value = "/remove")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity removeGroup(@RequestBody GroupRegistrationData groupRemoveRequestData, Principal principal)
+    {
+        groupRemoveRequestData.setCreatorName(principal.getName());
+        groupService.remove(groupRemoveRequestData);
+        return new ResponseEntity(OK);
     }
 
     @GetMapping(params = {"page","size"})
