@@ -31,9 +31,9 @@ public class RecipeController extends AbstractGenericController
         return new ResponseEntity(CREATED);
     }
 
-    @GetMapping(params = {"recipeName"})
+    @GetMapping(value = "/{recipeName}")
     @ResponseStatus(value = HttpStatus.OK)
-    public RecipeInformationData getRecipeInformation(@RequestParam("recipeName") String recipeName)
+    public RecipeInformationData getRecipeInformation(@PathVariable("recipeName") String recipeName)
     {
         return recipeService.getRecipe(recipeName);
     }

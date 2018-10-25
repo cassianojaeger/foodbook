@@ -11,12 +11,12 @@ foodbookApp.directive('myGroups', function (GroupService, $location) {
         var vm = this;
         vm.goToGroup = goToGroup;
 
-        GroupService.getUserGroups().then(function (groups) {
-            vm.groups = groups;
+        GroupService.getUserGroups().then(function (response) {
+            vm.groups = response.content;
         });
 
-        function goToGroup(groupId) {
-            $location.path("/groups/" + groupId);
+        function goToGroup(name) {
+            $location.path("/groups/" + name);
         }
     }
 });
