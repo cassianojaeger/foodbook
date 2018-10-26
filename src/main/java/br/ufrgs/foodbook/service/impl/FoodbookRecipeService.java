@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
@@ -62,6 +65,11 @@ public class FoodbookRecipeService implements RecipeService
             throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
 
         return recipeInformationConverter.convert(recipe);
+    }
+
+    @Override
+    public List<Recipe> getGroupRecipes(String groupName) {
+        return recipeDao.findAllByGroupName(groupName);
     }
 
     @Override

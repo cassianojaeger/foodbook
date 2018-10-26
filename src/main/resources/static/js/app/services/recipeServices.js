@@ -4,12 +4,14 @@ foodbookApp.service('RecipeService', function ($resource) {
     var resource = $resource('/secured/recipe/:name', {}, {
         create: {method: "POST"},
         get: {method: "GET"},
-        getByName: {method: "GET", params: {name: "@name"}}
+        getByName: {method: "GET", params: {name: "@name"}},
+        getByGroup: {url: "/secured/recipe/group/:name", method: "GET", params: {name: "@name"}, isArray: true}
     });
 
     var service = this;
     service.create = create;
     service.get = get;
+    service.getAll = getAll;
     service.getGroupRecipes = getGroupRecipes;
 
 
@@ -21,8 +23,12 @@ foodbookApp.service('RecipeService', function ($resource) {
         return resource.getByName({name: name}).$promise;
     }
 
-    function getGroupRecipes(params) {
+    function getAll(params) {
         return resource.get(params).$promise;
+    }
+
+    function getGroupRecipes(groupName) {
+        return resource.getByGroup({name: groupName}).$promise;
     }
 
 });
