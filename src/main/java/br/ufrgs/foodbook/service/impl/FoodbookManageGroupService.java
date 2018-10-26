@@ -28,7 +28,7 @@ public class FoodbookManageGroupService implements ManageGroupService
     public void addMember(MemberRequestData newMemberRequest)
     {
         User newMember = userDao.findByUsername(newMemberRequest.getMemberName());
-        Group group = groupDao.findByName(newMemberRequest.getGroupName());
+        Group group = groupDao.getOne(newMemberRequest.getGroupId());
 
         if(!validMemberRequest(newMemberRequest, newMember, group))
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, MEMBER_NOT_FOUND_MESSAGE);
@@ -42,7 +42,7 @@ public class FoodbookManageGroupService implements ManageGroupService
     public void removeMember(MemberRequestData newMemberRequest)
     {
         User removedMember = userDao.findByUsername(newMemberRequest.getMemberName());
-        Group group = groupDao.findByName(newMemberRequest.getGroupName());
+        Group group = groupDao.getOne(newMemberRequest.getGroupId());
 
         if(validMemberRequest(newMemberRequest, removedMember, group))
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, MEMBER_NOT_FOUND_MESSAGE);

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RecipeService extends GenericService<RecipeRegistrationData, Recipe>
 {
-    RecipeInformationData getRecipe(Long recipeName);
-    List<Recipe> getGroupRecipes(String groupName);
+    RecipeInformationData getRecipe(Long recipeId);
+    List<Recipe> getGroupRecipes(Long groupId);
 }

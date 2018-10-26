@@ -10,7 +10,7 @@ import static java.util.Objects.isNull;
 @Service
 public class FoodbookRecipeValidator implements Validator<RecipeRegistrationData>
 {
-    private static final String GROUP_NAME_FIELD = "groupName";
+    private static final String GROUP_ID_FIELD = "groupId";
     private static final String CREATOR_NAME_FIELD = "creatorName";
     private static final String RECIPE_NAME_FIELD = "name";
     private static final String DESCRIPTION_FIELD = "description";
@@ -27,8 +27,8 @@ public class FoodbookRecipeValidator implements Validator<RecipeRegistrationData
 
     private void validateNotNullFields(RecipeRegistrationData recipe)
     {
-        if(isNull(recipe.getGroupName()))
-            throw new InvalidRegistrationException(GROUP_NAME_FIELD, NULL_FIELD_ERROR_MESSAGE);
+        if(isNull(recipe.getGroupId()))
+            throw new InvalidRegistrationException(GROUP_ID_FIELD, NULL_FIELD_ERROR_MESSAGE);
 
         if(isNull(recipe.getCreatorName()))
             throw new InvalidRegistrationException(CREATOR_NAME_FIELD, NULL_FIELD_ERROR_MESSAGE);

@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -68,8 +66,8 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
-    public List<Recipe> getGroupRecipes(String groupName) {
-        return recipeDao.findAllByGroupName(groupName);
+    public List<Recipe> getGroupRecipes(Long groupId) {
+        return recipeDao.findAllById(groupId);
     }
 
     @Override

@@ -7,7 +7,8 @@ import lombok.Setter;
 @Setter
 public class RecipeRegistrationData
 {
-    String name, description, photo, prepareSteps, creatorName, groupName;
+    Long groupId;
+    String name, description, photo, prepareSteps, creatorName;
     CookTimeData cookTime;
     String ingredients;
     Double cookDifficulty;

@@ -16,7 +16,7 @@ import static java.util.Objects.isNull;
 public class RecipeRegistrationGroupPopulator implements Populator<RecipeRegistrationData, Recipe>
 {
     private static final String GROUP_NOT_FOUND = "Este grupo não existe";
-    private static final String GROUP_NAME_FIELD = "groupName";
+    private static final String GROUP_ID_FIELD = "groupId";
 
     @Resource
     GroupDao groupDao;
@@ -24,11 +24,11 @@ public class RecipeRegistrationGroupPopulator implements Populator<RecipeRegistr
     @Override
     public void populate(RecipeRegistrationData source, Recipe target)
     {
-        String groupName = source.getGroupName();
-        Group group = groupDao.findByName(groupName);
+        Long groupId = source.getGroupId();
+        Group group = groupDao.getOne(groupId);
 
         if(isNull(group))
-            throw new InvalidRegistrationException(GROUP_NAME_FIELD, GROUP_NOT_FOUND);
+            throw new InvalidRegistrationException(GROUP_ID_FIELD, GROUP_NOT_FOUND);
 
         target.setGroup(group);
     }

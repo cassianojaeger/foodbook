@@ -6,5 +6,5 @@ import br.ufrgs.foodbook.model.groups.Group;
 
 public interface GroupService extends GenericService<GroupRegistrationData, Group>
 {
-    GroupInformationData getGroup(Long groupName);
+    GroupInformationData getGroup(Long groupId);
 }

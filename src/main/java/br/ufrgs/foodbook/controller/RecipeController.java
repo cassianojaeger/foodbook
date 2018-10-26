@@ -39,11 +39,11 @@ public class RecipeController extends AbstractGenericController
         return recipeService.getRecipe(recipeId);
     }
 
-    @GetMapping(value = "/group/{groupName}")
+    @GetMapping(value = "/group/{groupId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Recipe> getGroupRecipes(@PathVariable("groupName") String groupName)
+    public List<Recipe> getGroupRecipes(@PathVariable("groupId") Long groupId)
     {
-        return recipeService.getGroupRecipes(groupName);
+        return recipeService.getGroupRecipes(groupId);
     }
 
     @GetMapping

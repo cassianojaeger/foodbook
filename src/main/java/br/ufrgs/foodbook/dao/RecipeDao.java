@@ -10,5 +10,5 @@ import java.util.List;
 public interface RecipeDao extends JpaRepository<Recipe, Long>
 {
     Recipe findByName(String recipeName);
-    List<Recipe> findAllByGroupName(String groupName);
+    List<Recipe> findAllById(Long groupId);
 }

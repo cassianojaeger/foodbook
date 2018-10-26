@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class MemberRequestData
 {
-    String memberName, groupName, creatorName;
+    Long groupId;
+    String memberName, creatorName;
 }
