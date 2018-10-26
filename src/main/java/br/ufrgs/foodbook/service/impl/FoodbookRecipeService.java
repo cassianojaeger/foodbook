@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
@@ -57,17 +60,25 @@ public class FoodbookRecipeService implements RecipeService
     @Override
     public RecipeInformationData getRecipe(Long recipeId)
     {
-        Recipe recipe= recipeDao.getOne(recipeId);
+        Optional<Recipe> recipe= recipeDao.findById(recipeId);
 
-        if(isNull(recipe))
+        if(!recipe.isPresent())
             throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
 
-        return recipeInformationConverter.convert(recipe);
+        return recipeInformationConverter.convert(recipe.get());
     }
 
     @Override
     public List<Recipe> getGroupRecipes(Long groupId) {
         return recipeDao.findAllById(groupId);
+    }
+
+    @Override
+    public Set<RecipeInformationData> searchRecipesByName(String recipeName)
+    {
+        List<Recipe> recipes = recipeDao.findByNameIgnoreCaseContaining(recipeName);
+
+        return recipeInformationConverter.convertAll(new HashSet<>(recipes));
     }
 
     @Override
@@ -90,7 +101,7 @@ public class FoodbookRecipeService implements RecipeService
     @Transactional
     public void update(RecipeRegistrationData recipeRegistration)
     {
-        Recipe originalRecipe = recipeDao.findByName(recipeRegistration.getName());
+        Recipe originalRecipe = recipeDao.getOne(recipeRegistration.getRecipeId());
 
         if(isNull(originalRecipe) || notRecipeOwnerRequest(recipeRegistration, originalRecipe))
         {
@@ -98,11 +109,17 @@ public class FoodbookRecipeService implements RecipeService
         }
 
         recipeValidator.validate(recipeRegistration);
-        Recipe recipe = recipeRegistrationReverseConverter.convert(recipeRegistration);
+        Recipe updatedRecipe = recipeRegistrationReverseConverter.convert(recipeRegistration);
 
-        recipe.setId(originalRecipe.getId());
+        originalRecipe.setCookTime(updatedRecipe.getCookTime());
+        originalRecipe.setName(updatedRecipe.getName());
+        originalRecipe.setDescription(updatedRecipe.getDescription());
+        originalRecipe.setCookDifficulty(updatedRecipe.getCookDifficulty());
+        originalRecipe.setIngredients(updatedRecipe.getIngredients());
+        originalRecipe.setPhoto(updatedRecipe.getPhoto());
+        originalRecipe.setPrepareSteps(updatedRecipe.getPrepareSteps());
 
-        recipeDao.save(recipe);
+        recipeDao.save(originalRecipe);
     }
 
     @Override

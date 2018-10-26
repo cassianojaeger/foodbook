@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.util.Set;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -33,9 +34,9 @@ public class GroupController
 
     @GetMapping(value = "/{groupId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public GroupInformationData getGroupInformation(@PathVariable("groupId") Long groupId)
+    public GroupInformationData getGroupInformation(@PathVariable("groupId") String groupId)
     {
-        return groupService.getGroup(groupId);
+        return groupService.getGroup(Long.valueOf(groupId));
     }
 
     @PutMapping(value = "/update")
@@ -62,5 +63,12 @@ public class GroupController
                                           @RequestParam(value = "size", defaultValue = "10", required = false) int size)
     {
         return groupService.getPaginatedData(page, size);
+    }
+
+    @GetMapping(value = "/search")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Set<GroupInformationData> searchGroups(@RequestParam(value = "name") String groupName)
+    {
+        return groupService.searchGroupsByName(groupName);
     }
 }

@@ -8,4 +8,5 @@ import lombok.Setter;
 public class GroupRegistrationData
 {
     String name, description, creatorName;
+    Long id;
 }

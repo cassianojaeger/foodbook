@@ -11,4 +11,5 @@ public interface RecipeDao extends JpaRepository<Recipe, Long>
 {
     Recipe findByName(String recipeName);
     List<Recipe> findAllById(Long groupId);
+    List<Recipe> findByNameIgnoreCaseContaining(String recipeName);
 }

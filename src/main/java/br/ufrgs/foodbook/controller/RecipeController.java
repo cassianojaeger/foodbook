@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -34,16 +35,16 @@ public class RecipeController extends AbstractGenericController
 
     @GetMapping(value = "/{recipeId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public RecipeInformationData getRecipeInformation(@PathVariable("recipeId") Long recipeId)
+    public RecipeInformationData getRecipeInformation(@PathVariable("recipeId") String recipeId)
     {
-        return recipeService.getRecipe(recipeId);
+        return recipeService.getRecipe(Long.valueOf(recipeId));
     }
 
     @GetMapping(value = "/group/{groupId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Recipe> getGroupRecipes(@PathVariable("groupId") Long groupId)
+    public List<Recipe> getGroupRecipes(@PathVariable("groupId") String groupId)
     {
-        return recipeService.getGroupRecipes(groupId);
+        return recipeService.getGroupRecipes(Long.valueOf(groupId));
     }
 
     @GetMapping
@@ -70,5 +71,12 @@ public class RecipeController extends AbstractGenericController
         recipeRemoveRequestData.setCreatorName(principal.getName());
         recipeService.remove(recipeRemoveRequestData);
         return new ResponseEntity(OK);
+    }
+
+    @GetMapping(value = "/search")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Set<RecipeInformationData> searchRecipe(@RequestParam(value = "name") String recipeName)
+    {
+        return recipeService.searchRecipesByName(recipeName);
     }
 }

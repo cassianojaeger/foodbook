@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolationException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
@@ -70,18 +74,26 @@ public class FoodbookGroupService implements GroupService
     @Override
     public GroupInformationData getGroup(Long groupId)
     {
-        Group group = groupDao.getOne(groupId);
+        Optional<Group> group = groupDao.findById(groupId);
 
-        if(isNull(group))
+        if(!group.isPresent())
             throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
 
-        return groupInformationConverter.convert(group);
+        return groupInformationConverter.convert(group.get());
+    }
+
+    @Override
+    public Set<GroupInformationData> searchGroupsByName(String groupName)
+    {
+        List<Group> groups = groupDao.findByNameIgnoreCaseContaining(groupName);
+
+        return groupInformationConverter.convertAll(new HashSet<>(groups));
     }
 
     @Override
     public void update(GroupRegistrationData groupRegistrationData)
     {
-        Group originalGroup = groupDao.findByName(groupRegistrationData.getName());
+        Group originalGroup = groupDao.getOne(groupRegistrationData.getId());
 
         if(isNull(originalGroup) || notRecipeOwnerRequest(groupRegistrationData, originalGroup))
         {
@@ -89,11 +101,11 @@ public class FoodbookGroupService implements GroupService
         }
 
         groupValidator.validate(groupRegistrationData);
-        Group group = groupRegistrationReverseConverter.convert(groupRegistrationData);
 
-        group.setId(originalGroup.getId());
+        originalGroup.setDescription(groupRegistrationData.getDescription());
+        originalGroup.setName(groupRegistrationData.getName());
 
-        groupDao.save(group);
+        groupDao.save(originalGroup);
     }
 
     @Override
