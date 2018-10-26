@@ -73,12 +73,15 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
                 }
             }
         })
-        .whenAuthenticated("/recipes/:name", {
+        .whenAuthenticated("/groups/:groupName/recipes/:recipeName", {
             templateUrl: "js/app/components/recipe/recipe.html",
             controller: "RecipeController",
             resolve: {
-                group: function (Recipeervice, $route) {
-                    return Recipeervice.get($route.current.params.name);
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.groupName);
+                },
+                recipe: function (RecipeService, $route) {
+                    return RecipeService.get($route.current.params.recipeName);
                 }
             },
             controllerAs: "vm"
@@ -95,15 +98,19 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
 
     $httpProvider.interceptors.push('AuthInterceptor');
 })
-    
+
 .factory('AuthInterceptor', function ($rootScope, $location) {
-    return {
-        response: function (response) {
-            if (response.status === 401) {
-                $rootScope.$broadcast('auth-logout');
-                $location.path('/login');
-            }
-            return response;
+
+    function redirectToHomeIfUnauthenticated(response) {
+        if (response.status === 401) {
+            $rootScope.$broadcast('auth-logout');
+            $location.path('/login');
         }
+        return response;
+    }
+
+    return {
+        response: redirectToHomeIfUnauthenticated,
+        responseError: redirectToHomeIfUnauthenticated
     };
 });

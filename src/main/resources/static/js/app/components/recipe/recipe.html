@@ -3,30 +3,30 @@
     <md-card flex="85">
         <md-card-content>
             <div layout="row" layout-align="space-between center">
-                <h1>{{vm.recipe.name}}</h1>
-                <span class="md-title">Criador: {{vm.recipe.creator}}</span>
+                <h1>{{recipe.name}}</h1>
+                <span class="md-title">Criador: {{recipe.creator.username}}</span>
             </div>
             <p class="md-subhead">
-                {{vm.recipe.description}}
+                {{recipe.description}}
             </p>
 
             <div layout="row" layout-align="start center">
-                <img flex="auto" src={{vm.recipe.photo}} height="300" width="680">
+                <img flex="auto" src={{recipe.photo}} height="300" width="680">
                 <div flex="auto">
-                    <h3>Tempo de preparo: {{vm.recipe.cookTime}}</h3>
-                    <h3>Dificuldade: {{vm.recipe.cookDifficulty}}</h3>
+
                 </div>
             </div>
 
             <div>
+                <h3>Tempo de preparo: {{recipe.cookTime.timeValue}} {{recipe.cookTime.timeType}}</h3>
+                <h3>Dificuldade: {{recipe.cookDifficulty}}</h3>
+
                 <h2>Ingredientes</h2>
-                <ul ng-repeat="i in vm.ingredients track by $index">
-                    <li>{{i}}</li>
-                </ul>
+                {{recipe.ingredients}}
 
                 <h2>Passo a passo</h2>
                 <p>
-                    {{vm.recipe.prepareSteps}}
+                    {{recipe.prepareSteps}}
                 </p>
             </div>
         </md-card-content>

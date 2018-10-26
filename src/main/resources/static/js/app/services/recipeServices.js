@@ -18,7 +18,7 @@ foodbookApp.service('RecipeService', function ($resource) {
     }
 
     function get(name) {
-        return resource.get(name).$promise;
+        return resource.getByName({name: name}).$promise;
     }
 
     function getGroupRecipes(params) {

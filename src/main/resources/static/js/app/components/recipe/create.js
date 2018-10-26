@@ -1,12 +1,8 @@
 'use strict';
 
-foodbookApp.controller('CreateRecipeController', function (group, $location, RecipeService) {
+foodbookApp.controller('CreateRecipeController', function (group, $location, RecipeService, TIME) {
     var ctrl = this;
-    ctrl.timeOptions = [
-        {code: "SECONDS", name: "Segundos"},
-        {code: "MINUTES", name: "Minutos"} ,
-        {code: "HOURS", name: "Horas"}
-    ];
+    ctrl.timeOptions = TIME;
 
     ctrl.recipe = {
         groupName: group.name,
