@@ -1,7 +1,7 @@
 package br.ufrgs.foodbook.validator.impl;
 
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
-import br.ufrgs.foodbook.exception.InvalidUserRegistrationException;
+import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.service.impl.FoodbookUserService;
 import br.ufrgs.foodbook.validator.Validator;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -40,24 +40,24 @@ public class FoodbookUserValidator implements Validator<UserRegistrationData>
     private void validateAlreadyTakenUsername(String username)
     {
         if(foodbookUserService.isUsernameAlreadyTaken(username))
-            throw new InvalidUserRegistrationException(USERNAME_FIELD, USERNAME_FIELD_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(USERNAME_FIELD, USERNAME_FIELD_ERROR_MESSAGE);
     }
 
     private void validateEmail(String email)
     {
         if(!emailValidator.isValid(email))
-            throw new InvalidUserRegistrationException(EMAIL_FIELD, EMAIL_FIELD_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(EMAIL_FIELD, EMAIL_FIELD_ERROR_MESSAGE);
     }
 
     private void validatePasswordRegex(String password)
     {
         if(!password.matches(PASSWORD_REGEX))
-            throw new InvalidUserRegistrationException(PASSWORD_FIELD, PASSWORD_FIELD_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(PASSWORD_FIELD, PASSWORD_FIELD_ERROR_MESSAGE);
     }
 
     private void validatePasswordEquality(String password, String confirmedPassword)
     {
         if(!password.equalsIgnoreCase(confirmedPassword))
-            throw new InvalidUserRegistrationException(CONFIRMED_PASSWORD_FIELD, CONFIRMED_PASSWORD_FIELD_ERROR_MESSAGE);
+            throw new InvalidRegistrationException(CONFIRMED_PASSWORD_FIELD, CONFIRMED_PASSWORD_FIELD_ERROR_MESSAGE);
     }
 }
