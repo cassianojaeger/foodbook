@@ -6,5 +6,5 @@ import br.ufrgs.foodbook.model.recipe.Recipe;
 
 public interface RecipeService extends GenericService<RecipeRegistrationData, Recipe>
 {
-    RecipeInformationData getRecipe(String recipeName);
+    RecipeInformationData getRecipe(Long recipeName);
 }

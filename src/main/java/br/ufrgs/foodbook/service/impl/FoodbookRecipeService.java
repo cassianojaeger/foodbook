@@ -54,9 +54,9 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
-    public RecipeInformationData getRecipe(String recipeName)
+    public RecipeInformationData getRecipe(Long recipeId)
     {
-        Recipe recipe= recipeDao.findByName(recipeName);
+        Recipe recipe= recipeDao.getOne(recipeId);
 
         if(isNull(recipe))
             throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);

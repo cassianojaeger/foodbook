@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 public class GroupInformationData
 {
+    Long id;
     String name, description;
     UserInformationData administrator;
     Set<UserInformationData> members;

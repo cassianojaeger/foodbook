@@ -31,11 +31,11 @@ public class GroupController
         return new ResponseEntity(CREATED);
     }
 
-    @GetMapping(value = "/{groupName}")
+    @GetMapping(value = "/{groupId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public GroupInformationData getGroupInformation(@PathVariable("groupName") String groupName)
+    public GroupInformationData getGroupInformation(@PathVariable("groupId") Long groupId)
     {
-        return groupService.getGroup(groupName);
+        return groupService.getGroup(groupId);
     }
 
     @PutMapping(value = "/update")

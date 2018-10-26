@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "GROUP_", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
+@Table(name = "GROUP_")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")

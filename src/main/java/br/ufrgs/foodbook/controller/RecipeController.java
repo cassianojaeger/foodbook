@@ -31,11 +31,11 @@ public class RecipeController extends AbstractGenericController
         return new ResponseEntity(CREATED);
     }
 
-    @GetMapping(value = "/{recipeName}")
+    @GetMapping(value = "/{recipeId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public RecipeInformationData getRecipeInformation(@PathVariable("recipeName") String recipeName)
+    public RecipeInformationData getRecipeInformation(@PathVariable("recipeId") Long recipeId)
     {
-        return recipeService.getRecipe(recipeName);
+        return recipeService.getRecipe(recipeId);
     }
 
     @GetMapping

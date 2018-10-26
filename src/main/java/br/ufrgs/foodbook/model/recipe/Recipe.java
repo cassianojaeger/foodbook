@@ -10,10 +10,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Map;
-import java.util.Set;
 
 @Entity
-@Table(name = "RECIPE", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
+@Table(name = "RECIPE")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")

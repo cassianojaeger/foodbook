@@ -68,9 +68,9 @@ public class FoodbookGroupService implements GroupService
     }
 
     @Override
-    public GroupInformationData getGroup(String groupName)
+    public GroupInformationData getGroup(Long groupId)
     {
-        Group group = groupDao.findByName(groupName);
+        Group group = groupDao.getOne(groupId);
 
         if(isNull(group))
             throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
