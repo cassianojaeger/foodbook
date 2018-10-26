@@ -31,9 +31,9 @@ public class GroupController
         return new ResponseEntity(CREATED);
     }
 
-    @GetMapping(params = {"groupName"})
+    @GetMapping(value = "/{groupName}")
     @ResponseStatus(value = HttpStatus.OK)
-    public GroupInformationData getGroupInformation(@RequestParam("groupName") String groupName)
+    public GroupInformationData getGroupInformation(@PathVariable("groupName") String groupName)
     {
         return groupService.getGroup(groupName);
     }
@@ -56,9 +56,10 @@ public class GroupController
         return new ResponseEntity(OK);
     }
 
-    @GetMapping(params = {"page","size"})
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Page<Group> getGroupsPaginated(@RequestParam("page") int page, @RequestParam("size") int size)
+    public Page<Group> getGroupsPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                          @RequestParam(value = "size", defaultValue = "10", required = false) int size)
     {
         return groupService.getPaginatedData(page, size);
     }

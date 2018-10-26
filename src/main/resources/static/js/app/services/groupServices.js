@@ -1,44 +1,28 @@
 'use strict';
 
-foodbookApp.service('GroupService', function ($q) {
+foodbookApp.service('GroupService', function ($q, $resource) {
+    var resource = $resource('/secured/group/:name', {}, {
+        create: {method: "POST"},
+        get: {method: "GET"},
+        getByName: {method: "GET", params: {name: "@name"}}
+    });
+
     var service = this;
+
 
     service.getUserGroups = getUserGroups;
     service.get = get;
     service.create = create;
 
     function getUserGroups(params) {
-        return $q(function (resolve, reject) {
-             resolve([
-                {id : 1, name: "Vegans group", description: "This is a group for vegans"},
-                {id : 2, name: "Meat group", description: "This is a group for meat lovers"},
-                {id : 2, name: "Carb group", description: "For all pizza lovers"}
-            ]);
-        });
+        return resource.get(params).$promise;
     }
 
-    function get(groupId) {
-        return $q(function (resolve, reject) {
-            resolve(
-                {
-                    id : groupId,
-                    name: "Carne",
-                    description: "This is the default app group",
-                    admin: {
-                        name: "Pimenta"
-                    }
-                }
-            );
-        });
+    function get(name) {
+        return resource.getByName({name: name}).$promise;
     }
 
     function create(group) {
-        return $q(function (resolve, reject) {
-            resolve(
-                {
-                    group : group
-                }
-            );
-        });
+        return resource.create(group).$promise;
     }
 });

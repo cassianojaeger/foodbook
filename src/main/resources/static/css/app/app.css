@@ -130,3 +130,24 @@ lib-constants { //já que CSS é lixo
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
+
+.difficulty-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    order: 1;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+    padding-left: 3px;
+    padding-right: 0;
+    z-index: 1;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: auto;
+    color: rgba(0,0,0,0.38);
+    top: -50px;
+}

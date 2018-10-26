@@ -1,6 +1,34 @@
 <topbar></topbar>
 <div layout-fill layout="row" layout-align="center none">
     <md-card flex="85">
+        <md-card-content>
+            <div layout="row" layout-align="space-between center">
+                <h1>{{recipe.name}}</h1>
+                <span class="md-title">Criador: {{recipe.creator.username}}</span>
+            </div>
+            <p class="md-subhead">
+                {{recipe.description}}
+            </p>
 
+            <div layout="row" layout-align="start center">
+                <img flex="auto" src={{recipe.photo}} height="300" width="680">
+                <div flex="auto">
+
+                </div>
+            </div>
+
+            <div>
+                <h3>Tempo de preparo: {{recipe.cookTime.timeValue}} {{recipe.cookTime.timeType}}</h3>
+                <h3>Dificuldade: {{recipe.cookDifficulty}}</h3>
+
+                <h2>Ingredientes</h2>
+                {{recipe.ingredients}}
+
+                <h2>Passo a passo</h2>
+                <p>
+                    {{recipe.prepareSteps}}
+                </p>
+            </div>
+        </md-card-content>
     </md-card>
 </div>

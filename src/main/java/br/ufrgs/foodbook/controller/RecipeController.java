@@ -31,16 +31,17 @@ public class RecipeController extends AbstractGenericController
         return new ResponseEntity(CREATED);
     }
 
-    @GetMapping(params = {"recipeName"})
+    @GetMapping(value = "/{recipeName}")
     @ResponseStatus(value = HttpStatus.OK)
-    public RecipeInformationData getRecipeInformation(@RequestParam("recipeName") String recipeName)
+    public RecipeInformationData getRecipeInformation(@PathVariable("recipeName") String recipeName)
     {
         return recipeService.getRecipe(recipeName);
     }
 
-    @GetMapping(params = {"page","size"})
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Page<Recipe> getRecipesPaginated(@RequestParam("page") int page, @RequestParam("size") int size)
+    public Page<Recipe> getRecipesPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                            @RequestParam(value = "size", defaultValue = "10", required = false) int size)
     {
         return recipeService.getPaginatedData(page, size);
     }

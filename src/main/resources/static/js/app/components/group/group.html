@@ -4,7 +4,7 @@
         <md-card-content>
             <div layout="row" layout-align="space-between center">
                 <h1>{{vm.group.name}}</h1>
-                <span class="md-title">Administrador: {{vm.group.admin.name}}</span>
+                <span class="md-title">Administrador: {{vm.group.administrator.username}}</span>
             </div>
             <p class="md-subhead">
                 {{vm.group.description}}
@@ -13,6 +13,12 @@
 
             <div>
                 <h1>Receitas do grupo</h1>
+                <recipeList></recipeList>
+
+                <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.name}}/recipe/create">
+                    <i class="material-icons" style="color:#fff;">add</i>
+                    Criar receita
+                </md-button>
             </div>
 
             <div>

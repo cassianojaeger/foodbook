@@ -6,7 +6,8 @@ var foodbookApp = angular.module('Foodbook',
         'ngMessages',
         'ngResource',
         'ngStorage',
-        'ngRoute'
+        'ngRoute',
+        'jkAngularRatingStars'
     ]);
 var httpHeaders;
 
@@ -52,30 +53,37 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controller: "CreateGroupController",
             controllerAs: "vm"
         })
-        .whenAuthenticated("/groups/:id", {
+        .whenAuthenticated("/groups/:name", {
             templateUrl: "js/app/components/group/group.html",
             controller: "GroupController",
             resolve: {
                 group: function (GroupService, $route) {
-                    return GroupService.get($route.current.params.id);
+                    return GroupService.get($route.current.params.name);
                 }
             },
             controllerAs: "vm"
         })
-        .whenAuthenticated("/recipe/create", {
+        .whenAuthenticated("/groups/:name/recipe/create", {
             templateUrl: "js/app/components/recipe/create.html",
             controller: "CreateRecipeController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.name);
+                }
+            }
         })
-        .whenAuthenticated("/recipes/:id", {
+        .whenAuthenticated("/groups/:groupName/recipes/:recipeName", {
             templateUrl: "js/app/components/recipe/recipe.html",
             controller: "RecipeController",
-            //TODO:
-            // resolve: {
-            //     group: function (Recipeervice, $route) {
-            //         return Recipeervice.get($route.current.params.id);
-            //     }
-            // },
+            resolve: {
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.groupName);
+                },
+                recipe: function (RecipeService, $route) {
+                    return RecipeService.get($route.current.params.recipeName);
+                }
+            },
             controllerAs: "vm"
         });
 
@@ -87,4 +95,22 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('red')
         .accentPalette('orange');
+
+    $httpProvider.interceptors.push('AuthInterceptor');
+})
+
+.factory('AuthInterceptor', function ($rootScope, $location) {
+
+    function redirectToHomeIfUnauthenticated(response) {
+        if (response.status === 401) {
+            $rootScope.$broadcast('auth-logout');
+            $location.path('/login');
+        }
+        return response;
+    }
+
+    return {
+        response: redirectToHomeIfUnauthenticated,
+        responseError: redirectToHomeIfUnauthenticated
+    };
 });
