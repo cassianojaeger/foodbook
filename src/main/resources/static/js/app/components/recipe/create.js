@@ -13,7 +13,7 @@ foodbookApp.controller('CreateRecipeController', function (group, $location, Rec
         cookDifficulty: 0,
         cookTime: {
             timeType: "MINUTES",
-            timeValue: "3"
+            timeValue: 1
         }
     };
 

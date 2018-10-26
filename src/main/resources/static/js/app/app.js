@@ -93,4 +93,18 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('red')
         .accentPalette('orange');
+
+    $httpProvider.interceptors.push('AuthInterceptor');
+})
+    
+.factory('AuthInterceptor', function ($rootScope, $location) {
+    return {
+        response: function (response) {
+            if (response.status === 401) {
+                $rootScope.$broadcast('auth-logout');
+                $location.path('/login');
+            }
+            return response;
+        }
+    };
 });
