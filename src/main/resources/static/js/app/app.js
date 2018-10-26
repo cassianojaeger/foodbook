@@ -59,6 +59,9 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             resolve: {
                 group: function (GroupService, $route) {
                     return GroupService.get($route.current.params.name);
+                },
+                recipes: function (RecipeService, $route) {
+                    return RecipeService.getGroupRecipes($route.current.params.name);
                 }
             },
             controllerAs: "vm"

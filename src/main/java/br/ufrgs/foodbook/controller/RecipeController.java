@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -36,6 +37,13 @@ public class RecipeController extends AbstractGenericController
     public RecipeInformationData getRecipeInformation(@PathVariable("recipeName") String recipeName)
     {
         return recipeService.getRecipe(recipeName);
+    }
+
+    @GetMapping(value = "/group/{groupName}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Recipe> getGroupRecipes(@PathVariable("groupName") String groupName)
+    {
+        return recipeService.getGroupRecipes(groupName);
     }
 
     @GetMapping
