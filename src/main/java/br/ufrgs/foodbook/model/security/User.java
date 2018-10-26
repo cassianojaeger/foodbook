@@ -2,6 +2,7 @@ package br.ufrgs.foodbook.model.security;
 
 import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.model.recipe.Recipe;
+import br.ufrgs.foodbook.model.recipe.RecipeFeedback;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -58,6 +58,11 @@ public class User implements UserDetails, Serializable {
     @OrderBy
     @JsonIgnore
     private Set<Recipe> ownedRecipes;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OrderBy
+    @JsonIgnore
+    private Set<RecipeFeedback> recipesFeedbacks;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USERS_AUTHORITIES",

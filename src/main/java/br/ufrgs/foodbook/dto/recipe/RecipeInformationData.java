@@ -14,5 +14,5 @@ public class RecipeInformationData
     UserInformationData creator;
     CookTimeData cookTime;
     String ingredients;
-    Double cookDifficulty;
+    Integer cookDifficulty;
 }

@@ -3,6 +3,7 @@ package br.ufrgs.foodbook.model.recipe;
 import br.ufrgs.foodbook.model.enums.TimeType;
 import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.model.security.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "RECIPE")
@@ -52,10 +54,15 @@ public class Recipe
     @MapKeyEnumerated(EnumType.STRING)
     private Map<TimeType, Integer> cookTime;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @OrderBy
+    @JsonIgnore
+    private Set<RecipeFeedback> recipeFeedbacks;
+
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String ingredients;
 
     @Column(name = "COOK_DIFFICULTY")
-    private Double cookDifficulty;
+    private Integer cookDifficulty;
 }
