@@ -3,11 +3,11 @@
         md-row-height-gt-md="1:1" md-row-height="2:2"
         md-gutter="12px" md-gutter-gt-sm="8px" >
 
-    <md-grid-tile class="group" ng-repeat="group in vm.groups" ng-click="vm.goToGroup(group.name)">
+    <md-grid-tile class="group" ng-repeat="recipe in recipes" ng-click="vm.goToRecipe(recipe.name)">
         <md-grid-tile-header>
             <h3>{{recipe.name}}</h3>
         </md-grid-tile-header>
-        <img flex="auto" src={{vm.recipe.photo}} height="20" width="44">
+        <img flex="auto" src={{recipe.photo}} height="20" width="44">
         <md-grid-tile-footer>
             <h4>{{recipe.description}}</h4>
         </md-grid-tile-footer>

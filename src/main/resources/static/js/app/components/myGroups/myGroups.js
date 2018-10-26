@@ -4,7 +4,8 @@ foodbookApp.directive('myGroups', function (GroupService, $location) {
     return {
         templateUrl: "js/app/components/myGroups/myGroups.html",
         controller: ControllerFn,
-        controllerAs: "vm"
+        controllerAs: "vm",
+        scope: {}
     };
 
     function ControllerFn() {
