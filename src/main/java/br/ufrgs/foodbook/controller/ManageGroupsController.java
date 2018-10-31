@@ -13,7 +13,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/secured/manage/group")
-public class ManageGroupsController
+public class ManageGroupsController extends AbstractGenericController
 {
     @Resource
     ManageGroupService manageGroupService;

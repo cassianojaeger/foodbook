@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/secured/group")
-public class GroupController
+public class GroupController extends AbstractGenericController
 {
     @Resource
     GroupService groupService;

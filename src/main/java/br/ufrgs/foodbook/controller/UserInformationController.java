@@ -13,7 +13,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/secured/user")
-public class UserInformationController
+public class UserInformationController extends AbstractGenericController
 {
     @Resource
     private UserService userService;
