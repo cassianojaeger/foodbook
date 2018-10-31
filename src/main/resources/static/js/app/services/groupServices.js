@@ -1,10 +1,10 @@
 'use strict';
 
 foodbookApp.service('GroupService', function ($q, $resource) {
-    var resource = $resource('/secured/group/:name', {}, {
+    var resource = $resource('/secured/group/:id', {}, {
         create: {method: "POST"},
         get: {method: "GET"},
-        getByName: {method: "GET", params: {name: "@name"}}
+        getById: {method: "GET", params: {name: "@id"}}
     });
 
     var service = this;
@@ -18,8 +18,8 @@ foodbookApp.service('GroupService', function ($q, $resource) {
         return resource.get(params).$promise;
     }
 
-    function get(name) {
-        return resource.getByName({name: name}).$promise;
+    function get(id) {
+        return resource.getById({id: id}).$promise;
     }
 
     function create(group) {

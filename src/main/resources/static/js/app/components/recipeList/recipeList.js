@@ -15,7 +15,7 @@ foodbookApp.directive('recipeList', function () {
         vm.goToRecipe = goToRecipe;
 
         function goToRecipe(recipe) {
-            $location.path("/groups/" + recipe.group.name + "/recipes/" + recipe.name);
+            $location.path("/groups/" + recipe.group.id + "/recipes/" + recipe.id);
         }
     }
 });

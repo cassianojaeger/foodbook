@@ -53,26 +53,26 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controller: "CreateGroupController",
             controllerAs: "vm"
         })
-        .whenAuthenticated("/groups/:name", {
+        .whenAuthenticated("/groups/:id", {
             templateUrl: "js/app/components/group/group.html",
             controller: "GroupController",
             resolve: {
                 group: function (GroupService, $route) {
-                    return GroupService.get($route.current.params.name);
+                    return GroupService.get($route.current.params.id);
                 },
                 recipes: function (RecipeService, $route) {
-                    return RecipeService.getGroupRecipes($route.current.params.name);
+                    return RecipeService.getGroupRecipes($route.current.params.id);
                 }
             },
             controllerAs: "vm"
         })
-        .whenAuthenticated("/groups/:name/recipe/create", {
+        .whenAuthenticated("/groups/:id/recipe/create", {
             templateUrl: "js/app/components/recipe/create.html",
             controller: "CreateRecipeController",
             controllerAs: "vm",
             resolve: {
                 group: function (GroupService, $route) {
-                    return GroupService.get($route.current.params.name);
+                    return GroupService.get($route.current.params.id);
                 }
             }
         })
