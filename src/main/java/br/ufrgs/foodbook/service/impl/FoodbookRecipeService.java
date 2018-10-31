@@ -15,21 +15,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import static java.util.Objects.isNull;
-
 @Service
 public class FoodbookRecipeService implements RecipeService
 {
-    private static final String RECIPE_NAME_FIELD = "name";
-    private static final String RECIPE_NAME_ERROR_MESSAGE = "Nome de receita ja existente!";
     private static final String GENERAL_ERROR_FIELD_NAME = "GENERAL_ERROR";
     private static final String GENERAL_ERROR_MESSAGE = "Você não tem permissão para modificar esta receita ou ela é inválida!";
     private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar as receitas, tente novamente!";
@@ -44,7 +38,6 @@ public class FoodbookRecipeService implements RecipeService
     private FoodbookRecipeValidator recipeValidator;
 
     @Override
-    @Transactional
     public Page<Recipe> getPaginatedData(int page, int size)
     {
         Page<Recipe> resultPage = recipeDao.findAll(PageRequest.of(page, size));
@@ -82,34 +75,28 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
-    @Transactional
     public void create(RecipeRegistrationData recipeRegistration)
     {
         recipeValidator.validate(recipeRegistration);
         Recipe recipe = recipeRegistrationReverseConverter.convert(recipeRegistration);
 
-        try {
-            recipeDao.save(recipe);
-        }
-        catch (ConstraintViolationException e)
-        {
-            throw new InvalidRegistrationException(RECIPE_NAME_FIELD, RECIPE_NAME_ERROR_MESSAGE);
-        }
+        recipeDao.save(recipe);
     }
 
     @Override
-    @Transactional
     public void update(RecipeRegistrationData recipeRegistration)
     {
-        Recipe originalRecipe = recipeDao.getOne(recipeRegistration.getRecipeId());
+        Optional<Recipe> optionalOriginalRecipe = recipeDao.findById(recipeRegistration.getRecipeId());
 
-        if(isNull(originalRecipe) || notRecipeOwnerRequest(recipeRegistration, originalRecipe))
+        if(!optionalOriginalRecipe.isPresent() || notRecipeOwnerRequest(recipeRegistration, optionalOriginalRecipe.get()))
         {
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
         }
 
         recipeValidator.validate(recipeRegistration);
         Recipe updatedRecipe = recipeRegistrationReverseConverter.convert(recipeRegistration);
+
+        Recipe originalRecipe = optionalOriginalRecipe.get();
 
         originalRecipe.setCookTime(updatedRecipe.getCookTime());
         originalRecipe.setName(updatedRecipe.getName());
@@ -123,17 +110,16 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
-    @Transactional
     public void remove(RecipeRegistrationData recipeRegistration)
     {
-        Recipe originalRecipe = recipeDao.findByName(recipeRegistration.getName());
+        Optional<Recipe> optionalOriginalRecipe = recipeDao.findById(recipeRegistration.getRecipeId());
 
-        if(isNull(originalRecipe) || notRecipeOwnerRequest(recipeRegistration, originalRecipe))
+        if(!optionalOriginalRecipe.isPresent() || notRecipeOwnerRequest(recipeRegistration, optionalOriginalRecipe.get()))
         {
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
         }
 
-        recipeDao.delete(originalRecipe);
+        recipeDao.delete(optionalOriginalRecipe.get());
     }
 
     private boolean notRecipeOwnerRequest(RecipeRegistrationData recipeRegistration, Recipe originalRecipe)

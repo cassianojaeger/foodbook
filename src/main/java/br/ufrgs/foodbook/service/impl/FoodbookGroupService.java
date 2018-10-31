@@ -31,7 +31,6 @@ public class FoodbookGroupService implements GroupService
     private static final String GROUP_NAME_ERROR_MESSAGE = "Nome de grupo ja existente!";
     private static final String GENERAL_ERROR_FIELD_NAME = "GENERAL_ERROR";
     private static final String GENERAL_ERROR_MESSAGE = "Você não tem permissão para modificar este grupo ou ele é inválido!";
-    private static final String MEMBER_NOT_FOUND_MESSAGE = "Não foi possível localizar o membro ou o grupo designado";
     private static final String RESOURCE_SEARCH_ERROR_MESSAGE = "Erro ao buscar o(s) grupo(s), tente novamente!";
 
     @Resource
