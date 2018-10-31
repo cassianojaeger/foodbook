@@ -35,7 +35,7 @@ public class RecipeFeedback
     @ElementCollection
     @MapKeyColumn(name = "TIME_TYPE")
     @MapKeyEnumerated(EnumType.STRING)
-    private Map<TimeType, Integer> cookTime;
+    private Map<TimeType, Double> cookTime;
 
     @Column(name = "COOK_TASTYNESS")
     private Integer cookTastyness;
