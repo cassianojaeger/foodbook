@@ -54,6 +54,6 @@ public class FoodbookManageGroupService implements ManageGroupService
 
     private boolean validMemberRequest(MemberRequestData newMemberRequest, User member, Group group)
     {
-        return nonNull(member) || nonNull(group) || member.getUsername().equals(newMemberRequest.getCreatorName());
+        return nonNull(group) || (nonNull(member) ? member.getUsername().equals(newMemberRequest.getCreatorName()) : false);
     }
 }
