@@ -1,7 +1,8 @@
 <topbar></topbar>
 <div layout-fill layout="row" layout-align="center none">
     <md-card flex="85" class="create-recipe-form">
-        <h1 class="text-center">Crie uma receita!</h1>
+        <h1 class="text-center" ng-if="!vm.recipe.id">Crie uma receita!</h1>
+        <h1 class="text-center" ng-if="vm.recipe.id">Edite a receita</h1>
 
         <md-input-container class="login-md-input-container">
             <label>Nome</label>
@@ -61,7 +62,7 @@
                 <i class="material-icons" style="color:#fff;">navigate_before</i>
                 Voltar
             </md-button>
-            <md-button  class="green-md-button register-md-button" ng-click="vm.createRecipe(vm.recipe)">
+            <md-button  class="green-md-button register-md-button" ng-click="vm.saveRecipe(vm.recipe)">
                 Criar receita
                 <i class="material-icons" style="color:#fff;">navigate_next</i>
             </md-button>

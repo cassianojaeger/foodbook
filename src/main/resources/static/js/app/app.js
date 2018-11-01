@@ -82,24 +82,47 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controllerAs: "vm"
         })
         .whenAuthenticated("/groups/:id/recipe/create", {
-            templateUrl: "js/app/components/recipe/create.html",
-            controller: "CreateRecipeController",
+            templateUrl: "js/app/components/recipe/form.html",
+            controller: "RecipeFormController",
             controllerAs: "vm",
             resolve: {
                 group: function (GroupService, $route) {
                     return GroupService.get($route.current.params.id);
+                },
+                recipe: function ($q) {
+                    return $q.resolve(
+                        {
+                            cookDifficulty: 0,
+                            cookTime: {
+                                timeType: "MINUTES",
+                                timeValue: 1
+                            }
+                        });
                 }
             }
         })
-        .whenAuthenticated("/groups/:groupName/recipes/:recipeName", {
+        .whenAuthenticated("/groups/:groupId/recipe/:recipeId/edit", {
+            templateUrl: "js/app/components/recipe/form.html",
+            controller: "RecipeFormController",
+            controllerAs: "vm",
+            resolve: {
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.groupId);
+                },
+                recipe: function (RecipeService, $route) {
+                    return RecipeService.get($route.current.params.recipeId);
+                }
+            }
+        })
+        .whenAuthenticated("/groups/:groupId/recipes/:recipeId", {
             templateUrl: "js/app/components/recipe/recipe.html",
             controller: "RecipeController",
             resolve: {
                 group: function (GroupService, $route) {
-                    return GroupService.get($route.current.params.groupName);
+                    return GroupService.get($route.current.params.groupId);
                 },
                 recipe: function (RecipeService, $route) {
-                    return RecipeService.get($route.current.params.recipeName);
+                    return RecipeService.get($route.current.params.recipeId);
                 }
             },
             controllerAs: "vm"

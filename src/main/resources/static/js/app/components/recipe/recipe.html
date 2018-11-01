@@ -2,6 +2,10 @@
 <div layout-fill layout="row" layout-align="center none">
     <md-card flex="85">
         <md-card-content>
+            <md-button class="green-md-button register-md-button" href="#!/groups/{{group.id}}/recipe/{{recipe.id}}/edit">
+                Editar receita
+            </md-button>
+
             <div layout="row" layout-align="space-between center">
                 <h1>{{recipe.name}}</h1>
                 <span class="md-title">Criador: {{recipe.creator.username}}</span>
