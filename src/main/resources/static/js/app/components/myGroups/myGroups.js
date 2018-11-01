@@ -16,8 +16,8 @@ foodbookApp.directive('myGroups', function (GroupService, $location) {
             vm.groups = response.content;
         });
 
-        function goToGroup(name) {
-            $location.path("/groups/" + name);
+        function goToGroup(id) {
+            $location.path("/groups/" + id);
         }
     }
 });

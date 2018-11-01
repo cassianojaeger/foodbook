@@ -2,6 +2,11 @@
 <div layout-fill layout="row" layout-align="center none">
     <md-card flex="85">
         <md-card-content>
+            <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/edit">
+                <!--<i class="material-icons" style="color:#fff;">add</i>-->
+                Editar grupo
+            </md-button>
+
             <div layout="row" layout-align="space-between center">
                 <h1>{{vm.group.name}}</h1>
                 <span class="md-title">Administrador: {{vm.group.administrator.username}}</span>

@@ -49,9 +49,24 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controllerAs: "vm"
         })
         .whenAuthenticated("/group/create", {
-            templateUrl: "js/app/components/group/create.html",
-            controller: "CreateGroupController",
-            controllerAs: "vm"
+            templateUrl: "js/app/components/group/form.html",
+            controller: "GroupFormController",
+            controllerAs: "vm",
+            resolve: {
+                group: function ($q) {
+                    return $q.resolve({name: "", description: ""});
+                }
+            }
+        })
+        .whenAuthenticated("/groups/:id/edit", {
+            templateUrl: "js/app/components/group/form.html",
+            controller: "GroupFormController",
+            controllerAs: "vm",
+            resolve: {
+                group: function (GroupService, $route) {
+                    return GroupService.get($route.current.params.id);
+                }
+            }
         })
         .whenAuthenticated("/groups/:id", {
             templateUrl: "js/app/components/group/group.html",

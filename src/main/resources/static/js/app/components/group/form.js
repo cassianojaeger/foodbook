@@ -1,22 +1,24 @@
 'use strict';
 
-foodbookApp.controller('CreateGroupController', function (GroupService, $location) {
+foodbookApp.controller('GroupFormController', function (group, GroupService, $location) {
     var ctrl = this;
 
     ctrl.goBack = goBack;
-    ctrl.createGroup = createGroup;
+    ctrl.saveGroup = saveGroup;
+    ctrl.group = group;
+    ctrl.newGroup = !!group.id;
 
     function goBack() {
         $location.path("/home");
     }
 
-    function createGroup(group) {
+    function saveGroup(group) {
         clearMessages();
         if (isFieldsFilled(group)) {
             GroupService
                 .create(group)
                 .then(function () {
-                    ctrl.message = "Grupo " + group.name + " criado com sucesso!";
+                    ctrl.message = "Grupo " + group.name + " salvo com sucesso!";
                 })
                 .catch(function (reason) {
                     ctrl.error = reason.data;

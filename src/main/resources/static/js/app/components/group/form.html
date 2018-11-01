@@ -1,16 +1,17 @@
 <topbar></topbar>
 <div layout-fill layout="row" layout-align="center none">
     <md-card flex="85">
-        <h1 class="text-center">Crie um grupo!</h1>
+        <h1 class="text-center" ng-if="!vm.group.id">Crie um grupo!</h1>
+        <h1 class="text-center" ng-if="vm.group.id">Editar grupo</h1>
 
         <md-input-container class="login-md-input-container">
             <label>Nome</label>
-            <input type="text" ng-model="group.name">
+            <input type="text" ng-model="vm.group.name">
         </md-input-container>
 
         <md-input-container class="login-md-input-container">
             <label>Descrição</label>
-            <input type="text" ng-model="group.description">
+            <input type="text" ng-model="vm.group.description">
         </md-input-container>
 
         <div ng-if="vm.message" class="success-message text-center">
@@ -26,8 +27,8 @@
                 <i class="material-icons" style="color:#fff;">navigate_before</i>
                 Voltar
             </md-button>
-            <md-button  class="green-md-button register-md-button" ng-click="vm.createGroup(group)">
-                Criar grupo
+            <md-button  class="green-md-button register-md-button" ng-click="vm.saveGroup(vm.group)">
+                Salvar
                 <i class="material-icons" style="color:#fff;">navigate_next</i>
             </md-button>
         </md-card-actions>
