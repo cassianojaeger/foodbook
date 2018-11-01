@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 public class FoodbookManageGroupService implements ManageGroupService
@@ -54,6 +54,6 @@ public class FoodbookManageGroupService implements ManageGroupService
 
     private boolean validMemberRequest(MemberRequestData newMemberRequest, User member, Group group)
     {
-        return isNull(member) || isNull(group) || !member.getUsername().equals(newMemberRequest.getCreatorName());
+        return nonNull(member) || nonNull(group) || member.getUsername().equals(newMemberRequest.getCreatorName());
     }
 }
