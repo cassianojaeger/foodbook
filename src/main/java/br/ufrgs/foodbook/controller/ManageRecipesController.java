@@ -31,7 +31,7 @@ public class ManageRecipesController extends AbstractGenericController
         return new ResponseEntity(CREATED);
     }
 
-    @PostMapping(value = "/{recipeId}/updateFeedback")
+    @PutMapping(value = "/{recipeId}/updateFeedback")
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity updateFeedback(@RequestBody RecipeFeedbackRegistrationData recipeFeedbackRegistrationData,
                                            @PathVariable("recipeId") String recipeId, Principal principal)
