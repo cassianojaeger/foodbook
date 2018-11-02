@@ -6,10 +6,10 @@ foodbookApp.service('UserService', function ($resource) {
     });
     var service = this;
 
-    service.getUser = getUser;
+    service.getLoggedUser = getLoggedUser;
     service.createUser = createUser;
 
-    function getUser() {
+    function getLoggedUser() {
         return resource.get().$promise;
     }
 

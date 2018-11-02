@@ -14,11 +14,12 @@ var httpHeaders;
 foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
     $routeProvider.whenAuthenticated = function(path, route){
         route.resolve || (route.resolve = {});
-        route.resolve.user = function ($location, AuthenticationService) {
+        route.resolve.user = function ($location, AuthenticationService, UserService) {
             if (!AuthenticationService.isUserAuthenticated()) {
                 AuthenticationService.logout();
                 $location.path("/login");
             }
+            return UserService.getLoggedUser();
         };
         return $routeProvider.when(path, route);
     };

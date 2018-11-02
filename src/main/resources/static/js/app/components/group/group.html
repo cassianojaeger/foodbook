@@ -1,8 +1,8 @@
 <topbar></topbar>
-<div layout-fill layout="row" layout-align="center none">
+<div  layout="row" layout-align="center none">
     <md-card flex="85">
         <md-card-content>
-            <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/edit">
+            <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/edit" ng-if="vm.isGroupOwner">
                 Editar grupo
             </md-button>
 
@@ -19,7 +19,7 @@
                 <h1>Receitas do grupo</h1>
                 <recipe-list recipes="vm.recipes"></recipe-list>
 
-                <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/recipe/create">
+                <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/recipe/create" ng-if="vm.isGroupMember">
                     <i class="material-icons" style="color:#fff;">add</i>
                     Criar receita
                 </md-button>
@@ -27,6 +27,11 @@
 
             <div>
                 <h1>Usuários do grupo</h1>
+
+                <md-button class="green-md-button register-md-button" ng-click="vm.enterGroup(vm.user, vm.group)" ng-if="!vm.isGroupMember">
+                    <i class="material-icons" style="color:#fff;">add</i>
+                    Participar do grupo
+                </md-button>
             </div>
         </md-card-content>
     </md-card>
