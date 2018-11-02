@@ -1,6 +1,7 @@
 package br.ufrgs.foodbook.service.impl;
 
 import br.ufrgs.foodbook.dao.RecipeDao;
+import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
@@ -30,6 +31,8 @@ public class FoodbookRecipeService implements RecipeService
 
     @Resource
     RecipeDao recipeDao;
+    @Resource
+    UserDao userDao;
     @Resource
     private AbstractGenericConverter<RecipeRegistrationData, Recipe> recipeRegistrationReverseConverter;
     @Resource
@@ -106,7 +109,7 @@ public class FoodbookRecipeService implements RecipeService
         originalRecipe.setPhoto(updatedRecipe.getPhoto());
         originalRecipe.setPrepareSteps(updatedRecipe.getPrepareSteps());
 
-        recipeDao.save(originalRecipe);
+        userDao.save(originalRecipe.getCreator());
     }
 
     @Override

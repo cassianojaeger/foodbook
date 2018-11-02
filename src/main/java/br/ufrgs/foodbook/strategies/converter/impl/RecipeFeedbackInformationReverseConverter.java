@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class RecipeFeedbackInformationReverseConverter extends AbstractGenericConverter<List<RecipeFeedback>, RecipeFeedbackInformationData>
+public class RecipeFeedbackInformationReverseConverter extends AbstractGenericConverter<Set<RecipeFeedback>, RecipeFeedbackInformationData>
 {
     public RecipeFeedbackInformationReverseConverter()
     {
@@ -18,14 +19,14 @@ public class RecipeFeedbackInformationReverseConverter extends AbstractGenericCo
     }
 
     @Override
-    protected List<Populator<List<RecipeFeedback>, RecipeFeedbackInformationData>> getPopulators()
+    protected List<Populator<Set<RecipeFeedback>, RecipeFeedbackInformationData>> getPopulators()
     {
         return this.populators;
     }
 
     @Autowired(required = false)
     @Override
-    protected void setPopulators(List<Populator<List<RecipeFeedback>, RecipeFeedbackInformationData>> populators)
+    protected void setPopulators(List<Populator<Set<RecipeFeedback>, RecipeFeedbackInformationData>> populators)
     {
         this.populators = populators;
     }

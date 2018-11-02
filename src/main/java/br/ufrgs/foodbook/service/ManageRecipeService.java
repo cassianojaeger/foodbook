@@ -8,4 +8,10 @@ public interface ManageRecipeService
     void registerFeedback(RecipeFeedbackRegistrationData recipeFeedbackRegistrationData);
 
     RecipeFeedbackInformationData getRecipeFeedbackAverageValues(Long recipeId);
+
+    void addRecipeToFavorite(Long recipeId, String username);
+
+    void removeRecipeFromFavorite(Long valueOf, String name);
+
+    void updateFeedback(RecipeFeedbackRegistrationData recipeFeedbackRegistrationData);
 }
