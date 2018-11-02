@@ -29,8 +29,11 @@
                 <h1>Usuários do grupo</h1>
 
                 <md-button class="green-md-button register-md-button" ng-click="vm.enterGroup(vm.user, vm.group)" ng-if="!vm.isGroupMember">
-                    <i class="material-icons" style="color:#fff;">add</i>
-                    Participar do grupo
+                    Participar
+                </md-button>
+
+                <md-button class="red-md-button register-md-button" ng-click="vm.leaveGroup(vm.user, vm.group)" ng-if="vm.isGroupMember">
+                    Sair do grupo
                 </md-button>
             </div>
         </md-card-content>

@@ -5,7 +5,8 @@ foodbookApp.service('GroupService', function ($q, $resource) {
         create: {method: "POST"},
         get: {method: "GET"},
         getById: {method: "GET", params: {name: "@id"}},
-        addMember: {url: "/secured/manage/group/addMember", method: "POST"}
+        addMember: {url: "/secured/manage/group/addMember", method: "POST"},
+        removeMember: {url: "/secured/manage/group/removeMember", method: "POST"}
     });
 
     var service = this;
@@ -15,6 +16,7 @@ foodbookApp.service('GroupService', function ($q, $resource) {
     service.get = get;
     service.create = create;
     service.addMember = addMember;
+    service.removeMember = removeMember;
 
     function getUserGroups(params) {
         return resource.get(params).$promise;
@@ -30,5 +32,9 @@ foodbookApp.service('GroupService', function ($q, $resource) {
 
     function addMember(request) {
         return resource.addMember(request).$promise;
+    }
+
+    function removeMember(request) {
+        return resource.removeMember(request).$promise;
     }
 });

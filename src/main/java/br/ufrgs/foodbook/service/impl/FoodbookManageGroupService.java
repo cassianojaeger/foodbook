@@ -44,7 +44,7 @@ public class FoodbookManageGroupService implements ManageGroupService
         User removedMember = userDao.findByUsername(newMemberRequest.getMemberName());
         Group group = groupDao.getOne(newMemberRequest.getGroupId());
 
-        if(validMemberRequest(newMemberRequest, removedMember, group))
+        if(!validMemberRequest(newMemberRequest, removedMember, group))
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, MEMBER_NOT_FOUND_MESSAGE);
 
         group.getMembers().remove(removedMember);
