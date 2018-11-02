@@ -10,8 +10,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "RECIPE")
@@ -54,10 +54,10 @@ public class Recipe
     @MapKeyEnumerated(EnumType.STRING)
     private Map<TimeType, Double> cookTime;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
     @OrderBy
     @JsonIgnore
-    private List<RecipeFeedback> recipeFeedbacks;
+    private Set<RecipeFeedback> recipeFeedbacks;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")

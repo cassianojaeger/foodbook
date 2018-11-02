@@ -13,4 +13,5 @@ public interface RecipeFeedbackDao extends JpaRepository<RecipeFeedback, Long>
 {
     List<RecipeFeedback> findAllByUser(User user);
     List<RecipeFeedback> findAllByRecipe(Recipe recipe);
+    RecipeFeedback findByRecipeAndUser(Recipe recipe, User user);
 }

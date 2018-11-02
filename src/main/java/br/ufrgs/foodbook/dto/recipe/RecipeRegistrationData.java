@@ -12,5 +12,5 @@ public class RecipeRegistrationData
     String name, description, photo, prepareSteps, creatorName;
     CookTimeData cookTime;
     String ingredients;
-    Double cookDifficulty;
+    Integer cookDifficulty;
 }

@@ -31,7 +31,7 @@ public class Group
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", orphanRemoval = true)
     @OrderBy
     @JsonIgnore
     private Set<Recipe> recipes;

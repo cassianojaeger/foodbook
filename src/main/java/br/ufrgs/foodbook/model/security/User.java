@@ -49,17 +49,17 @@ public class User implements UserDetails, Serializable {
     @Column(name = "ENABLED")
     private boolean enabled;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrator", orphanRemoval = true)
     @OrderBy
     @JsonIgnore
     private Set<Group> managedGroups;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator", orphanRemoval = true)
     @OrderBy
     @JsonIgnore
     private Set<Recipe> ownedRecipes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @OrderBy
     @JsonIgnore
     private Set<RecipeFeedback> recipesFeedbacks;
@@ -72,6 +72,15 @@ public class User implements UserDetails, Serializable {
     @OrderBy
     @JsonIgnore
     private Set<Authority> authorities;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "FAVORITE_RECIPES",
+            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "RECIPE_ID", referencedColumnName = "ID")
+    )
+    @OrderBy
+    @JsonIgnore
+    private Set<Recipe> favoriteRecipes;
 
     @Override
     public boolean isAccountNonExpired() {
