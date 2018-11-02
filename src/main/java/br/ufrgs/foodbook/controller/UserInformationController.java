@@ -1,6 +1,5 @@
 package br.ufrgs.foodbook.controller;
 
-import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -29,11 +28,5 @@ public class UserInformationController extends AbstractGenericController
     public ResponseEntity create(@RequestBody UserRegistrationData user) {
         userService.registerNewUser(user);
         return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "/test")
-    @ResponseStatus(value = HttpStatus.OK)
-    public UserInformationData ola(@RequestParam String name) {
-        return userService.getUserInformation(name);
     }
 }
