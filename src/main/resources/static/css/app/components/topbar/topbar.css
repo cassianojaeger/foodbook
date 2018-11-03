@@ -10,3 +10,11 @@ topbar .search-type-select {
     padding: 3px;
     margin-left: 16px;
 }
+
+.user-menu .md-button {
+    color: black;
+}
+
+.user-actions {
+    margin-left: 16px;
+}

@@ -2,8 +2,11 @@
     <md-toolbar-filler  style="padding-right: 20px; width: 100%">
         <div layout="row" layout-align="space-between center">
             <div flex="20">
-                <img flex src="../../../../pictures/foodbook.png" class="png-foodbook" />
+                <a href="#!/home">
+                    <img flex src="../../../../pictures/foodbook.png" class="png-foodbook" />
+                </a>
             </div>
+
             <div flex="55" layout="row" layout-align="end center">
                 <input flex="55" type="text" style="border-radius: 10px 0 0 10px; padding: 3px" placeholder="Pesquisar"/>
                 <select class="search-type-select">
@@ -11,20 +14,26 @@
                     <option value="recipe">por Receita</option>
                 </select>
 
-                <div flex="25" layout="row" layout-align="end center">
-                    <md-button flex href="#!/home">
-                        <div flex layout="row" layout-align="center center">
-                            <i class="material-icons" style="color:#fff; font-size: 34px">home</i>
-                            <div style="font-size: 12px">Home</div>
-                        </div>
-                    </md-button>
+                <div class="user-actions">
+                    <md-menu>
+                        <md-button ng-click="$mdMenu.open($event)" class="md-icon-button">
+                            <i class="material-icons">menu</i>
+                        </md-button>
 
-                    <md-button flex href="#!/logout">
-                        <div flex layout="row" layout-align="center center">
-                        <i class="material-icons" style="color:#fff; font-size: 34px">power_settings_new</i>
-                        <div style="font-size: 12px">Logout</div>
-                        </div>
-                    </md-button>
+                        <md-menu-content class="user-menu">
+                            <md-menu-item>
+                                <md-button flex href="#!/home">
+                                    Home
+                                </md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                                <md-button flex href="#!/logout">
+                                    Logout
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
             </div>
         </div>
