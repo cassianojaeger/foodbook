@@ -14,8 +14,12 @@ foodbookApp.directive('recipeList', function () {
         var vm = this;
         vm.goToRecipe = goToRecipe;
 
+        function getGroupId(recipe) {
+            return recipe.group? recipe.group.id : recipe.groupId;
+        }
+
         function goToRecipe(recipe) {
-            $location.path("/groups/" + recipe.group.id + "/recipes/" + recipe.id);
+            $location.path("/groups/" + getGroupId(recipe) + "/recipes/" + recipe.id);
         }
     }
 });

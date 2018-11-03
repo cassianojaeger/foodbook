@@ -1,7 +1,8 @@
 'use strict';
 
-foodbookApp.controller('GroupController', function (group, user, GroupService, $mdToast) {
-    var vm = this;
+foodbookApp.controller('GroupController', function (group, user,
+                                                    GroupService, $mdToast, $scope) {
+    var vm = $scope;
     vm.group = group;
     vm.recipes = group.recipes;
     vm.user = user;

@@ -66,7 +66,7 @@ public class RecipeController extends AbstractGenericController
 
     @DeleteMapping(value = "/remove")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity removeRecipe(@RequestBody RecipeRegistrationData recipeRemoveRequestData, Principal principal)
+    public ResponseEntity removeRecipe(RecipeRegistrationData recipeRemoveRequestData, Principal principal)
     {
         recipeRemoveRequestData.setCreatorName(principal.getName());
         recipeService.remove(recipeRemoveRequestData);

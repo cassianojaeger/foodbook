@@ -2,24 +2,24 @@
 <div  layout="row" layout-align="center none">
     <md-card flex="85">
         <md-card-content>
-            <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/edit" ng-if="vm.isGroupOwner">
+            <md-button class="green-md-button register-md-button" href="#!/groups/{{group.id}}/edit" ng-if="isGroupOwner">
                 Editar grupo
             </md-button>
 
             <div layout="row" layout-align="space-between center">
-                <h1>{{vm.group.name}}</h1>
-                <span class="md-title">Administrador: {{vm.group.administrator.username}}</span>
+                <h1>{{group.name}}</h1>
+                <span class="md-title">Administrador: {{group.administrator.username}}</span>
             </div>
             <p class="md-subhead">
-                {{vm.group.description}}
+                {{group.description}}
             </p>
             <md-divider></md-divider>
 
             <div>
                 <h1>Receitas do grupo</h1>
-                <recipe-list recipes="vm.recipes"></recipe-list>
+                <recipe-list recipes="recipes"></recipe-list>
 
-                <md-button class="green-md-button register-md-button" href="#!/groups/{{vm.group.id}}/recipe/create" ng-if="vm.isGroupMember">
+                <md-button class="green-md-button register-md-button" href="#!/groups/{{group.id}}/recipe/create" ng-if="isGroupMember">
                     <i class="material-icons" style="color:#fff;">add</i>
                     Criar receita
                 </md-button>
@@ -28,11 +28,11 @@
             <div>
                 <h1>Usuários do grupo</h1>
 
-                <md-button class="green-md-button register-md-button" ng-click="vm.enterGroup(vm.user, vm.group)" ng-if="!vm.isGroupMember">
+                <md-button class="green-md-button register-md-button" ng-click="enterGroup(user, group)" ng-if="!isGroupMember">
                     Participar
                 </md-button>
 
-                <md-button class="red-md-button register-md-button" ng-click="vm.leaveGroup(vm.user, vm.group)" ng-if="vm.isGroupMember">
+                <md-button class="red-md-button register-md-button" ng-click="leaveGroup(user, group)" ng-if="isGroupMember">
                     Sair do grupo
                 </md-button>
             </div>

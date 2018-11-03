@@ -8,6 +8,12 @@
                 Editar receita
             </md-button>
 
+            <md-button class="red-md-button register-md-button"
+                       ng-if="isOwnRecipe"
+                       ng-click="deleteRecipe(recipe)">
+                Deletar receita
+            </md-button>
+
             <div layout="row" layout-align="space-between center">
                 <h1>{{recipe.name}}</h1>
                 <span class="md-title">Criador: {{recipe.creator.username}}</span>
