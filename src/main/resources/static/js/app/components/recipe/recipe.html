@@ -1,8 +1,10 @@
 <topbar></topbar>
 <div  layout="row" layout-align="center none">
-    <md-card flex="85">
+    <md-card flex="85" class="recipe-page">
         <md-card-content>
-            <md-button class="green-md-button register-md-button" href="#!/groups/{{group.id}}/recipe/{{recipe.id}}/edit">
+            <md-button class="green-md-button register-md-button"
+                       ng-if="isOwnRecipe"
+                       href="#!/groups/{{group.id}}/recipe/{{recipe.id}}/edit">
                 Editar receita
             </md-button>
 
@@ -15,7 +17,7 @@
             </p>
 
             <div layout="row" layout-align="start center">
-                <img flex="auto" src={{recipe.photo}} height="300" width="680">
+                <img src={{recipe.photo}}>
                 <div flex="auto">
 
                 </div>

@@ -6,3 +6,7 @@
 .create-recipe-form-actions {
     margin-top: 35px;
 }
+
+.recipe-page img {
+    max-width: 300px;
+}
