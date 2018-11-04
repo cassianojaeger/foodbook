@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class UserRegistrationData
 {
-    String username, email, phone, password, confirmedPassword;
+    String username, email, phone, password, confirmedPassword, creatorName;
 }

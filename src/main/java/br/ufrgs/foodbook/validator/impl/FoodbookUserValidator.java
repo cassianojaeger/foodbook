@@ -17,7 +17,7 @@ public class FoodbookUserValidator implements Validator<UserRegistrationData>
 
     private static final String USERNAME_FIELD_ERROR_MESSAGE = "Nome de usuário já existente";
     private static final String EMAIL_FIELD_ERROR_MESSAGE = "Email inválido";
-    private static final String PASSWORD_FIELD_ERROR_MESSAGE = "Senha não é válida";
+    protected static final String PASSWORD_FIELD_ERROR_MESSAGE = "Senha não é válida";
     private static final String CONFIRMED_PASSWORD_FIELD_ERROR_MESSAGE = "Senhas não coincidem";
 
     private static final String EMAIL_FIELD = "email";
@@ -37,25 +37,25 @@ public class FoodbookUserValidator implements Validator<UserRegistrationData>
         validatePasswordEquality(user.getPassword(), user.getConfirmedPassword());
     }
 
-    private void validateAlreadyTakenUsername(String username)
+    protected void validateAlreadyTakenUsername(String username)
     {
         if(foodbookUserService.isUsernameAlreadyTaken(username))
             throw new InvalidRegistrationException(USERNAME_FIELD, USERNAME_FIELD_ERROR_MESSAGE);
     }
 
-    private void validateEmail(String email)
+    protected void validateEmail(String email)
     {
         if(!emailValidator.isValid(email))
             throw new InvalidRegistrationException(EMAIL_FIELD, EMAIL_FIELD_ERROR_MESSAGE);
     }
 
-    private void validatePasswordRegex(String password)
+    protected void validatePasswordRegex(String password)
     {
         if(!password.matches(PASSWORD_REGEX))
             throw new InvalidRegistrationException(PASSWORD_FIELD, PASSWORD_FIELD_ERROR_MESSAGE);
     }
 
-    private void validatePasswordEquality(String password, String confirmedPassword)
+    protected void validatePasswordEquality(String password, String confirmedPassword)
     {
         if(!password.equalsIgnoreCase(confirmedPassword))
             throw new InvalidRegistrationException(CONFIRMED_PASSWORD_FIELD, CONFIRMED_PASSWORD_FIELD_ERROR_MESSAGE);
