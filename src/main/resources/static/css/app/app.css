@@ -47,6 +47,14 @@ lib-constants { //já que CSS é lixo
     background-color: #459721;
 }
 
+.blue-md-button {
+    background-color: #164789;
+}
+
+.md-button.blue-md-button:hover {
+    background-color: #2d5994;
+}
+
 .error-message {
     color: #c92929;
 }
