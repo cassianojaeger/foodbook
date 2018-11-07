@@ -33,15 +33,20 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
             locals: {
                     recipe: recipe,
                     feedback: {
-                        timeValue: 0,
+                        cookTime: {
+                            timeValue: recipe.cookTime.timeValue,
+                            timeType: recipe.cookTime.timeType
+                        },
                         cookDifficulty: recipe.cookDifficulty,
-                        cookTasty: 0
+                        cookTastyness: 0
                     }
                 }
         })
         .then(function(answer) {
-            answer.userId = user.name;
-            console.log(answer);
+            answer.username = user.name;
+            if(recipe.cookTime.timeType === "Segundos") answer.cookTime.timeType = "SECONDS";
+            if(recipe.cookTime.timeType === "Minutos") answer.cookTime.timeType = "MINUTES";
+            if(recipe.cookTime.timeType === "Horas") answer.cookTime.timeType = "HOURS";
             RecipeService.registerFeedback( recipe.id, answer)
                 .then(function (recipe) {
                     $mdToast.show($mdToast.simple().textContent('Feedback salvo com sucesso!'));

@@ -14,7 +14,7 @@
             <div class="md-dialog-content">
                 <h4>Ajude os próximos, diga como foi sua experência!</h4>
                 <md-input-container class="login-md-input-container">
-                    <label>Tempo ({{recipe.cookTime.timeType}})</label>
+                    <label>Tempo ({{feedback.cookTime.timeType}})</label>
                     <input type="number" ng-model="feedback.timeValue">
                 </md-input-container>
 
@@ -29,7 +29,7 @@
 
                 <md-input-container class="login-md-input-container">
                     <label class="difficulty-label">E quão saborosa ficou?</label>
-                    <jk-rating-stars rating="feedback.cookTasty"></jk-rating-stars>
+                    <jk-rating-stars rating="feedback.cookTastyness"></jk-rating-stars>
                 </md-input-container>
             </div>
         </md-dialog-content>
