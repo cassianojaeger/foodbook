@@ -14,6 +14,11 @@
                 Deletar receita
             </md-button>
 
+            <md-button class="blue-md-button register-md-button"
+                       ng-click="openMadeRecipeDialog($event, recipe)">
+                Eu já fiz!
+            </md-button>
+
             <div layout="row" layout-align="space-between center">
                 <h1>{{recipe.name}}</h1>
                 <span class="md-title">Criador: {{recipe.creator.username}}</span>
