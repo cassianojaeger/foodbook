@@ -49,18 +49,18 @@ public class FoodbookRecipeFeedbackValidator implements Validator<RecipeFeedback
 
     private void validateRequestCreator(RecipeFeedbackRegistrationData feedback)
     {
-        Optional<User> user = userDao.findById(feedback.getUserId());
+        User user = userDao.findByUsername(feedback.getUsername());
 
-        if(!user.isPresent())
+        if(isNull(user))
             throw new InvalidRegistrationException(USER_ID_FIELD, USER_NOT_VALID_ERROR_MESSAGE);
 
-        if(!user.get().getUsername().equals(feedback.getCreatorName()))
+        if(!user.getUsername().equals(feedback.getCreatorName()))
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, GENERAL_ERROR_MESSAGE);
     }
 
     private void validateNullFields(RecipeFeedbackRegistrationData feedback)
     {
-        if(isNull(feedback.getUserId()))
+        if(isNull(feedback.getUsername()))
             throw new InvalidRegistrationException(USER_ID_FIELD, NULL_FIELD_ERROR_MESSAGE);
 
         if(isNull(feedback.getRecipeId()))

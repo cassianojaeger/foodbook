@@ -8,7 +8,6 @@ import br.ufrgs.foodbook.strategies.populator.Populator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 @Service
 public class RecipeFeedbackUserPopulator implements Populator<RecipeFeedbackRegistrationData, RecipeFeedback>
@@ -19,7 +18,7 @@ public class RecipeFeedbackUserPopulator implements Populator<RecipeFeedbackRegi
     @Override
     public void populate(RecipeFeedbackRegistrationData source, RecipeFeedback target)
     {
-        Optional<User> oUser = userDao.findById(source.getUserId());
-        oUser.ifPresent(target::setUser);
+        User user = userDao.findByUsername(source.getUsername());
+        target.setUser(user);
     }
 }

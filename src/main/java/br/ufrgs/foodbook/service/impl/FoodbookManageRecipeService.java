@@ -19,6 +19,8 @@ import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class FoodbookManageRecipeService implements ManageRecipeService
 {
@@ -111,13 +113,13 @@ public class FoodbookManageRecipeService implements ManageRecipeService
         foodbookRecipeFeedbackValidator.validate(recipeFeedbackRegistrationData);
 
         Optional<Recipe> oRecipe = recipeDao.findById(recipeFeedbackRegistrationData.getRecipeId());
-        Optional<User> oUser = userDao.findById(recipeFeedbackRegistrationData.getUserId());
+        User user = userDao.findByUsername(recipeFeedbackRegistrationData.getUsername());
 
-        if(!oRecipe.isPresent() || !oUser.isPresent())
+        if(!oRecipe.isPresent() || isNull(user))
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, NULL_ERROR_MESSAGE);
 
         RecipeFeedback feedback = recipeFeedbackRegistrationConverter.convert(recipeFeedbackRegistrationData);
-        RecipeFeedback originalFeedback = recipeFeedbackDao.findByRecipeAndUser(oRecipe.get(), oUser.get());
+        RecipeFeedback originalFeedback = recipeFeedbackDao.findByRecipeAndUser(oRecipe.get(), user);
 
         originalFeedback.setCookDifficulty(feedback.getCookDifficulty());
         originalFeedback.setCookTastyness(feedback.getCookTastyness());
