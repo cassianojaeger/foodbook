@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools blue-md-button">
                 <h2>Eu fiz já fiz essa receita!</h2>
                 <span flex></span>
-                <md-button cclass="red-md-button md-icon-button" ng-click="hide()">
+                <md-button cclass="red-md-button md-icon-button" ng-click="cancel()">
                     <i class="material-icons">close</i>
                 </md-button>
             </div>
@@ -12,45 +12,35 @@
 
         <md-dialog-content>
             <div class="md-dialog-content">
-                <h4>Ajude os outros, diga como foi sua experência</h4>
-
+                <h4>Ajude os próximos, diga como foi sua experência!</h4>
                 <md-input-container class="login-md-input-container">
-                    <label>Tempo</label>
-                    <input type="number" ng-model="vm.recipe.cookTime.timeValue">
-                </md-input-container>
-
-                <md-input-container class="login-md-input-container">
-                    <label>Quanto tempo demorou para preparar essa receita?</label>
-                    <md-select ng-model="vm.recipe.cookTime.timeType">
-                        <md-option ng-repeat="time in vm.timeOptions" value="{{time.code}}">
-                            {{::time.name}}
-                        </md-option>
-                    </md-select>
+                    <label>Tempo ({{recipe.cookTime.timeType}})</label>
+                    <input type="number" ng-model="feedback.timeValue">
                 </md-input-container>
 
                 <br><br><br><br>
 
                 <md-input-container class="login-md-input-container">
                     <label class="difficulty-label">O quão difícil achou?</label>
-                    <jk-rating-stars rating="vm.recipe.cookDifficulty"></jk-rating-stars>
+                    <jk-rating-stars rating="feedback.cookDifficulty"></jk-rating-stars>
                 </md-input-container>
 
                 <br><br><br><br>
 
                 <md-input-container class="login-md-input-container">
                     <label class="difficulty-label">E quão saborosa ficou?</label>
-                    <jk-rating-stars rating="vm.recipe.cookDifficulty"></jk-rating-stars>
+                    <jk-rating-stars rating="feedback.cookTasty"></jk-rating-stars>
                 </md-input-container>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
             <md-button class="red-md-button register-md-button"
-                       ng-click="hide()">
+                       ng-click="cancel()">
                 Cancelar
             </md-button>
             <md-button class="green-md-button register-md-button"
-                       ng-click="hide()">
+                       ng-click="answer(feedback)">
                 Enviar
             </md-button>
         </md-dialog-actions>

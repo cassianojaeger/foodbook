@@ -28,18 +28,44 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose:true,
-            fullscreen: true
+            fullscreen: true,
+            controllerAs: "vm",
+            locals: {
+                    recipe: recipe,
+                    feedback: {
+                        timeValue: 0,
+                        cookDifficulty: recipe.cookDifficulty,
+                        cookTasty: 0
+                    }
+                }
         })
-            .then(function(answer) {
-                console.log('You said the information was "' + answer + '".');
-            }, function() {
-                console.log('You cancelled the dialog.');
+        .then(function(answer) {
+            answer.userId = user.name;
+            console.log(answer);
+            RecipeService.registerFeedback( recipe.id, answer)
+                .then(function (recipe) {
+                    $mdToast.show($mdToast.simple().textContent('Feedback salvo com sucesso!'));
+                }).catch(function (reason) {
+                    $mdToast.show($mdToast.simple().textContent('"Erro ao registrar a feedback.'));
             });
+        }, function() {}
+        );
     }
 
-    function DialogController($scope, $mdDialog) {
-        $scope.hide = function() {
-            $mdDialog.hide();
+    function DialogController($scope, $mdDialog, feedback, recipe) {
+        var vm = $scope;
+        vm.recipe = recipe;
+        vm.feedback = feedback;
+
+        vm.cancel = cancel;
+        vm.answer = answer;
+
+        function cancel() {
+            $mdDialog.cancel();
+        };
+
+        function answer(answer) {
+            $mdDialog.hide(answer);
         };
     };
 });
