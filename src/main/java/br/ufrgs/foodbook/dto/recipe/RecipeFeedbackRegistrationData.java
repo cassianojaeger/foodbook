@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class RecipeFeedbackRegistrationData
 {
-    String creatorName;
-    Long recipeId, userId;
+    String creatorName, username;
+    Long recipeId;
     Integer cookTastyness, cookDifficulty;
     CookTimeData cookTime;
 }
