@@ -1,12 +1,11 @@
 'use strict';
 
-foodbookApp.controller('GroupFormController', function (group, GroupService, $location) {
-    var ctrl = this;
+foodbookApp.controller('GroupFormController', function ($scope, group, GroupService, $location) {
 
-    ctrl.goBack = goBack;
-    ctrl.saveGroup = saveGroup;
-    ctrl.group = group;
-    ctrl.newGroup = !!group.id;
+    $scope.goBack = goBack;
+    $scope.saveGroup = saveGroup;
+    $scope.group = group;
+    $scope.newGroup = !!group.id;
 
     function goBack() {
         $location.path("/home");
@@ -18,14 +17,14 @@ foodbookApp.controller('GroupFormController', function (group, GroupService, $lo
             GroupService
                 .create(group)
                 .then(function () {
-                    ctrl.message = "Grupo " + group.name + " salvo com sucesso!";
+                    $scope.message = "Grupo " + group.name + " salvo com sucesso!";
                 })
                 .catch(function (reason) {
-                    ctrl.error = reason.data;
+                    $scope.error = reason.data;
                 })
         }
         else {
-            ctrl.error = "Todos campos são obrigatórios!";
+            $scope.error = "Todos campos são obrigatórios!";
         }
     }
 
@@ -34,8 +33,8 @@ foodbookApp.controller('GroupFormController', function (group, GroupService, $lo
     }
 
     function clearMessages() {
-        ctrl.message = null;
-        ctrl.error = null;
+        $scope.message = null;
+        $scope.error = null;
     }
 
 });

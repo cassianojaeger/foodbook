@@ -8,6 +8,13 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
     vm.group = group;
     vm.isOwnRecipe = recipe.creator.username === user.name;
 
+    RecipeService.getFeedbacks(recipe.id)
+        .then(function (feedbacks) {
+            vm.feedbackTime = "em media " + feedbacks.cookTime.timeValue + " " + feedbacks.cookTime.timeType;
+            vm.feedbackDifficulty = "em media " + feedbacks.cookDifficulty + " de 5";
+            vm.feedbackTastyness = "Nivel de sabor: " + feedbacks.cookTastyness + " de 5";
+        });
+
     vm.deleteRecipe = deleteRecipe;
     vm.openMadeRecipeDialog = openMadeRecipeDialog;
 

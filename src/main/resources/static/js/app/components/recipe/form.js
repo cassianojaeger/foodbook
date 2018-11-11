@@ -1,17 +1,16 @@
 'use strict';
 
-foodbookApp.controller('RecipeFormController', function (group, recipe, $location, RecipeService, TIME) {
-    var ctrl = this;
-    ctrl.timeOptions = TIME;
-    ctrl.recipe = recipe;
-    ctrl.recipe.groupName = ctrl.recipe.groupName || group.name;
-    ctrl.recipe.groupId = ctrl.recipe.groupId || group.id;
-    if (ctrl.recipe.id) {
-        ctrl.recipe.cookTime.timeValue = parseInt(ctrl.recipe.cookTime.timeValue);
+foodbookApp.controller('RecipeFormController', function ($scope, group, recipe, $location, RecipeService, TIME) {
+    $scope.timeOptions = TIME;
+    $scope.recipe = recipe;
+    $scope.recipe.groupName = $scope.recipe.groupName || group.name;
+    $scope.recipe.groupId = $scope.recipe.groupId || group.id;
+    if ($scope.recipe.id) {
+        $scope.recipe.cookTime.timeValue = parseInt($scope.recipe.cookTime.timeValue);
     }
 
-    ctrl.goBack = goBack;
-    ctrl.saveRecipe = saveRecipe;
+    $scope.goBack = goBack;
+    $scope.saveRecipe = saveRecipe;
 
     function goBack() {
         $location.path("/home");
@@ -21,15 +20,15 @@ foodbookApp.controller('RecipeFormController', function (group, recipe, $locatio
         clearMessages();
         RecipeService.save(recipe)
             .then(function (recipe) {
-                ctrl.message = "Receita salva com sucesso";
+                $scope.message = "Receita salva com sucesso";
             }).catch(function (reason) {
-                ctrl.error = "Erro ao salvar a receita";
+                $scope.error = "Erro ao salvar a receita";
         });
     }
 
     function clearMessages() {
-        ctrl.message = null;
-        ctrl.error = null;
+        $scope.message = null;
+        $scope.error = null;
     }
 
 });
