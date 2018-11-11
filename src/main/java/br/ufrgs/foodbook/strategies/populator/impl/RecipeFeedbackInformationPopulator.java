@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 @Service
-public class RecipeFeedbackInformationPopulator implements Populator<List<RecipeFeedback>, RecipeFeedbackInformationData>
+public class RecipeFeedbackInformationPopulator implements Populator<Set<RecipeFeedback>, RecipeFeedbackInformationData>
 {
     private static final Float MINUTES_IN_HOURS = 60f;
     private static final Float SECONDS_IN_MINUTES = 60f;
@@ -22,7 +22,7 @@ public class RecipeFeedbackInformationPopulator implements Populator<List<Recipe
     private NumberFormat formatter = new DecimalFormat("#0.00");
 
     @Override
-    public void populate(List<RecipeFeedback> source, RecipeFeedbackInformationData target)
+    public void populate(Set<RecipeFeedback> source, RecipeFeedbackInformationData target)
     {
         double cookDifficulty = getMeanValues(source, RecipeFeedback::getCookDifficulty);
         double cookTastyness = getMeanValues(source, RecipeFeedback::getCookTastyness);
@@ -33,7 +33,7 @@ public class RecipeFeedbackInformationPopulator implements Populator<List<Recipe
         target.setCookTime(resolveCookTimeAverageValue(source));
     }
 
-    private double getMeanValues(List<RecipeFeedback> recipeFeedback, Function<RecipeFeedback, Integer> func)
+    private double getMeanValues(Set<RecipeFeedback> recipeFeedback, Function<RecipeFeedback, Integer> func)
     {
         return recipeFeedback
                 .stream()
@@ -42,7 +42,7 @@ public class RecipeFeedbackInformationPopulator implements Populator<List<Recipe
                 .getAsDouble();
     }
 
-    private CookTimeData resolveCookTimeAverageValue(List<RecipeFeedback> recipeFeedback)
+    private CookTimeData resolveCookTimeAverageValue(Set<RecipeFeedback> recipeFeedback)
     {
         double timeInMinutes = recipeFeedback
                 .stream()
