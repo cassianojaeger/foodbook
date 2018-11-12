@@ -16,8 +16,14 @@
 
             <md-button class="blue-md-button register-md-button"
                        ng-if="!alreadyDidIt"
-                       ng-click="openMadeRecipeDialog($event, recipe)">
+                       ng-click="openMadeRecipeDialog($event, recipe, false)">
                 Eu já fiz!
+            </md-button>
+
+            <md-button class="blue-md-button register-md-button"
+                       ng-if="alreadyDidIt"
+                       ng-click="openMadeRecipeDialog($event, recipe, true)">
+                Mudar Voto!
             </md-button>
 
             <div layout="row" layout-align="space-between center">

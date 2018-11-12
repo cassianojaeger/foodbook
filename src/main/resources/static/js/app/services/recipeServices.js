@@ -4,6 +4,7 @@ foodbookApp.service('RecipeService', function ($resource) {
     var resource = $resource('/secured/recipe/:id', {}, {
         create: {method: "POST"},
         registerFeedback: {url: "/secured/manage/recipe/:recipeId/giveFeedback", params: {recipeId: "@recipeId"}, method: "POST"},
+        updateFeedback: {url: "/secured/manage/recipe/:recipeId/updateFeedback", params: {recipeId: "@recipeId"}, method: "PUT"},
         update: {url: "/secured/recipe/update", method: "PUT"},
         delete: {url: "/secured/recipe/remove", method: "DELETE"},
         get: {method: "GET"},
@@ -19,6 +20,7 @@ foodbookApp.service('RecipeService', function ($resource) {
     service.getGroupRecipes = getGroupRecipes;
     service.delete = deleteFn;
     service.registerFeedback = registerFeedback;
+    service.updateFeedback = updateFeedback;
     service.getFeedbacks = getFeedbacks;
 
     function save(recipe) {
@@ -52,6 +54,10 @@ foodbookApp.service('RecipeService', function ($resource) {
 
     function registerFeedback(recipeId, feedback) {
         return resource.registerFeedback({recipeId: recipeId}, feedback).$promise;
+    }
+
+    function updateFeedback(recipeId, feedback) {
+        return resource.updateFeedback({recipeId: recipeId}, feedback).$promise;
     }
 
     function getFeedbacks(id) {

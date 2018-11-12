@@ -14,8 +14,18 @@
             <div class="md-dialog-content">
                 <h4>Ajude os próximos, diga como foi sua experência!</h4>
                 <md-input-container class="login-md-input-container">
-                    <label>Tempo ({{feedback.cookTime.timeType}})</label>
-                    <input type="number" ng-model="feedback.timeValue">
+                    <!-- LISTA COM TIME VALUES -->
+                    <label>Tempo</label>
+                    <input type="number" ng-model="feedback.cookTime.timeValue">
+                </md-input-container>
+
+                <md-input-container class="login-md-input-container">
+                    <label>Unidade do tempo</label>
+                    <md-select ng-model=" feedback.cookTime.timeType">
+                        <md-option ng-repeat="time in  timeOptions" value="{{time.code}}">
+                            {{::time.name}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
 
                 <br><br><br><br>
@@ -40,7 +50,14 @@
                 Cancelar
             </md-button>
             <md-button class="green-md-button register-md-button"
-                       ng-click="answer(feedback)">
+                       ng-if="!update"
+                       ng-click="answer(feedback, recipeService.registerFeedback)">
+                Enviar
+            </md-button>
+
+            <md-button class="green-md-button register-md-button"
+                       ng-if="update"
+                       ng-click="answer(feedback, recipeService.updateFeedback)">
                 Enviar
             </md-button>
         </md-dialog-actions>

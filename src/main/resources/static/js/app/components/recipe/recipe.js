@@ -30,7 +30,7 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
             });
     }
 
-    function openMadeRecipeDialog(ev, recipe) {
+    function openMadeRecipeDialog(ev, recipe, update) {
         $mdDialog.show({
             controller: DialogController,
             templateUrl: 'js/app/components/recipe/madeRecipeDialog.html',
@@ -44,19 +44,20 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
                     feedback: {
                         cookTime: {
                             timeValue: recipe.cookTime.timeValue,
+                            //LISTA COM TIME VALUES
                             timeType: recipe.cookTime.timeType
                         },
                         cookDifficulty: recipe.cookDifficulty,
                         cookTastyness: 0
-                    }
+                    },
+                    update: update,
+                    recipeService: RecipeService,
+                    timeOptions: TIME
                 }
         })
         .then(function(answer) {
             answer.username = user.name;
-            if(recipe.cookTime.timeType === "Segundos") answer.cookTime.timeType = "SECONDS";
-            if(recipe.cookTime.timeType === "Minutos") answer.cookTime.timeType = "MINUTES";
-            if(recipe.cookTime.timeType === "Horas") answer.cookTime.timeType = "HOURS";
-            RecipeService.registerFeedback( recipe.id, answer)
+            answer.func( recipe.id, answer)
                 .then(function (recipe) {
                     $mdToast.show($mdToast.simple().textContent('Feedback salvo com sucesso!'));
                 }).catch(function (reason) {
@@ -66,20 +67,29 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
         );
     }
 
-    function DialogController($scope, $mdDialog, feedback, recipe) {
+    function DialogController($scope, $mdDialog,
+                              feedback,
+                              recipe,
+                              update,
+                              recipeService,
+                              timeOptions) {
         var vm = $scope;
         vm.recipe = recipe;
         vm.feedback = feedback;
+        vm.update = update;
+        vm.recipeService = recipeService;
+        vm.timeOptions = timeOptions;
 
         vm.cancel = cancel;
         vm.answer = answer;
 
         function cancel() {
             $mdDialog.cancel();
-        };
+        }
 
-        function answer(answer) {
+        function answer(answer, func) {
+            answer.func = func;
             $mdDialog.hide(answer);
-        };
+        }
     };
 });
