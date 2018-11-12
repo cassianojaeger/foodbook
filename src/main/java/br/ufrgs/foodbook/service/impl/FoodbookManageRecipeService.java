@@ -5,6 +5,7 @@ import br.ufrgs.foodbook.dao.RecipeFeedbackDao;
 import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.recipe.RecipeFeedbackInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeFeedbackRegistrationData;
+import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.model.recipe.Recipe;
 import br.ufrgs.foodbook.model.recipe.RecipeFeedback;
@@ -12,10 +13,14 @@ import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.ManageRecipeService;
 import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.validator.impl.FoodbookRecipeFeedbackValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,6 +41,8 @@ public class FoodbookManageRecipeService implements ManageRecipeService
     AbstractGenericConverter<RecipeFeedbackRegistrationData, RecipeFeedback> recipeFeedbackRegistrationConverter;
     @Resource
     AbstractGenericConverter<Set<RecipeFeedback>, RecipeFeedbackInformationData> recipeFeedbackInformationReverseConverter;
+    @Resource
+    AbstractGenericConverter<Recipe, RecipeInformationData> recipeInformationConverter;
     @Resource
     RecipeDao recipeDao;
     @Resource
@@ -71,6 +78,18 @@ public class FoodbookManageRecipeService implements ManageRecipeService
         Set<RecipeFeedback> recipeFeedback = recipe.get().getRecipeFeedbacks();
 
         return recipeFeedbackInformationReverseConverter.convert(recipeFeedback);
+    }
+
+    @Override
+    public Page<RecipeInformationData> getFavoriteRecipes(String username)
+    {
+        User user = userDao.findByUsername(username);
+
+        Set<RecipeInformationData> favRecipes = recipeInformationConverter.convertAll(user.getFavoriteRecipes());
+
+        Page<RecipeInformationData> page = new PageImpl<RecipeInformationData>(new ArrayList(favRecipes), Pageable.unpaged(), favRecipes.size());
+
+        return page;
     }
 
     @Override

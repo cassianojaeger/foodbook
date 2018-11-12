@@ -9,6 +9,7 @@ import br.ufrgs.foodbook.strategies.populator.Populator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 
 import static java.util.Objects.isNull;
 
@@ -30,5 +31,6 @@ public class GroupRegistrationUserPopulator implements Populator<GroupRegistrati
             throw new InvalidRegistrationException(CREATOR_NAME_FIELD, USER_NOT_FOUND);
 
         target.setAdministrator(user);
+        target.setMembers(Collections.singleton(user));
     }
 }

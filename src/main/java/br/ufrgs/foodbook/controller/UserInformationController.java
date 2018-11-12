@@ -1,8 +1,12 @@
 package br.ufrgs.foodbook.controller;
 
+import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
+import br.ufrgs.foodbook.dto.user.UserInformationData;
 import br.ufrgs.foodbook.dto.user.UserRegistrationData;
 import br.ufrgs.foodbook.dto.user.UserUpdateData;
+import br.ufrgs.foodbook.service.ManageRecipeService;
 import br.ufrgs.foodbook.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +23,20 @@ public class UserInformationController extends AbstractGenericController
 {
     @Resource
     private UserService userService;
+    @Resource
+    ManageRecipeService manageRecipeService;
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Principal get(Principal principal) {
         return principal;
+    }
+
+    @GetMapping(value = "/{username}/getFavorites")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Page<RecipeInformationData> getRecipeFeedbackInformation(@PathVariable("username") String username)
+    {
+        return manageRecipeService.getFavoriteRecipes(username);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -42,5 +55,12 @@ public class UserInformationController extends AbstractGenericController
         user.setUsername(userName);
         userService.updateUser(user);
         return new ResponseEntity(OK);
+    }
+
+    @GetMapping(value = "/{userName}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public UserInformationData getUserInformation(@PathVariable("userName") String userName)
+    {
+        return userService.getUserInformation(userName);
     }
 }
