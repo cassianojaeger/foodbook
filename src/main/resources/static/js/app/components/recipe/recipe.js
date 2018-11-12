@@ -5,11 +5,13 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
     var vm = $scope;
     recipe.cookTime.timeType = TIME.find(function (time) {return time.code === recipe.cookTime.timeType}).name;
     vm.recipe = recipe;
+    vm.recipe.ingredients = vm.recipe.ingredients.replace(/↵/g, "\n");
     vm.group = group;
     vm.isOwnRecipe = recipe.creator.username === user.name;
 
     RecipeService.getFeedbacks(recipe.id)
         .then(function (feedbacks) {
+            vm.alreadyDidIt = feedbacks.usernames.includes(user.name);
             vm.feedbackTime = "em media " + feedbacks.cookTime.timeValue + " " + feedbacks.cookTime.timeType;
             vm.feedbackDifficulty = "em media " + feedbacks.cookDifficulty + " de 5";
             vm.feedbackTastyness = "Nivel de sabor: " + feedbacks.cookTastyness + " de 5";

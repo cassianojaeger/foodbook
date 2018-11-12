@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeFeedbackInformationPopulator implements Populator<Set<RecipeFeedback>, RecipeFeedbackInformationData>
@@ -30,6 +31,13 @@ public class RecipeFeedbackInformationPopulator implements Populator<Set<RecipeF
         target.setCookDifficulty(Double.valueOf(formatter.format(cookDifficulty)));
         target.setCookTastyness(Double.valueOf(formatter.format(cookTastyness)));
 
+        target.setUsernames(
+                 source
+                .stream()
+                .map(getUsersWhoGaveFeedback())
+                .collect(Collectors.toList())
+        );
+
         target.setCookTime(resolveCookTimeAverageValue(source));
     }
 
@@ -39,7 +47,7 @@ public class RecipeFeedbackInformationPopulator implements Populator<Set<RecipeF
                 .stream()
                 .mapToInt(func::apply)
                 .average()
-                .getAsDouble();
+                .orElse(Double.NaN);
     }
 
     private CookTimeData resolveCookTimeAverageValue(Set<RecipeFeedback> recipeFeedback)
@@ -70,5 +78,10 @@ public class RecipeFeedbackInformationPopulator implements Populator<Set<RecipeF
             timeValue = timeValue/SECONDS_IN_MINUTES;
 
         return timeValue;
+    }
+
+    private Function<RecipeFeedback, String> getUsersWhoGaveFeedback()
+    {
+        return recipeFeedback -> recipeFeedback.getUser().getUsername();
     }
 }

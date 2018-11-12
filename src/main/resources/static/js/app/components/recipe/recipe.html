@@ -15,6 +15,7 @@
             </md-button>
 
             <md-button class="blue-md-button register-md-button"
+                       ng-if="!alreadyDidIt"
                        ng-click="openMadeRecipeDialog($event, recipe)">
                 Eu já fiz!
             </md-button>
@@ -40,7 +41,7 @@
                 <h3>{{feedbackTastyness}}</h3>
 
                 <h2>Ingredientes</h2>
-                {{recipe.ingredients}}
+                    <pre style="font-family: unset">{{recipe.ingredients}}</pre>
 
                 <h2>Passo a passo</h2>
                 <p>
