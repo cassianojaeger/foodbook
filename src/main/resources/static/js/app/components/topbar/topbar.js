@@ -5,10 +5,15 @@ foodbookApp.controller('TopbarController', function ($location) {
 
     vm.search = search;
     vm.searchedName = "";
+    vm.searchedType = "group";
 
     function search() {
-        if(vm.searchedName != "")
-            $location.path("/search/"+ vm.searchedName + "/recipe");
+        if(vm.searchedName !== "") {
+            if(vm.searchedType === "recipe" )
+                $location.path("/search/"+ vm.searchedName + "/recipe");
+            else
+                $location.path("/search/"+ vm.searchedName + "/group");
+        }
     }
 });
 

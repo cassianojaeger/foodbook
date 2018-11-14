@@ -65,10 +65,10 @@ public class GroupController extends AbstractGenericController
         return groupService.getPaginatedData(page, size);
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/search/{name}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Set<GroupInformationData> searchGroups(@RequestParam(value = "name") String groupName)
+    public Set<GroupInformationData> searchGroups(@PathVariable("name") String name)
     {
-        return groupService.searchGroupsByName(groupName);
+        return groupService.searchGroupsByName(name);
     }
 }

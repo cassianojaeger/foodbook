@@ -13,7 +13,7 @@
                     <md-button ng-click="vm.search()" class="search-button">
                         Buscar
                     </md-button>
-                    <select class="search-type-select">
+                    <select ng-model="vm.searchedType" class="search-type-select">
                         <option value="group">por Grupo</option>
                         <option value="recipe">por Receita</option>
                     </select>
