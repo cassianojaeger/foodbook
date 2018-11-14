@@ -73,10 +73,10 @@ public class RecipeController extends AbstractGenericController
         return new ResponseEntity(OK);
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/search/{name}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Set<RecipeInformationData> searchRecipe(@RequestParam(value = "name") String recipeName)
+    public Set<RecipeInformationData> searchRecipe(@PathVariable("name") String name)
     {
-        return recipeService.searchRecipesByName(recipeName);
+        return recipeService.searchRecipesByName(name);
     }
 }

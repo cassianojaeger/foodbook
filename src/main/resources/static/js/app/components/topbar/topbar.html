@@ -8,12 +8,17 @@
             </div>
 
             <div flex="55" layout="row" layout-align="end center">
-                <input flex="55" type="text" style="border-radius: 10px 0 0 10px; padding: 3px" placeholder="Pesquisar"/>
-                <select class="search-type-select">
-                    <option value="group">por Grupo</option>
-                    <option value="recipe">por Receita</option>
-                </select>
-
+                <div flex="55" layout="row" layout-align="start center">
+                    <input flex="70" type="text" class="search-input" placeholder="Pesquisar" ng-model="vm.searchedName"/>
+                    <md-button ng-click="vm.search()" class="search-button">
+                        Buscar
+                    </md-button>
+                    <select class="search-type-select">
+                        <option value="group">por Grupo</option>
+                        <option value="recipe">por Receita</option>
+                    </select>
+                </div>
+                <!---->
                 <div class="user-actions">
                     <md-menu>
                         <md-button ng-click="$mdMenu.open($event)" class="md-icon-button">
