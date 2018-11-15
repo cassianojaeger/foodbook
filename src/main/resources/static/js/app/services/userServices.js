@@ -2,12 +2,14 @@
 
 foodbookApp.service('UserService', function ($resource) {
     var resource = $resource('/secured/user', {}, {
-        create: {method: "POST"}
+        create: {method: "POST"},
+        update: {url: "/secured/user/:userName/updateUser", params: {userName: "@userName" },method: "PUT"}
     });
     var service = this;
 
     service.getLoggedUser = getLoggedUser;
     service.createUser = createUser;
+    service.updateUser = updateUser;
 
     function getLoggedUser() {
         return resource.get().$promise;
@@ -15,6 +17,11 @@ foodbookApp.service('UserService', function ($resource) {
 
     function createUser(user) {
         return resource.create(user).$promise;
+    }
+
+    function updateUser( userName, user )
+    {
+        return resource.update({userName: userName}, user).$promise;
     }
 });
 
