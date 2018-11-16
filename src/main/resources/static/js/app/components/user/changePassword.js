@@ -5,7 +5,6 @@ foodbookApp.controller('ChangePasswordController', function ( user, UserService,
     var vm = $scope;
     $scope.changePassword = changePassword;
     $scope.goBack = goBack;
-    console.log(user);
     vm.user = user;
     var userData = {};
     userData.username = user.principal.username;
@@ -22,7 +21,6 @@ foodbookApp.controller('ChangePasswordController', function ( user, UserService,
     function changePassword( user )
     {
         clearMessages();
-        console.log(user);
         if (user.password == user.confirmedPassword)
         {
             UserService.updateUser( user.username, user )
@@ -35,7 +33,7 @@ foodbookApp.controller('ChangePasswordController', function ( user, UserService,
             })
         } else
         {
-            console.log("senhas diferentes" + user.password + user.confirmedPassword );
+            console.log("senhas diferentes");
         }
     }
 

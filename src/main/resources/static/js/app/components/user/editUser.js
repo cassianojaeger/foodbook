@@ -5,9 +5,14 @@ foodbookApp.controller('EditUserController', function ( user, UserService, $scop
     var vm = $scope;
     $scope.updateUser = saveUser;
     $scope.goBack = goBack;
-    vm.user = user;
-    var user2 = {};
-    user.principal.phone = parseInt(user.principal.phone, 10);
+    var userUpdateData = {};
+    userUpdateData.email = user.principal.email;
+    userUpdateData.phone = parseInt(user.principal.phone, 10);
+    userUpdateData.changePassword = false;
+    userUpdateData.username = user.principal.username;
+    userUpdateData.creatorName = user.principal.username;
+    vm.user = userUpdateData;
+
     function goBack()
     {
         $location.path("/myprofile");
@@ -16,13 +21,7 @@ foodbookApp.controller('EditUserController', function ( user, UserService, $scop
     function saveUser( user )
     {
         clearMessages();
-        user2.email = user.principal.email;
-        user2.phone = user.principal.phone;
-        user2.changePassword = false;
-        user2.username = user.principal.username;
-        user2.creatorName = user.principal.username;
-        console.log(user2);
-        UserService.updateUser( user.principal.username, user2 )
+        UserService.updateUser( user.username, user )
             .then( function (){
                 $scope.message = "Perfil atualizado com sucesso";
                 console.log("Perfil salvo com sucesso!");
