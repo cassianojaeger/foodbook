@@ -50,7 +50,7 @@ public class RecipeController extends AbstractGenericController
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Page<Recipe> getRecipesPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                            @RequestParam(value = "size", defaultValue = "10", required = false) int size)
+                                            @RequestParam(value = "size", defaultValue = "2", required = false) int size)
     {
         return recipeService.getPaginatedData(page, size);
     }
