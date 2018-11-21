@@ -1,7 +1,20 @@
 "use strict";
 
-foodbookApp.controller('TopbarController', function () {
-    var ctrl = this;
+foodbookApp.controller('TopbarController', function ($location) {
+    var vm = this;
+
+    vm.search = search;
+    vm.searchedName = "";
+    vm.searchedType = "group";
+
+    function search() {
+        if(vm.searchedName !== "") {
+            if(vm.searchedType === "recipe" )
+                $location.path("/search/"+ vm.searchedName + "/recipe");
+            else
+                $location.path("/search/"+ vm.searchedName + "/group");
+        }
+    }
 });
 
 foodbookApp.directive('topbar', function () {

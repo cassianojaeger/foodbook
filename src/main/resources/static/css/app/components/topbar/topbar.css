@@ -5,14 +5,37 @@ topbar {
     z-index: 10;
 }
 
+topbar .search-input {
+    border-radius: 10px 0 0 10px;
+    padding: 3px;
+    height: 40px;
+    margin: 0;
+}
+
 topbar .search-type-select {
     border-radius: 0 10px 10px 0;
     padding: 3px;
-    margin-left: 16px;
+    height: 40px;
+    margin: 0;
+}
+
+topbar .search-button {
+    border-radius: 0;
+    padding: 3px;
+    height: 38px;
+    margin: 0;
+    background-color: white;
+    color: black;
+}
+
+.md-button.search-button:hover {
+    background-color: #ffe7de;
 }
 
 .user-menu .md-button {
     color: black;
+    background-color: #ffffff;
+    height: 20px;
 }
 
 .user-actions {

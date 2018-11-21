@@ -99,6 +99,26 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
                 }
             }
         })
+        .whenAuthenticated("/search/:name/recipe", {
+            templateUrl: "js/app/components/recipe/search.html",
+            controller: "RecipeSearchController",
+            controllerAs: "vm",
+            resolve: {
+                recipeName: function ($route) {
+                    return $route.current.params.name;
+                }
+            }
+        })
+        .whenAuthenticated("/search/:name/group", {
+            templateUrl: "js/app/components/group/search.html",
+            controller: "GroupSearchController",
+            controllerAs: "vm",
+            resolve: {
+                groupName: function ($route) {
+                    return $route.current.params.name;
+                }
+            }
+        })
         .whenAuthenticated("/groups/:groupId/recipe/:recipeId/edit", {
             templateUrl: "js/app/components/recipe/form.html",
             controller: "RecipeFormController",

@@ -12,6 +12,7 @@ foodbookApp.service('RecipeService', function ($resource) {
         getFeedbacks: {method: "GET", url: "/secured/manage/recipe/:recipeId/getFeedbacks", params: {id: "@id"}},
         getByGroup: {url: "/secured/recipe/group/:id", method: "GET", params: {id: "@id"}, isArray: true},
         getFavoriteRecipes: {method: "GET", url: "/secured/user/:username/getFavorites", params: {username: "@username"}}
+        search: {url: "/secured/recipe/search/:name", method: "GET", params: {name: "@name"}, isArray: true}
     });
 
     var service = this;
@@ -24,6 +25,7 @@ foodbookApp.service('RecipeService', function ($resource) {
     service.updateFeedback = updateFeedback;
     service.getFeedbacks = getFeedbacks;
     service.getFavoriteRecipes = getFavoriteRecipes;
+    service.search = search;
 
     function save(recipe) {
         return recipe.id? update(recipe) : create(recipe);
@@ -64,6 +66,10 @@ foodbookApp.service('RecipeService', function ($resource) {
 
     function getFeedbacks(id) {
         return resource.getFeedbacks({recipeId: id}).$promise;
+    }
+
+    function search(name) {
+        return resource.search({name: name}).$promise;
     }
 
     function getFavoriteRecipes(username) {
