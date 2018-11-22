@@ -10,7 +10,7 @@ foodbookApp.controller('GroupController', function (group,
     vm.group = group;
     vm.user = user;
     vm.isGroupOwner = group.administrator.username === user.name;
-    vm.isGroupMember = group.members.some(function (member) {return member.username === user.name});
+    vm.isGroupMember = group.members.some(function (member) {return member.username === user.name}) && !vm.isGroupOwner;
 
     $scope.$on('recipe-pagination', function (event, params) {
         RecipeService.getGroupRecipes(group.id, params)
