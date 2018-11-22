@@ -17,10 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class FoodbookRecipeService implements RecipeService
@@ -68,11 +65,9 @@ public class FoodbookRecipeService implements RecipeService
     }
 
     @Override
-    public Set<RecipeInformationData> searchRecipesByName(String recipeName)
+    public Page<RecipeInformationData> searchRecipesByName(String recipeName, int page, int size)
     {
-        List<Recipe> recipes = recipeDao.findByNameIgnoreCaseContaining(recipeName);
-
-        return recipeInformationConverter.convertAll(new HashSet<>(recipes));
+        return recipeDao.findByNameIgnoreCaseContaining(recipeName, PageRequest.of(page, size)).map(recipeInformationConverter::convert);
     }
 
     @Override

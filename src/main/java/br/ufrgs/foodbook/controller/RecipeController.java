@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.Set;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -75,8 +74,10 @@ public class RecipeController extends AbstractGenericController
 
     @GetMapping(value = "/search/{name}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Set<RecipeInformationData> searchRecipe(@PathVariable("name") String name)
+    public Page<RecipeInformationData> searchRecipe(@PathVariable("name") String name,
+                                                    @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                    @RequestParam(value = "size", defaultValue = "10", required = false) int size)
     {
-        return recipeService.searchRecipesByName(name);
+        return recipeService.searchRecipesByName(name, page, size);
     }
 }

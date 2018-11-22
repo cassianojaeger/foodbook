@@ -9,14 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface RecipeDao extends JpaRepository<Recipe, Long>
 {
     Page<Recipe> findByGroup(Group group, Pageable pageable);
     Page<Recipe> findAllById(Long recipeId, Pageable pageable);
-    List<Recipe> findByNameIgnoreCaseContaining(String recipeName);
+    Page<Recipe> findByNameIgnoreCaseContaining(String recipeName, Pageable pageable);
 
     @Query(value = "Select * FROM recipe LEFT JOIN favorite_recipes favRecipe on recipe.id = favRecipe.recipe_id LEFT JOIN user_ u on favRecipe.user_id = u.id WHERE u.user_name = :username",
            countQuery = "SELECT count(*) FROM recipe",
