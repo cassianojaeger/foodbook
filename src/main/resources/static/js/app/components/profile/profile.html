@@ -1,0 +1,33 @@
+<topbar></topbar>
+<div  layout="row" layout-align="center none">
+    <md-card flex="85">
+        <md-card-content>
+
+            <h1>Meu perfil</h1>
+
+
+            <h3 class="text-center">Alterar meus dados</h3>
+
+            <md-input-container class="login-md-input-container">
+                <label>Email</label>
+                <input type="email" ng-model="user.email">
+            </md-input-container>
+
+            <md-input-container class="login-md-input-container">
+                <label>Telefone</label>
+                <input type="number" ng-model="user.phone">
+            </md-input-container>
+
+            <md-input-container class="login-md-input-container">
+                <label>Senha</label>
+                <input type="password" ng-model="user.password">
+            </md-input-container>
+
+            <md-input-container class="login-md-input-container">
+                <label>Confirmação de Senha</label>
+                <input type="password" ng-model="user.confirmedPassword">
+            </md-input-container>
+
+        </md-card-content>
+    </md-card>
+</div>

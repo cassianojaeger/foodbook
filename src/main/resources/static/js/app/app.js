@@ -7,7 +7,8 @@ var foodbookApp = angular.module('Foodbook',
         'ngResource',
         'ngStorage',
         'ngRoute',
-        'jkAngularRatingStars'
+        'jkAngularRatingStars',
+        'ui.bootstrap'
     ]);
 var httpHeaders;
 
