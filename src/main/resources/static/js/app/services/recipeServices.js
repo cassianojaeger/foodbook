@@ -48,8 +48,8 @@ foodbookApp.service('RecipeService', function ($resource) {
         return resource.get(params).$promise;
     }
 
-    function getGroupRecipes(groupId) {
-        return resource.getByGroup({id: groupId}).$promise;
+    function getGroupRecipes(groupId, params) {
+        return resource.getByGroup({id: groupId}, params).$promise;
     }
 
     function deleteFn(recipeId) {

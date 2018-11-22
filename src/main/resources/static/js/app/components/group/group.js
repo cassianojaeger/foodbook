@@ -1,7 +1,11 @@
 'use strict';
 
-foodbookApp.controller('GroupController', function (group, user,
-                                                    GroupService, $mdToast, $scope) {
+foodbookApp.controller('GroupController', function (group,
+                                                    user,
+                                                    GroupService,
+                                                    RecipeService,
+                                                    $mdToast,
+                                                    $scope) {
     var vm = $scope;
     vm.group = group;
     vm.user = user;
@@ -9,7 +13,7 @@ foodbookApp.controller('GroupController', function (group, user,
     vm.isGroupMember = group.members.some(function (member) {return member.username === user.name});
 
     $scope.$on('recipe-pagination', function (event, params) {
-        RecipeService.getGroupRecipes(params)
+        RecipeService.getGroupRecipes(group.id, params)
             .then(function (response) {
                 vm.recipes = response;
             });
