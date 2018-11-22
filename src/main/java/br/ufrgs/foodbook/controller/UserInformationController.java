@@ -28,8 +28,8 @@ public class UserInformationController extends AbstractGenericController
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public UserInformationData get(Principal principal) {
-        return userService.getUserInformation(principal.getName());
+    public Principal get(Principal principal) {
+        return principal;
     }
 
     @GetMapping(value = "/{username}/getFavorites")
