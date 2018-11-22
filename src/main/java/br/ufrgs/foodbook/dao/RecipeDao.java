@@ -1,5 +1,6 @@
 package br.ufrgs.foodbook.dao;
 
+import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.model.recipe.Recipe;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,7 @@ import java.util.List;
 @Repository
 public interface RecipeDao extends JpaRepository<Recipe, Long>
 {
-    Recipe findByName(String recipeName);
+    Page<Recipe> findByGroup(Group group, Pageable pageable);
     Page<Recipe> findAllById(Long recipeId, Pageable pageable);
     List<Recipe> findByNameIgnoreCaseContaining(String recipeName);
 

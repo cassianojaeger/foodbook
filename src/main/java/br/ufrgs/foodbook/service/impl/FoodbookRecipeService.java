@@ -1,11 +1,13 @@
 package br.ufrgs.foodbook.service.impl;
 
+import br.ufrgs.foodbook.dao.GroupDao;
 import br.ufrgs.foodbook.dao.RecipeDao;
 import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
+import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.model.recipe.Recipe;
 import br.ufrgs.foodbook.service.RecipeService;
 import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
@@ -32,6 +34,8 @@ public class FoodbookRecipeService implements RecipeService
     @Resource
     UserDao userDao;
     @Resource
+    GroupDao groupDao;
+    @Resource
     private AbstractGenericConverter<RecipeRegistrationData, Recipe> recipeRegistrationReverseConverter;
     @Resource
     private AbstractGenericConverter<Recipe, RecipeInformationData> recipeInformationConverter;
@@ -46,7 +50,10 @@ public class FoodbookRecipeService implements RecipeService
 
     @Override
     public Page<RecipeInformationData> getGroupRecipes(Long groupId, int page, int size) {
-        return recipeDao.findAllById(groupId, PageRequest.of(page,size)).map(recipeInformationConverter::convert);
+
+        Optional<Group> group = groupDao.findById(groupId);
+
+        return recipeDao.findByGroup(group.get(), PageRequest.of(page,size)).map(recipeInformationConverter::convert);
     }
 
     @Override
