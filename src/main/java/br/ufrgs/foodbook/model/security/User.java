@@ -73,7 +73,7 @@ public class User implements UserDetails, Serializable {
     @JsonIgnore
     private Set<Authority> authorities;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "FAVORITE_RECIPES",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "RECIPE_ID", referencedColumnName = "ID")
