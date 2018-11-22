@@ -4,7 +4,9 @@ foodbookApp.controller('RecipeSearchController', function ($scope, recipeName, R
     var vm = $scope;
     vm.recipes = [];
 
-    RecipeService.search(recipeName).then(function (recipes) {
-        vm.recipes = recipes;
+    $scope.$on('recipe-pagination', function (event, params) {
+        RecipeService.search(recipeName, params).then(function (recipes) {
+            vm.recipes = recipes;
+        });
     });
 });
