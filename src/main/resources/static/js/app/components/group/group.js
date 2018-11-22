@@ -4,11 +4,16 @@ foodbookApp.controller('GroupController', function (group, user,
                                                     GroupService, $mdToast, $scope) {
     var vm = $scope;
     vm.group = group;
-    vm.recipes = group.recipes;
     vm.user = user;
     vm.isGroupOwner = group.administrator.username === user.name;
     vm.isGroupMember = group.members.some(function (member) {return member.username === user.name});
 
+    $scope.$on('recipe-pagination', function (event, params) {
+        RecipeService.getGroupRecipes(params)
+            .then(function (response) {
+                vm.recipes = response;
+            });
+    });
 
     vm.enterGroup = enterGroup;
     vm.leaveGroup = leaveGroup;
