@@ -11,7 +11,7 @@ foodbookApp.service('RecipeService', function ($resource) {
         getById: {method: "GET", params: {id: "@id"}},
         getFeedbacks: {method: "GET", url: "/secured/manage/recipe/:recipeId/getFeedbacks", params: {id: "@id"}},
         getByGroup: {url: "/secured/recipe/group/:id", method: "GET", params: {id: "@id"}, isArray: true},
-        getFavoriteRecipes: {method: "GET", url: "/secured/user/:username/getFavorites", params: {username: "@username"}}
+        getFavoriteRecipes: {method: "GET", url: "/secured/user/:username/getFavorites", params: {username: "@username"}},
         search: {url: "/secured/recipe/search/:name", method: "GET", params: {name: "@name"}, isArray: true}
     });
 

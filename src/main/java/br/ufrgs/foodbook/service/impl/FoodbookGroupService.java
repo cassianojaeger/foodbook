@@ -6,7 +6,6 @@ import br.ufrgs.foodbook.dto.group.GroupRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
 import br.ufrgs.foodbook.model.groups.Group;
-import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.GroupService;
 import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.validator.impl.FoodbookGroupValidator;
@@ -20,7 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
 
@@ -43,16 +41,9 @@ public class FoodbookGroupService implements GroupService
     FoodbookGroupValidator groupValidator;
 
     @Override
-    public Page<Group> getPaginatedData(int page, int size)
+    public Page<GroupInformationData> getPaginatedData(int page, int size)
     {
-        Page<Group> resultPage = groupDao.findAll(PageRequest.of(page, size));
-
-        if(page > resultPage.getTotalPages())
-            throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
-
-        resultPage.getContent().forEach(removeSensitiveData());
-
-        return resultPage;
+        return groupDao.findAll(PageRequest.of(page, size)).map(groupInformationConverter::convert);
     }
 
     @Override
@@ -118,36 +109,6 @@ public class FoodbookGroupService implements GroupService
         }
 
         groupDao.delete(originalGroup);
-    }
-
-    private Consumer<Group> removeSensitiveData()
-    {
-        return group -> {
-            User administrator = new User();
-
-            administrator.setUsername(group.getAdministrator().getUsername());
-            administrator.setId(group.getAdministrator().getId());
-
-            group.setAdministrator(administrator);
-
-            group.getMembers().stream().map(member -> {
-                User user = new User();
-
-                user.setUsername(member.getUsername());
-                user.setId(member.getId());
-
-                return user;
-            });
-
-            group.getRecipes().forEach(recipe -> {
-                User creator = new User();
-
-                creator.setUsername(recipe.getCreator().getUsername());
-                creator.setId(recipe.getCreator().getId());
-
-                recipe.setCreator(creator);
-            });
-        };
     }
 
     private boolean notRecipeOwnerRequest(GroupRegistrationData recipeRegistration, Group originalRecipe)

@@ -2,14 +2,13 @@ package br.ufrgs.foodbook.service;
 
 import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
-import br.ufrgs.foodbook.model.recipe.Recipe;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.Set;
 
-public interface RecipeService extends GenericService<RecipeRegistrationData, Recipe>
+public interface RecipeService extends GenericService<RecipeRegistrationData, RecipeInformationData>
 {
     RecipeInformationData getRecipe(Long recipeId);
-    List<Recipe> getGroupRecipes(Long groupId);
+    Page<RecipeInformationData> getGroupRecipes(Long groupId, int page, int size);
     Set<RecipeInformationData> searchRecipesByName(String recipeName);
 }

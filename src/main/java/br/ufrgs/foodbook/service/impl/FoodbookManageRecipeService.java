@@ -14,13 +14,11 @@ import br.ufrgs.foodbook.service.ManageRecipeService;
 import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.validator.impl.FoodbookRecipeFeedbackValidator;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 
@@ -81,15 +79,9 @@ public class FoodbookManageRecipeService implements ManageRecipeService
     }
 
     @Override
-    public Page<RecipeInformationData> getFavoriteRecipes(String username)
+    public Page<RecipeInformationData> getFavoriteRecipes(int page, int size, String username)
     {
-        User user = userDao.findByUsername(username);
-
-        Set<RecipeInformationData> favRecipes = recipeInformationConverter.convertAll(user.getFavoriteRecipes());
-
-        Page<RecipeInformationData> page = new PageImpl<RecipeInformationData>(new ArrayList(favRecipes), Pageable.unpaged(), favRecipes.size());
-
-        return page;
+        return recipeDao.findFavoriteRecipes(username, PageRequest.of(page, size)).map(recipeInformationConverter::convert);
     }
 
     @Override

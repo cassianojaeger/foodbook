@@ -2,7 +2,6 @@ package br.ufrgs.foodbook.controller;
 
 import br.ufrgs.foodbook.dto.group.GroupInformationData;
 import br.ufrgs.foodbook.dto.group.GroupRegistrationData;
-import br.ufrgs.foodbook.model.groups.Group;
 import br.ufrgs.foodbook.service.GroupService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -59,8 +58,8 @@ public class GroupController extends AbstractGenericController
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Page<Group> getGroupsPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                          @RequestParam(value = "size", defaultValue = "10", required = false) int size)
+    public Page<GroupInformationData> getGroupsPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                         @RequestParam(value = "size", defaultValue = "10", required = false) int size)
     {
         return groupService.getPaginatedData(page, size);
     }

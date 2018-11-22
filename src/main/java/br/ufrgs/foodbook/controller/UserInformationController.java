@@ -34,9 +34,12 @@ public class UserInformationController extends AbstractGenericController
 
     @GetMapping(value = "/{username}/getFavorites")
     @ResponseStatus(value = HttpStatus.OK)
-    public Page<RecipeInformationData> getRecipeFeedbackInformation(@PathVariable("username") String username)
+    public Page<RecipeInformationData> getRecipeFeedbackInformation(
+            @PathVariable("username") String username,
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size)
     {
-        return manageRecipeService.getFavoriteRecipes(username);
+        return manageRecipeService.getFavoriteRecipes(page, size, username);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

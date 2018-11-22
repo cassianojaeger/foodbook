@@ -7,7 +7,6 @@ import br.ufrgs.foodbook.dto.recipe.RecipeRegistrationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.exception.ResourceNotFoundException;
 import br.ufrgs.foodbook.model.recipe.Recipe;
-import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.RecipeService;
 import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.validator.impl.FoodbookRecipeValidator;
@@ -20,7 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 @Service
 public class FoodbookRecipeService implements RecipeService
@@ -41,16 +39,14 @@ public class FoodbookRecipeService implements RecipeService
     private FoodbookRecipeValidator recipeValidator;
 
     @Override
-    public Page<Recipe> getPaginatedData(int page, int size)
+    public Page<RecipeInformationData> getPaginatedData(int page, int size)
     {
-        Page<Recipe> resultPage = recipeDao.findAll(PageRequest.of(page, size));
+        return recipeDao.findAll(PageRequest.of(page, size)).map(recipeInformationConverter::convert);
+    }
 
-        if(page > resultPage.getTotalPages())
-            throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
-
-        resultPage.getContent().forEach(removeUserSensitiveData());
-
-        return resultPage;
+    @Override
+    public Page<RecipeInformationData> getGroupRecipes(Long groupId, int page, int size) {
+        return recipeDao.findAllById(groupId, PageRequest.of(page,size)).map(recipeInformationConverter::convert);
     }
 
     @Override
@@ -62,11 +58,6 @@ public class FoodbookRecipeService implements RecipeService
             throw new ResourceNotFoundException(RESOURCE_SEARCH_ERROR_MESSAGE);
 
         return recipeInformationConverter.convert(recipe.get());
-    }
-
-    @Override
-    public List<Recipe> getGroupRecipes(Long groupId) {
-        return recipeDao.findAllById(groupId);
     }
 
     @Override
@@ -128,22 +119,5 @@ public class FoodbookRecipeService implements RecipeService
     private boolean notRecipeOwnerRequest(RecipeRegistrationData recipeRegistration, Recipe originalRecipe)
     {
         return !recipeRegistration.getCreatorName().equals(originalRecipe.getCreator().getUsername());
-    }
-
-    private Consumer<Recipe> removeUserSensitiveData()
-    {
-        return recipe -> {
-            User creator = new User();
-            User administrator = new User();
-
-            creator.setId(recipe.getCreator().getId());
-            creator.setUsername(recipe.getCreator().getUsername());
-
-            administrator.setId(recipe.getGroup().getAdministrator().getId());
-            administrator.setUsername(recipe.getGroup().getAdministrator().getUsername());
-
-            recipe.setCreator(creator);
-            recipe.getGroup().setAdministrator(administrator);
-        };
     }
 }

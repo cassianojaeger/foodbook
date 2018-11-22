@@ -11,7 +11,7 @@ public interface ManageRecipeService
 
     RecipeFeedbackInformationData getRecipeFeedbackAverageValues(Long recipeId);
 
-    Page<RecipeInformationData> getFavoriteRecipes(String username);
+    Page<RecipeInformationData> getFavoriteRecipes(int page, int size, String username);
 
     void addRecipeToFavorite(Long recipeId, String username);
 
