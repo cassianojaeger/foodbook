@@ -10,7 +10,7 @@ foodbookApp.service('RecipeService', function ($resource) {
         get: {method: "GET"},
         getById: {method: "GET", params: {id: "@id"}},
         getFeedbacks: {method: "GET", url: "/secured/manage/recipe/:recipeId/getFeedbacks", params: {id: "@id"}},
-        getByGroup: {url: "/secured/recipe/group/:id", method: "GET", params: {id: "@id"}, isArray: true},
+        getByGroup: {url: "/secured/recipe/group/:id", method: "GET", params: {id: "@id"}},
         getFavoriteRecipes: {method: "GET", url: "/secured/user/:username/getFavorites", params: {username: "@username"}},
         search: {url: "/secured/recipe/search/:name", method: "GET", params: {name: "@name"}, isArray: true}
     });
@@ -49,7 +49,7 @@ foodbookApp.service('RecipeService', function ($resource) {
     }
 
     function getGroupRecipes(groupId, params) {
-        return resource.getByGroup({id: groupId}, params).$promise;
+        return resource.getByGroup({id: groupId, page: params.page, size: params.size}).$promise;
     }
 
     function deleteFn(recipeId) {
@@ -72,8 +72,8 @@ foodbookApp.service('RecipeService', function ($resource) {
         return resource.search({name: name}).$promise;
     }
 
-    function getFavoriteRecipes(username) {
-        return resource.getFavoriteRecipes({username: username}).$promise;
+    function getFavoriteRecipes(username, params) {
+        return resource.getFavoriteRecipes({username: username, page: params.page, size: params.size}).$promise;
     }
 
 });
