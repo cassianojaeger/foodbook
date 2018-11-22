@@ -5,6 +5,7 @@ import br.ufrgs.foodbook.dao.RecipeFeedbackDao;
 import br.ufrgs.foodbook.dao.UserDao;
 import br.ufrgs.foodbook.dto.recipe.RecipeFeedbackInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeFeedbackRegistrationData;
+import br.ufrgs.foodbook.dto.recipe.RecipeInformationData;
 import br.ufrgs.foodbook.exception.InvalidRegistrationException;
 import br.ufrgs.foodbook.model.recipe.Recipe;
 import br.ufrgs.foodbook.model.recipe.RecipeFeedback;
@@ -12,6 +13,8 @@ import br.ufrgs.foodbook.model.security.User;
 import br.ufrgs.foodbook.service.ManageRecipeService;
 import br.ufrgs.foodbook.strategies.converter.AbstractGenericConverter;
 import br.ufrgs.foodbook.validator.impl.FoodbookRecipeFeedbackValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,6 +39,8 @@ public class FoodbookManageRecipeService implements ManageRecipeService
     AbstractGenericConverter<RecipeFeedbackRegistrationData, RecipeFeedback> recipeFeedbackRegistrationConverter;
     @Resource
     AbstractGenericConverter<Set<RecipeFeedback>, RecipeFeedbackInformationData> recipeFeedbackInformationReverseConverter;
+    @Resource
+    AbstractGenericConverter<Recipe, RecipeInformationData> recipeInformationConverter;
     @Resource
     RecipeDao recipeDao;
     @Resource
@@ -71,6 +76,12 @@ public class FoodbookManageRecipeService implements ManageRecipeService
         Set<RecipeFeedback> recipeFeedback = recipe.get().getRecipeFeedbacks();
 
         return recipeFeedbackInformationReverseConverter.convert(recipeFeedback);
+    }
+
+    @Override
+    public Page<RecipeInformationData> getFavoriteRecipes(int page, int size, String username)
+    {
+        return recipeDao.findFavoriteRecipes(username, PageRequest.of(page, size)).map(recipeInformationConverter::convert);
     }
 
     @Override
