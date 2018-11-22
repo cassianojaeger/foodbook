@@ -64,4 +64,11 @@ public class ManageRecipesController extends AbstractGenericController
         manageRecipeService.removeRecipeFromFavorite(Long.valueOf(recipeId), principal.getName());
         return new ResponseEntity(OK);
     }
+
+    @GetMapping(value = "/{recipeId}/isFavorite")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Boolean verifyIfRecipeIsFavorite(@PathVariable("recipeId") String recipeId, Principal principal)
+    {
+        return manageRecipeService.verifyIfRecipeIsFavorite(Long.valueOf(recipeId), principal.getName());
+    }
 }

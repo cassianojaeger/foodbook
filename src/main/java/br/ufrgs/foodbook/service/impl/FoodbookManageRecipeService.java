@@ -145,4 +145,13 @@ public class FoodbookManageRecipeService implements ManageRecipeService
             throw new InvalidRegistrationException(GENERAL_ERROR_FIELD_NAME, GIVEN_FEEDBACK_ERROR_MESSAGE);
         }
     }
+
+    @Override
+    public Boolean verifyIfRecipeIsFavorite(Long recipeId, String name)
+    {
+        Optional<Recipe> recipe = recipeDao.findById(recipeId);
+        User user = userDao.findByUsername(name);
+
+        return user.getFavoriteRecipes().contains(recipe.orElse(new Recipe()));
+    }
 }

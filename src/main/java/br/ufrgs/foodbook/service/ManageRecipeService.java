@@ -18,4 +18,6 @@ public interface ManageRecipeService
     void removeRecipeFromFavorite(Long valueOf, String name);
 
     void updateFeedback(RecipeFeedbackRegistrationData recipeFeedbackRegistrationData);
+
+    Boolean verifyIfRecipeIsFavorite(Long recipeId, String name);
 }

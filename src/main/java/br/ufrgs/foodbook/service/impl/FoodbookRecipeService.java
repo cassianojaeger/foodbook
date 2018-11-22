@@ -50,7 +50,7 @@ public class FoodbookRecipeService implements RecipeService
 
         Optional<Group> group = groupDao.findById(groupId);
 
-        return recipeDao.findByGroup(group.get(), PageRequest.of(page,size)).map(recipeInformationConverter::convert);
+        return recipeDao.findByGroup(group.orElse(new Group()), PageRequest.of(page,size)).map(recipeInformationConverter::convert);
     }
 
     @Override
