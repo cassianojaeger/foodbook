@@ -1,4 +1,4 @@
-<md-grid-list
+<md-grid-list ng-if="recipes.content.length"
         md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
         md-row-height-gt-md="1:1" md-row-height="2:2"
         md-gutter="12px" md-gutter-gt-sm="8px" >
@@ -13,6 +13,11 @@
         </md-grid-tile-footer>
     </md-grid-tile>
 </md-grid-list>
+
+<div ng-if="!recipes.content.length">
+    Não há receitas
+</div>
+
 <div data-pagination="" data-num-pages="vm.numOfPages()"
      data-current-page="vm.currentPage" data-max-size="vm.maxSize"
      data-boundary-links="true"></div>

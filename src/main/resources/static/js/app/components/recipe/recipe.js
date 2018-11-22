@@ -1,6 +1,6 @@
 'use strict';
 
-foodbookApp.controller('RecipeController', function (recipe, group, user, $scope, TIME, $mdDialog,
+foodbookApp.controller('RecipeController', function (recipe, group, user, isFavorite,$scope, TIME, $mdDialog,
                                                      RecipeService, $mdToast, $timeout, $location) {
     var vm = $scope;
     recipe.cookTime.timeType = TIME.find(function (time) {return time.code === recipe.cookTime.timeType}).name;
@@ -8,6 +8,24 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
     vm.recipe.ingredients = vm.recipe.ingredients.replace(/↵/g, "\n");
     vm.group = group;
     vm.isOwnRecipe = recipe.creator.username === user.name;
+    vm.isFavorite = isFavorite;
+    vm.deleteRecipe = deleteRecipe;
+    vm.openMadeRecipeDialog = openMadeRecipeDialog;
+    vm.favorite = favorite;
+    vm.unfavorite = unfavorite;
+
+    function favorite(recipe) {
+        RecipeService.addFavorite(recipe.id)
+            .then(function () {
+                vm.isFavorite = true;
+            });
+    }
+    function unfavorite(recipe) {
+        RecipeService.removeFavorite(recipe.id)
+            .then(function () {
+                vm.isFavorite = false;
+            });
+    }
 
     RecipeService.getFeedbacks(recipe.id)
         .then(function (feedbacks) {
@@ -16,9 +34,6 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, $scope
             vm.feedbackDifficulty = "em media " + feedbacks.cookDifficulty + " de 5";
             vm.feedbackTastyness = "Nivel de sabor: " + feedbacks.cookTastyness + " de 5";
         });
-
-    vm.deleteRecipe = deleteRecipe;
-    vm.openMadeRecipeDialog = openMadeRecipeDialog;
 
     function deleteRecipe(recipe) {
         RecipeService.delete(recipe.id)

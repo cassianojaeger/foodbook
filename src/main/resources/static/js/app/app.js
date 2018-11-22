@@ -142,6 +142,9 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
                 },
                 recipe: function (RecipeService, $route) {
                     return RecipeService.get($route.current.params.recipeId);
+                },
+                isFavorite: function (RecipeService, $route) {
+                    return RecipeService.isFavorite($route.current.params.recipeId);
                 }
             },
             controllerAs: "vm"

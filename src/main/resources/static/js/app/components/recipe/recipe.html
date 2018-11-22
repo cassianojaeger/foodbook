@@ -26,6 +26,18 @@
                 Mudar Voto!
             </md-button>
 
+            <md-button class="blue-md-button register-md-button"
+                       ng-if="!isFavorite"
+                       ng-click="favorite(recipe)">
+                Favoritar
+            </md-button>
+
+            <md-button class="red-md-button register-md-button"
+                       ng-if="isFavorite"
+                       ng-click="unfavorite(recipe)">
+                Desfavoritar
+            </md-button>
+
             <div layout="row" layout-align="space-between center">
                 <h1>{{recipe.name}}</h1>
                 <span class="md-title">Criador: {{recipe.creator.username}}</span>

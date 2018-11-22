@@ -4,6 +4,9 @@ foodbookApp.service('RecipeService', function ($resource) {
     var resource = $resource('/secured/recipe/:id', {}, {
         create: {method: "POST"},
         registerFeedback: {url: "/secured/manage/recipe/:recipeId/giveFeedback", params: {recipeId: "@recipeId"}, method: "POST"},
+        isFavorite: {url: "/secured/manage/recipe/:recipeId/isFavorite", params: {recipeId: "@recipeId"}, method: "GET"},
+        addFavorite: {url: "/secured/manage/recipe/:recipeId/addFavorite", params: {recipeId: "@recipeId"}, method: "POST"},
+        removeFavorite: {url: "/secured/manage/recipe/:recipeId/removeFavorite", params: {recipeId: "@recipeId"}, method: "DELETE"},
         updateFeedback: {url: "/secured/manage/recipe/:recipeId/updateFeedback", params: {recipeId: "@recipeId"}, method: "PUT"},
         update: {url: "/secured/recipe/update", method: "PUT"},
         delete: {url: "/secured/recipe/remove", method: "DELETE"},
@@ -25,6 +28,9 @@ foodbookApp.service('RecipeService', function ($resource) {
     service.updateFeedback = updateFeedback;
     service.getFeedbacks = getFeedbacks;
     service.getFavoriteRecipes = getFavoriteRecipes;
+    service.addFavorite = addFavorite;
+    service.isFavorite = isFavorite;
+    service.removeFavorite = removeFavorite;
     service.search = search;
 
     function save(recipe) {
@@ -74,6 +80,18 @@ foodbookApp.service('RecipeService', function ($resource) {
 
     function getFavoriteRecipes(username, params) {
         return resource.getFavoriteRecipes({username: username, page: params.page, size: params.size}).$promise;
+    }
+
+    function isFavorite(recipeId) {
+        return resource.isFavorite({recipeId: recipeId}).$promise;
+    }
+
+    function addFavorite(recipeId) {
+        return resource.addFavorite({recipeId: recipeId}).$promise;
+    }
+
+    function removeFavorite(recipeId) {
+        return resource.removeFavorite({recipeId: recipeId}).$promise;
     }
 
 });
