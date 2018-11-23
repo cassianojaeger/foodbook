@@ -66,7 +66,6 @@ public class ManageRecipesController extends AbstractGenericController
     }
 
     @GetMapping(value = "/{recipeId}/isFavorite")
-    @ResponseStatus(value = HttpStatus.OK)
     public Boolean verifyIfRecipeIsFavorite(@PathVariable("recipeId") String recipeId, Principal principal)
     {
         return manageRecipeService.verifyIfRecipeIsFavorite(Long.valueOf(recipeId), principal.getName());
