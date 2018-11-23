@@ -8,7 +8,8 @@ foodbookApp.controller('RecipeController', function (recipe, group, user, isFavo
     vm.recipe.ingredients = vm.recipe.ingredients.replace(/↵/g, "\n");
     vm.group = group;
     vm.isOwnRecipe = recipe.creator.username === user.name;
-    vm.isFavorite = isFavorite;
+    vm.isFavorite = isFavorite.favorite;
+
     vm.deleteRecipe = deleteRecipe;
     vm.openMadeRecipeDialog = openMadeRecipeDialog;
     vm.favorite = favorite;

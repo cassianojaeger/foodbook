@@ -1,5 +1,6 @@
 package br.ufrgs.foodbook.controller;
 
+import br.ufrgs.foodbook.dto.recipe.RecipeFavoriteInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeFeedbackInformationData;
 import br.ufrgs.foodbook.dto.recipe.RecipeFeedbackRegistrationData;
 import br.ufrgs.foodbook.service.ManageRecipeService;
@@ -66,8 +67,8 @@ public class ManageRecipesController extends AbstractGenericController
     }
 
     @GetMapping(value = "/{recipeId}/isFavorite")
-    public Boolean verifyIfRecipeIsFavorite(@PathVariable("recipeId") String recipeId, Principal principal)
+    public RecipeFavoriteInformationData verifyIfRecipeIsFavorite(@PathVariable("recipeId") String recipeId, Principal principal)
     {
-        return manageRecipeService.verifyIfRecipeIsFavorite(Long.valueOf(recipeId), principal.getName());
+        return new RecipeFavoriteInformationData(manageRecipeService.verifyIfRecipeIsFavorite(Long.valueOf(recipeId), principal.getName()));
     }
 }
