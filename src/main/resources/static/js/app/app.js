@@ -50,6 +50,21 @@ foodbookApp.config(function($routeProvider, $httpProvider, $mdThemingProvider) {
             controller: "HomeController",
             controllerAs: "vm"
         })
+        .whenAuthenticated("/myprofile", {
+            templateUrl: "js/app/components/user/userProfile.html",
+            controller: "UserInformationController",
+            controllerAs: "vm"
+        })
+        .whenAuthenticated("/myprofile/edit", {
+            templateUrl: "js/app/components/user/editUser.html",
+            controller: "EditUserController",
+            controllerAs: "vm"
+        })
+        .whenAuthenticated("/myprofile/changepassword", {
+            templateUrl: "js/app/components/user/changePassword.html",
+            controller: "ChangePasswordController",
+            controllerAs: "vm"
+        })
         .whenAuthenticated("/group/create", {
             templateUrl: "js/app/components/group/form.html",
             controller: "GroupFormController",

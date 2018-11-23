@@ -51,7 +51,7 @@ public class UserInformationController extends AbstractGenericController
 
     @PutMapping(value = "/{userName}/updateUser")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity updateUser(UserUpdateData user, Principal principal,
+    public ResponseEntity updateUser(@RequestBody UserUpdateData user, Principal principal,
                                      @PathVariable("userName") String userName)
     {
         user.setCreatorName(principal.getName());

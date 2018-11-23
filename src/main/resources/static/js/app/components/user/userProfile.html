@@ -1,0 +1,24 @@
+<topbar></topbar>
+<div layout="row" layout-align="center none">
+    <md-card flex="85">
+        <h2 class="titleUser">Meu Perfil</h2>
+        <h3 class="dataLabelUser">Nome: </h3>
+        <p class="dataFieldUser">{{user.principal.username}}</p>
+        <h3 class="dataLabelUser">Email: </h3>
+        <p class="dataFieldUser">{{user.principal.email}}</p>
+        <h3 class="dataLabelUser">Telefone: </h3>
+        <p class="dataFieldUser">{{user.principal.phone}}</p>
+        <div class="buttonHolderUser">
+            <md-button class="red-md-button register-md-button" ng-click="goBack()">
+                <i class="material-icons" style="color:#fff;">navigate_before</i>
+                Voltar
+            </md-button>
+            <md-button class="blue-md-button register-md-button" href="#!/myprofile/changepassword">
+                Trocar a senha
+            </md-button>
+            <md-button class="green-md-button register-md-button" href="#!/myprofile/edit">
+                Editar perfil
+            </md-button>
+        </div>
+    </md-card>
+</div>

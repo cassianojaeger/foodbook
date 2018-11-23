@@ -1,0 +1,23 @@
+<topbar></topbar>
+<div layout="row" layout-align="center none">
+    <md-card flex="85">
+        <h2 class="titleUser">Meu Perfil</h2>
+        <h3 class="dataLabelUser">Nome: </h3>
+        <p class="dataFieldUser">{{user.username}}</p>
+        <form>
+        <h3 class="dataLabelUser">Email: </h3>
+        <input ng-model="user.email" class="dataFieldUser" type="email" name="email">
+        <h3 class="dataLabelUser">Telefone: </h3>
+        <input type="number" ng-model="user.phone" class="dataFieldUser" name="phone">
+        <div class="buttonHolderUser">
+            <md-button class="red-md-button register-md-button" ng-click="goBack()">
+                <i class="material-icons" style="color:#fff;">navigate_before</i>
+                Voltar
+            </md-button>
+            <md-button class="green-md-button register-md-button" ng-click="updateUser(user)">
+                Salvar Mudanças
+            </md-button>
+        </div>
+        </form>
+    </md-card>
+</div>
