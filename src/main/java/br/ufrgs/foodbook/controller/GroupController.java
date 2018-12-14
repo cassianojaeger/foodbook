@@ -38,7 +38,7 @@ public class GroupController extends AbstractGenericController
         return groupService.getGroup(Long.valueOf(groupId));
     }
 
-    @PutMapping(value = "/update")
+    @PutMapping
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity updateGroup(@RequestBody GroupRegistrationData groupUpdateRequestData, Principal principal)
     {

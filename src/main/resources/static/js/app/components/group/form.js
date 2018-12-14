@@ -5,7 +5,7 @@ foodbookApp.controller('GroupFormController', function ($scope, group, GroupServ
     $scope.goBack = goBack;
     $scope.saveGroup = saveGroup;
     $scope.group = group;
-    $scope.newGroup = !!group.id;
+    $scope.newGroup = !group.id;
 
     function goBack() {
         $location.path("/home");
@@ -14,14 +14,26 @@ foodbookApp.controller('GroupFormController', function ($scope, group, GroupServ
     function saveGroup(group) {
         clearMessages();
         if (isFieldsFilled(group)) {
-            GroupService
-                .create(group)
-                .then(function () {
-                    $scope.message = "Grupo " + group.name + " salvo com sucesso!";
-                })
-                .catch(function (reason) {
-                    $scope.error = reason.data;
-                })
+            if ($scope.newGroup) {
+                GroupService
+                    .create(group)
+                    .then(function () {
+                        $scope.message = "Grupo " + group.name + " salvo com sucesso!";
+                    })
+                    .catch(function (reason) {
+                        $scope.error = reason.data;
+                    })
+            } else {
+                GroupService
+                    .update(group)
+                    .then(function () {
+                        $scope.message = "Grupo " + group.name + " salvo com sucesso!";
+                    })
+                    .catch(function (reason) {
+                        $scope.error = reason.data;
+                    })
+            }
+
         }
         else {
             $scope.error = "Todos campos são obrigatórios!";

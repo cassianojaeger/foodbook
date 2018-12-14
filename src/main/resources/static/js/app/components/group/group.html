@@ -29,7 +29,7 @@
                 <h1>Usuários do grupo</h1>
                 <user-list members="group.members"></user-list>
 
-                <md-button class="green-md-button register-md-button" ng-click="enterGroup(user, group)" ng-if="!isGroupMember">
+                <md-button class="green-md-button register-md-button" ng-click="enterGroup(user, group)" ng-if="!isGroupMember && !isGroupOwner">
                     Participar
                 </md-button>
 
